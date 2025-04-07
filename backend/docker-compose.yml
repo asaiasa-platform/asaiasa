@@ -1,0 +1,8 @@
+services:
+  backend:
+    image: ghcr.io/daf-bridge/talent-atmos-backend:latest
+    container_name: Go-Backend
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
