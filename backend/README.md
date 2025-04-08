@@ -10,6 +10,11 @@ go mod tidy
 ## Environment Variables
 > Create a *.env* file in the root directory and configure it based on *.env.example*
 
+## Migrate Database
+```
+go run ./migrate/migrate.go
+```
+
 ## Running the project
 ```
 go run main.go

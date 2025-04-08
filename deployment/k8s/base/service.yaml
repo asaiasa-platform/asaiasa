@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: asaiasa-api-service
+spec:
+  selector:
+    app: asaiasa-api
+  ports:
+  - port: 80
+    targetPort: 8080
+  type: ClusterIP

@@ -1,17 +1,4 @@
 services:   
-  minio:
-    image: minio/minio:latest
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    environment:
-      MINIO_ROOT_USER: minioadmin
-      MINIO_ROOT_PASSWORD: miniopassword
-    volumes:
-      - ./volume:/data
-    command: server --address ":9001" --console-address ":9000" /data
-    restart: always
-
   postgres:
     image: postgres:16-alpine
     container_name: pg-database

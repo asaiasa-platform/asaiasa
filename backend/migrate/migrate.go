@@ -26,9 +26,9 @@ func main() {
 	// 	log.Fatal(err)
 	// }
 
-	// if err := initializers.DB.AutoMigrate(&models.RoleInOrganization{}); err != nil {
-	// 	log.Fatal(err)
-	// }
+	if err := initializers.DB.AutoMigrate(&models.RoleInOrganization{}); err != nil {
+		log.Fatal(err)
+	}
 
 	// if err := initializers.DB.AutoMigrate(&models.OrgOpenJob{}); err != nil {
 	// 	log.Fatal(err)

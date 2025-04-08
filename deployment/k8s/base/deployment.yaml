@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: asaiasa-api
+  labels:
+    app: asaiasa-api
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: asaiasa-api
+  template:
+    metadata:
+      labels:
+        app: asaiasa-api
+    spec:
+      initContainers:
+      - name: init-container
+        image: asaiasa-api
+        command: ["/app/bin/migrate"]
+      containers:
+      - name: asaiasa-api
+        image: asaiasa-api
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: asaiasa-api-configmap
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+      imagePullSecrets:
+      - name: gitlab-registry-credentials

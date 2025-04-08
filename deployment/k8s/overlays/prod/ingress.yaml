@@ -1,0 +1,23 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wintel-wms-api-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: cloudflare
+spec:
+  rules:
+  - host: api.wintel.app
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: wintel-wms-api-service
+            port:
+              number: 8000
+  tls:
+  - hosts:
+    - api.wintel.app
+    secretName: api-wintel-app-tls

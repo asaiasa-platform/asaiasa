@@ -5,6 +5,7 @@ FROM golang:1.23.4-alpine AS builder
 
 # Set the Current Working Directory inside the container
 WORKDIR /app
+RUN apk add vim git
 
 RUN apk --no-cache add ca-certificates
 
@@ -28,7 +29,9 @@ ENV CGO_ENABLED=0
 ENV ENVIRONMENT=production
 
 # Build the Go app
-RUN go build -ldflags="-s -w" -v -o /usr/local/bin/app ./
+# RUN go build -ldflags="-s -w" -v -o /usr/local/bin/app ./
+RUN go build -o /app/bin/gofiber-server /app/main.go
+RUN go build -o /app/bin/migrate /app/migrate/migrate.go
 
 FROM alpine:latest
 
@@ -52,4 +55,4 @@ ENV ENVIRONMENT=production
 EXPOSE 8080
 
 # Command to run the executable
-CMD ["/usr/local/bin/app"]
+CMD ["/app/bin/gofiber-server"]
