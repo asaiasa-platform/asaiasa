@@ -2,22 +2,22 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: wintel-wms-api-ingress
+  name: asaiasa-api-ingress
   annotations:
     cert-manager.io/cluster-issuer: cloudflare
 spec:
   rules:
-  - host: api.wintel.app
+  - host: api.asaiasa.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: wintel-wms-api-service
+            name: asaiasa-api-service
             port:
               number: 8000
   tls:
   - hosts:
-    - api.wintel.app
-    secretName: api-wintel-app-tls
+    - api.asaiasa.com
+    secretName: api-asaiasa-com-tls
