@@ -22,7 +22,7 @@ spec:
       initContainers:
       - name: init-container
         image: asaiasa-api
-        command: ["/app/bin/migrate"]
+        command: ["/app/bin/migrate-postgres"]
       containers:
       - name: asaiasa-api
         image: asaiasa-api

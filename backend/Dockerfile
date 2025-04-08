@@ -31,24 +31,24 @@ ENV ENVIRONMENT=production
 # Build the Go app
 # RUN go build -ldflags="-s -w" -v -o /usr/local/bin/app ./
 RUN go build -o /app/bin/gofiber-server /app/main.go
-RUN go build -o /app/bin/migrate /app/migrate/migrate.go
+RUN go build -o /app/bin/migrate-postgres /app/migrate/migrate.go
 
 FROM alpine:latest
 
-WORKDIR /app
+# WORKDIR /app
 
-RUN apk --no-cache add ca-certificates curl
+# RUN apk --no-cache add ca-certificates curl
 
-COPY --from=builder /usr/local/bin/app /usr/local/bin/app
+# COPY --from=builder /usr/local/bin/app /usr/local/bin/app
 
-COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+# COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
-# Copy the Casbin configuration file
-COPY --from=builder /app/pkg/authorization/rbac_model.conf /app/pkg/authorization/rbac_model.conf
+# # Copy the Casbin configuration file
+# COPY --from=builder /app/pkg/authorization/rbac_model.conf /app/pkg/authorization/rbac_model.conf
 
-COPY --from=builder /app/pkg/authorization/policy.csv /app/pkg/authorization/policy.csv
+# COPY --from=builder /app/pkg/authorization/policy.csv /app/pkg/authorization/policy.csv
 
-COPY --from=builder /app/Invite_email_template.html /app/Invite_email_template.html
+# COPY --from=builder /app/Invite_email_template.html /app/Invite_email_template.html
 
 ENV ENVIRONMENT=production
 
