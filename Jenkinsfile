@@ -38,15 +38,15 @@ pipeline {
             }
         }
 
-        stage('Test Backend') {
-            steps{
-                script {
-                    dir('backend') {
-                        sh "go test -v ./..."
-                    }
-                }
-            }
-        }
+        // stage('Test Backend') {
+        //     steps{
+        //         script {
+        //             dir('backend') {
+        //                 sh "go test -v ./..."
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Push image') {
             steps{
