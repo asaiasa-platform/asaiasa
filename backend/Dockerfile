@@ -33,7 +33,7 @@ ENV ENVIRONMENT=production
 RUN go build -o /app/bin/gofiber-server /app/main.go
 RUN go build -o /app/bin/migrate-postgres /app/migrate/migrate.go
 
-FROM alpine:latest
+# FROM alpine:latest
 
 # WORKDIR /app
 
