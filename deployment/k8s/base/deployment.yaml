@@ -19,10 +19,13 @@ spec:
       labels:
         app: asaiasa-api
     spec:
-      initContainers:
-      - name: init-container
-        image: asaiasa-api
-        command: ["/app/bin/migrate-postgres"]
+      # initContainers:
+      # - name: init-container
+      #   image: asaiasa-api
+      #   command: ["go", "run", "./migrate/migratePostgres.go"]
+      #   envFrom:
+      #   - configMapRef:
+      #       name: asaiasa-api-configmap
       containers:
       - name: asaiasa-api
         image: asaiasa-api
@@ -38,11 +41,11 @@ spec:
           requests:
             cpu: "200m"
             memory: "256Mi"
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          initialDelaySeconds: 30
-          periodSeconds: 10
+        # livenessProbe:
+        #   httpGet:
+        #     path: /health
+        #     port: 8080
+        #   initialDelaySeconds: 30
+        #   periodSeconds: 10
       imagePullSecrets:
       - name: gitlab-registry-credentials
