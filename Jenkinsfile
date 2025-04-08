@@ -72,20 +72,20 @@ pipeline {
         //     }
         // }
 
-        // stage('Deploy - Production') {
-        //     when {
-        //         expression {
-        //             env.GIT_BRANCH == 'main'
-        //         }
-        //     }
-        //     steps {
-        //         dir(SCRIPTS_K8S_PATH){
-        //             script {
-        //                 sh "./deploy.sh prod ${IMAGE_TAG}"
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Deploy - Production') {
+            when {
+                expression {
+                    env.GIT_BRANCH == 'main'
+                }
+            }
+            steps {
+                dir(SCRIPTS_K8S_PATH){
+                    script {
+                        sh "./deploy.sh prod ${IMAGE_TAG}"
+                    }
+                }
+            }
+        }
     }
 
     post {
