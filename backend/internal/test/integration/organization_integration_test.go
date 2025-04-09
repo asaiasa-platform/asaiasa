@@ -48,7 +48,7 @@ func TestOrganizationHandlerIntegrationService(t *testing.T) {
 		organizationID := 1
 		expected := models.Organization{
 			Model:     gorm.Model{ID: 1, UpdatedAt: time.Now()},
-			Name:      "Talents Atmos",
+			Name:      "ASAiASA",
 			Email:     "talentsatmos@gmail.com",
 			Phone:     "+66876428591",
 			PicUrl:    "https://talentsatmos.com",
@@ -134,7 +134,7 @@ func TestOrganizationHandlerIntegrationService(t *testing.T) {
 					Link:  "https://example.com",
 				},
 			},
-			Organization:   models.Organization{Name: "Talents Atmos"},
+			Organization:   models.Organization{Name: "ASAiASA"},
 			Workplace:      models.Workplace("remote"),
 			WorkType:       models.WorkType("fulltime"),
 			CareerStage:    models.CareerStage("entrylevel"),

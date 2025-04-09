@@ -9,8 +9,8 @@ import { Toaster } from "react-hot-toast";
 import { LanguageCode } from "@/lib/types";
 import GoogleAuthProvider from "@/context/GoogleOAuthProvider";
 
-const APP_NAME = "Talents Atmos";
-const APP_DEFAULT_TITLE = "Talents Atmos";
+const APP_NAME = "ASAiASA";
+const APP_DEFAULT_TITLE = "ASAiASA";
 const APP_TITLE_TEMPLATE = "%s - PWA App";
 const APP_DESCRIPTION = "Find ESG Events and Jobs";
 

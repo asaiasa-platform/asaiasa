@@ -34,7 +34,7 @@ func NewOrganizationRepositoryMock() OrganizationRepository {
 		Model:     gorm.Model{ID: 1, UpdatedAt: time.Now()},
 		Email:     "talentsatmos@gmail.com",
 		Phone:     "+66876428591",
-		Name:      "Talents Atmos",
+		Name:      "ASAiASA",
 		PicUrl:    "https://talentsatmos.com",
 		HeadLine:  "We are the best",
 		Specialty: "We are the best",
@@ -83,7 +83,7 @@ func NewOrgOpenJobRepositoryMock() OrgOpenJobRepository {
 	newJob := &models.OrgOpenJob{
 		Model:          gorm.Model{ID: 1, UpdatedAt: time.Now()},
 		OrganizationID: 1,
-		Organization:   models.Organization{Name: "Talents Atmos"},
+		Organization:   models.Organization{Name: "ASAiASA"},
 		Title:          "Software Engineer",
 		PicUrl:         "https://talentsatmos.com",
 		Scope:          "Software Development",

@@ -10,7 +10,7 @@ type RenderWithIntlOptions = {
 
 const defaultMessages = {
   HomePage: {
-    title: "Talents Atmos",
+    title: "ASAiASA",
     about: "Go to the about page",
   },
 };
