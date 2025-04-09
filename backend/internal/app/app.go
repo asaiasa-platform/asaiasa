@@ -75,9 +75,9 @@ func triggerJenkinsRec() {
 }
 
 // Start function
-// @title Talent Atmos Web Application API
+// @title ASAiASA Web Application API
 // @version 0.1
-// @description This is a web application API for Talent Atmos project.
+// @description This is a web application API for ASAiASA project.
 // @termsOfService http://swagger.io/terms/
 // @contact.name API Support
 // @contact.email fiber@swagger.io

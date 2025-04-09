@@ -35,7 +35,7 @@ export default function NavigationBar() {
             {/* Logo */}
             <div className="flex-shrink-0 flex justify-center items-center">
               <Link href="/home">
-                <Image src="/logo.svg" alt="Logo" width={102} height={42} />
+                <Image src="/logo-2.png" alt="Logo" width={182} height={48} />
               </Link>
             </div>
 

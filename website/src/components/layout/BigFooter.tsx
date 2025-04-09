@@ -5,7 +5,7 @@ import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 
 export default function BigFooter() {
   return (
-    <div className="bg-[#1D1D1D] py-11 font-prompt rounded-t-[20px] mt-[87px]">
+    <div className="bg-[#375940] py-11 font-prompt rounded-t-[20px] mt-[87px]">
       <div className="flex flex-wrap gap-10 lg:justify-between max-w-[1170px] mx-auto px-6">
         <div className="flex flex-col gap-[21px]">
           {/* Logo */}
@@ -13,7 +13,7 @@ export default function BigFooter() {
             <Link href="/home">
               <Image
                 className="max-h-[80px] w-auto object-cover"
-                src="/logo-white.svg"
+                src="/logo-white.png"
                 alt="Logo"
                 width={500}
                 height={500}
