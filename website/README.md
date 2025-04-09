@@ -1,10 +1,13 @@
 ## Website
-Deployment Status: 
-- [![Netlify Status](https://api.netlify.com/api/v1/badges/eacd2a73-89db-4d50-a1d8-ecf054f2f00f/deploy-status)](https://app.netlify.com/sites/ta-mgmt-cons/deploys)
 
-- You can visit our site via this link: [Talent-Atmos-Admin](https://ta-mgmt-cons.netlify.app)
+#### Deployment Status:
+
+- [![Netlify Status](https://api.netlify.com/api/v1/badges/1979c5fc-5771-46b0-8f28-e0b8a32f1da2/deploy-status?branch=develop)](https://app.netlify.com/sites/talent-atmos/deploys)
+
+- You can visit our site via this link: [Talent-Atmos](https://talent-atmos.netlify.app)
 
 ---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Installation
@@ -23,6 +26,7 @@ Create a *.env* file in the root directory and configure it based on *.env.examp
 ## Getting Started
 
 First, run the development server:
+
 
 ```bash
 npm run dev

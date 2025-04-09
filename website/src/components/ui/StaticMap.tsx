@@ -53,7 +53,7 @@ export default function StaticMap({
         />
         <span className="text-sm md:text-base">ลิ้งค์ Google Map</span>
       </button>
-      <div ref={mapContainerRef} className="w-full h-full flex-1" />
+      <div ref={mapContainerRef} className="w-full h-full" />
     </div>
   );
 }

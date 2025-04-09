@@ -1,20 +1,21 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { th, enUS } from "date-fns/locale";
 import { formatDistanceToNow, isSameDay } from "date-fns";
-import { Option } from "@/components/ui/MultiSelect";
-import { provinces } from "@/components/config/Provinces";
+import { th, enUS } from "date-fns/locale";
+import { provinces } from "@/features/map/config/SelectInputObj";
+import { HiOutlineRocketLaunch } from "react-icons/hi2";
+import { BiNetworkChart } from "react-icons/bi";
+import {
+  HiOutlineLightBulb,
+  HiOutlinePresentationChartBar,
+} from "react-icons/hi";
+import { CgDisplayGrid } from "react-icons/cg";
+import { GrWorkshop } from "react-icons/gr";
+import { MdOutlinedFlag } from "react-icons/md";
+import { Leaf, Users, Building2, X } from "lucide-react";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
-}
-
-export function formatInternalUrl(url: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-
-  // Ensure we have a properly formatted URL
-  const apiUrl = new URL(url, baseUrl).toString();
-  return apiUrl;
 }
 
 export function formatExternalUrl(url: string) {
@@ -82,124 +83,18 @@ export const formatTimeRange = (
 
 // convert clock time (e.g., "17:00:00") to ISO string ("0001-01-01T17:00:00.000Z")
 export function convertTimeToISOString(clockTimeAt: string) {
-  if (!clockTimeAt) return "";
-  // Get the current date (today) and append the time
-  const currentDate = new Date();
-  const [hours, minutes] = clockTimeAt.split(":");
-
-  // Set the current date's hours and minutes
-  currentDate.setHours(Number(hours), Number(minutes), 0, 0);
-
-  // Return the ISO string (in UTC format)
-  return currentDate.toISOString();
+  const clockTime = new Date(`0001-01-01T${clockTimeAt}Z`);
+  return clockTime.toISOString();
 }
 
-// convert a date (e.g., "Mon Feb 03 2025 00:00:00 GMT+0700 (Indochina Time)") to ISO string ("2025-02-02T17:00:00.000Z")
-// THIS FUNCTION WILL TURN ANY TIME ZONE TO UTC
-// export function convertDateToISOString(dateAt: string) {
-//   if (!dateAt) return "";
-//   const DateTime = new Date(dateAt);
-//   return DateTime.toISOString();
-// }
-
-export const formatPrice = (price: number) => {
-  return price.toLocaleString("en-US", {
-    style: "currency",
-    currency: "THB",
-    minimumFractionDigits: 0,
-  });
-};
-
-export const formatGroupNumber = (number: number) => {
-  return number.toLocaleString("en-US", {
-    useGrouping: true,
-  });
-};
-
-export const alphabeticLength = (value: string) => {
-  // Remove HTML tags
-  const textWithoutHtml = value.replace(/<[^>]*>/g, "");
-  // Remove non-alphabetic characters (including spaces)
-  return textWithoutHtml.replace(/[^a-zA-Z]/g, "").length;
-};
+// convert a date (e.g., "2015-03-25") to ISO string ("2015-03-25T00:00:00.000Z")
+export function convertDateToISOString(dateAt: string) {
+  const DateTime = new Date(dateAt);
+  return DateTime.toISOString();
+}
 
 // 2024-11-16 00:00:00+00 for database
 // 2024-11-16T00:00:00.000Z for api call
-
-export function base64ToFile(base64String: string, filename: string): File {
-  const arr = base64String.split(",");
-  if (arr.length !== 2) {
-    throw new Error("Invalid Base64 format");
-  }
-
-  const mimeMatch = RegExp(/:(.*?);/).exec(arr[0]);
-  if (!mimeMatch) {
-    throw new Error("Cannot determine file MIME type");
-  }
-
-  const mime = mimeMatch[1]; // Extract MIME type (e.g., image/png, application/pdf)
-  const bstr = atob(arr[1]); // Decode Base64
-  let n = bstr.length;
-  const u8arr = new Uint8Array(n);
-
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n);
-  }
-
-  return new File([u8arr], filename, { type: mime });
-}
-
-export const fetchCategories = async (
-  value: string,
-  type: "event" | "job"
-): Promise<Option[]> => {
-  try {
-    const apiUrl = formatExternalUrl("/events/categories/list");
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-    let categories = data.categories;
-    console.log("before: ", categories);
-
-    // if type is event remove categories value 1, 10-13
-    if (type === "event") {
-      const excludeVal = [1, 10];
-      categories = categories.filter(
-        (category: { label: string; value: number }) =>
-          !excludeVal.includes(category.value)
-      );
-    }
-
-    // if type is job only display categories value 1, 10-13
-    if (type === "job") {
-      const includeVal = [2, 11, 12, 13];
-      categories = categories.filter(
-        (category: { label: string; value: number }) =>
-          includeVal.includes(category.value)
-      );
-    }
-
-    console.log("after: ", categories);
-
-    if (value) {
-      return categories
-        .filter((category: { label: string; value: number }) =>
-          category.label.toLowerCase().includes(value.toLowerCase())
-        )
-        .map((category: { label: string; value: number }) => ({
-          label: category.label,
-          value: category.value,
-        }));
-    } else {
-      return categories.map((category: { label: string; value: number }) => ({
-        label: category.label,
-        value: category.value,
-      }));
-    }
-  } catch (error) {
-    console.error("Error fetching industries:", error);
-    return [];
-  }
-};
 
 export function getProvinceNameByCode(
   code: string,
@@ -213,3 +108,57 @@ export function getProvinceNameByCode(
 
   return province[locale as keyof typeof province];
 }
+
+export const getCategoryIcon = (label: string) => {
+  switch (label) {
+    case "incubation":
+      return HiOutlineRocketLaunch;
+    case "networking":
+      return BiNetworkChart;
+    case "forum":
+      return HiOutlinePresentationChartBar;
+    case "exhibition":
+      return CgDisplayGrid;
+    case "competition":
+      return HiOutlineLightBulb;
+    case "workshop":
+      return GrWorkshop;
+    case "campaign":
+      return MdOutlinedFlag;
+    case "environment":
+      return Leaf;
+    case "social":
+      return Users;
+    case "governance":
+      return Building2;
+    default:
+      return X;
+  }
+};
+
+export const getCategoryName = (label: string) => {
+  switch (label) {
+    case "incubation":
+      return "บ่มเพาะธุรกิจ";
+    case "networking":
+      return "สร้างเครือข่าย";
+    case "forum":
+      return "สัมมนา ฟอรัม";
+    case "exhibition":
+      return "นิทรรศการจัดแสดง";
+    case "competition":
+      return "การแข่งขัน";
+    case "workshop":
+      return "เวิร์คชอปให้ความรู้";
+    case "campaign":
+      return "แคมเปญ";
+    case "environment":
+      return "Environment";
+    case "social":
+      return "Social";
+    case "governance":
+      return "Governance";
+    default:
+      return "...";
+  }
+};

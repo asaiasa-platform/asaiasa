@@ -23,7 +23,7 @@ export default function LangSwitcher() {
   };
   return (
     <Select value={activeLocale} onValueChange={onSelectChange}>
-      <SelectTrigger className="w-full h-[40px] border-none bg-transparent">
+      <SelectTrigger className="w-fit h-[40px] border-none bg-transparent">
         <SelectValue defaultValue={activeLocale}>
           <div className="flex gap-2 pr-1">
             <Image

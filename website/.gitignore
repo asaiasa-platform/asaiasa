@@ -6,8 +6,16 @@
 .pnp.js
 .yarn/install-state.gz
 
-# testing
+# docker
+/docker-compose.yml
+
+#IDEA IDE
+.idea
+*.idea/*
+
+# jest || testing
 /coverage
+/coverage/*
 
 # next.js
 /.next/
@@ -37,3 +45,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Service Worker generated files
+sw.js
+sw.js.map
+workbox-*.js
+workbox-*.js.map
+

@@ -10,8 +10,8 @@ import {
   useCallback,
 } from "react";
 import type { AuthContextType, UserProfile } from "@/lib/types";
-import { toast } from "@/hooks/use-toast";
-import { getCurrentUser, signOut } from "@/features/auth/api/action";
+import toast from "react-hot-toast";
+import { getCurrentUser, logOut } from "@/features/auth/api/action";
 
 const AuthContext = createContext<AuthContextType>({
   isAuth: null,
@@ -66,18 +66,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [fetchUserProfile]);
 
   const removeAuthState = useCallback(async () => {
-    const result = await signOut();
+    const result = await logOut();
     if (result.success) {
       setIsAuth(false);
       setUserProfile(null);
       window.location.href = "/";
     } else {
       console.log("Logout Failed");
-      toast({
-        title: "Logout Failed",
-        description: "Please try again",
-        variant: "destructive",
-      });
+      toast.error("Logout Failed");
     }
   }, []);
 

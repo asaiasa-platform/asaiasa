@@ -8,16 +8,7 @@ import { formatExternalUrl } from "@/lib/utils";
 const intlMiddleware = createMiddleware(routing);
 
 // Specify protected routes (including localized versions)
-const protectedRoutes = [
-  "/my-organizations",
-  "/org-register",
-  "/dashboard",
-  "/team-management",
-  "/org-management",
-  "/job-management",
-  "/event-management",
-  "/admin",
-];
+const protectedRoutes = ["/choose-preferences", "/user-statistics"];
 
 export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
@@ -49,24 +40,7 @@ export async function middleware(req: NextRequest) {
       req.headers.get("Authorization")?.replace("Bearer ", ""); // Get token from Authorization header
 
     if (!token) {
-      // Store the original URL to redirect back after authentication
-      const redirectUrl = req.nextUrl.pathname + req.nextUrl.search;
-      const signinUrl = new URL("/signin", req.url);
-
-      // Remove locale prefix if present and strip leading slash
-      const localePattern = new RegExp(
-        `^/(${routing.locales.join("|")})(/.*)$`
-      );
-      const localeMatch = RegExp(localePattern).exec(redirectUrl);
-      let cleanRedirectUrl = localeMatch ? localeMatch[2] : redirectUrl;
-
-      // Remove the leading slash
-      cleanRedirectUrl = cleanRedirectUrl.replace(/^\//, "");
-
-      // Add the redirect URL as a query parameter
-      signinUrl.searchParams.set("redirect", cleanRedirectUrl);
-
-      return NextResponse.redirect(signinUrl);
+      return NextResponse.redirect(new URL("/login", req.url));
     }
 
     try {
@@ -81,11 +55,11 @@ export async function middleware(req: NextRequest) {
 
       if (!response.ok) {
         console.warn(`Protected route access denied: ${path}`);
-        return NextResponse.redirect(new URL("/signin", req.url));
+        return NextResponse.redirect(new URL("/login", req.url));
       }
     } catch (error) {
       console.error("Token validation error:", error);
-      return NextResponse.redirect(new URL("/signin", req.url));
+      return NextResponse.redirect(new URL("/login", req.url));
     }
   }
 

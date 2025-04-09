@@ -1,4 +1,11 @@
 import createNextIntlPlugin from "next-intl/plugin";
+import withPWAInit from "@ducanh2912/next-pwa";
+
+const withPWA = withPWAInit({
+  dest: "public",
+  manifest: "/manifest.json", // Add leading slash
+  // disable: process.env.NODE_ENV === "development",
+});
 
 const withNextIntl = createNextIntlPlugin();
 
@@ -41,17 +48,13 @@ const nextConfig = {
         pathname: "/**", // This allows any path under the bucket
         hostname: process.env.NEXT_PUBLIC_S3_BUCKET2,
       },
-    ],
+      {
+        protocol: "https",
+        pathname: "/**", // This allows any path under the bucket
+        hostname: process.env.NEXT_PUBLIC_S3_BUCKET3,
+      },
+    ], // Allow images from Google Drive
   },
-  output: 'standalone',
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: '/:path*',
-  //       destination: '/:path*',
-  //     },
-  //   ];
-  // },
 };
 
-export default withNextIntl(nextConfig);
+export default withPWA(withNextIntl(nextConfig));
