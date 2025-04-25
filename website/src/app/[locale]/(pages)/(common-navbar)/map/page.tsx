@@ -17,6 +17,7 @@ import {
   getAllEventsLocation,
   getAllOrgsLocation,
 } from "@/features/map/api/action";
+import { useTranslations } from "next-intl";
 
 export default function MapPage({
   // params,
@@ -25,6 +26,7 @@ export default function MapPage({
   params: { page: string; locale: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }>) {
+  const t = useTranslations("Map");
   const [organizations, setOrganizations] = useState<OrganizationMap[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
   const currentTab = searchParams.tab?.toString() ?? "org";
@@ -139,7 +141,7 @@ export default function MapPage({
               </button>
             </TooltipTrigger>
             <TooltipContent className="bg-black text-white" side="right">
-              <p>{isSidebarOpen ? "ปิดเมนู" : "เปิดเมนู"}</p>
+              <p>{isSidebarOpen ? t("closeMenu") : t("openMenu")}</p>
             </TooltipContent>
           </Tooltip>
         </div>
@@ -182,7 +184,7 @@ export default function MapPage({
               </button>
             </TooltipTrigger>
             <TooltipContent className="bg-black text-white" side="left">
-              <p>ไปที่ตําแหน่งปัจจุบัน</p>
+              <p>{t("goToCurrentLocation")}</p>
             </TooltipContent>
           </Tooltip>
         </div>

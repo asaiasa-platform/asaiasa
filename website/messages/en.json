@@ -1,6 +1,143 @@
 {
   "HomePage": {
     "title": "ASAiASA",
-    "about": "Go to the about page"
+    "about": "Go to the about page",
+    "hero": {
+      "headline1": "Find new opportunities",
+      "headline2": "for your advancement",
+      "description": "Events, jobs, and organizations driven by youth. Join us in thinking and planning for the future!"
+    },
+    "recommendedEvents": {
+      "title": "Events for You",
+      "description": "Discover events that are suitable to showcase your strengths"
+    },
+    "featuredEvents": {
+      "description": "Popular events following current trends"
+    },
+    "latestJobs": {
+      "title": "Latest Jobs",
+      "description": "Opportunities to develop organizations and contribute to society"
+    },
+    "organizations": {
+      "description": "Discover youth organizations, driven by youth, for society"
+    },
+    "viewMoreJobs": "View More Jobs"
+  },
+  "Common": {
+    "buttons": {
+      "login": "Login",
+      "signup": "Sign Up",
+      "submit": "Submit",
+      "cancel": "Cancel",
+      "save": "Save",
+      "search": "Search",
+      "apply": "Apply",
+      "viewAll": "View All"
+    },
+    "navigation": {
+      "home": "Home",
+      "events": "Events",
+      "jobs": "Jobs",
+      "organizations": "Organizations",
+      "map": "Map",
+      "statistics": "Statistics",
+      "profile": "Profile"
+    },
+    "general": {
+      "or": "or",
+      "loading": "Loading..."
+    }
+  },
+  "Auth": {
+    "login": {
+      "title": "Login to Your Account",
+      "emailPlaceholder": "Email",
+      "passwordPlaceholder": "Password",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "signupHere": "Sign up here",
+      "googleButton": "Login with Google",
+      "success": "Login successful"
+    },
+    "signup": {
+      "title": "Create Your Account",
+      "namePlaceholder": "Full Name",
+      "emailPlaceholder": "Email",
+      "passwordPlaceholder": "Password",
+      "confirmPasswordPlaceholder": "Confirm Password",
+      "haveAccount": "Already have an account?",
+      "loginHere": "Login here"
+    },
+    "preferences": {
+      "title": "Choose Your Preferences",
+      "subtitle": "Select categories that interest you"
+    }
+  },
+  "Map": {
+    "title": "Map",
+    "searchPlaceholder": "Search for a location",
+    "filters": {
+      "events": "Events",
+      "jobs": "Jobs",
+      "organizations": "Organizations"
+    }
+  },
+  "Events": {
+    "title": "Events",
+    "upcoming": "Upcoming Events",
+    "featured": "Featured Events",
+    "register": "Register",
+    "filters": {
+      "category": "Category",
+      "date": "Date",
+      "location": "Location"
+    },
+    "detail": {
+      "notSpecified": "Not specified",
+      "details": "Details",
+      "description": "Event Description",
+      "location": "Location",
+      "contactChannels": "Contact Information",
+      "register": "Register"
+    },
+    "search": {
+      "prefix": "Find new",
+      "highlight": "Events",
+      "suffix": "for your advancement"
+    },
+    "searchPlaceholder": {
+      "full": "Search for events",
+      "brief": "Search"
+    },
+    "notFound": "No events found"
+  },
+  "Jobs": {
+    "title": "Jobs",
+    "featured": "Featured Jobs",
+    "apply": "Apply Now",
+    "filters": {
+      "category": "Category",
+      "type": "Job Type",
+      "location": "Location"
+    }
+  },
+  "Organizations": {
+    "title": "Organizations",
+    "featured": "Featured Organizations",
+    "filters": {
+      "category": "Category",
+      "location": "Location"
+    }
+  },
+  "Statistics": {
+    "title": "User Statistics",
+    "summary": "Your Activity Summary",
+    "eventsAttended": "Events Attended",
+    "eventTypes": {
+      "title": "Event Types Breakdown",
+      "description": "Distribution of events by category"
+    },
+    "noData": "No event data available",
+    "times": "times"
   }
 }

@@ -2,6 +2,7 @@
 
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { useTranslations } from "next-intl";
 
 interface CategoryStatsProps {
   CategoryData: {
@@ -11,6 +12,8 @@ interface CategoryStatsProps {
 }
 
 export function CategoryStats({ CategoryData }: Readonly<CategoryStatsProps>) {
+  const t = useTranslations("Statistics");
+  
   // Array of colors for categories
   const colors = [
     "bg-blue-500",
@@ -41,7 +44,7 @@ export function CategoryStats({ CategoryData }: Readonly<CategoryStatsProps>) {
           <div key={x.category.label} className="space-y-2">
             <div className="flex justify-between">
               <span className="font-medium capitalize">{x.category.label}</span>
-              <span className="text-muted-foreground">{x.amount} ครั้ง</span>
+              <span className="text-muted-foreground">{x.amount} {t("times")}</span>
             </div>
             <div className="flex items-center gap-2">
               <Progress

@@ -1,6 +1,143 @@
 {
   "HomePage": {
-    "title": "ทาเล้นต์แอตโมส",
-    "about": "Go to the about page"
+    "title": "อาศัยอาสา",
+    "about": "ไปยังหน้าเกี่ยวกับเรา",
+    "hero": {
+      "headline1": "ค้นหาโอกาสใหม่",
+      "headline2": "เพื่อความก้าวหน้าของคุณ",
+      "description": "อีเว้นท์ งาน องค์กร ที่ขับเคลื่อนโดยเยาวชน มาเป็นส่วนหนึ่งในการคิดและวางแผนเพื่ออนาคตกัน!"
+    },
+    "recommendedEvents": {
+      "title": "อีเว้นท์สำหรับคุณ",
+      "description": "ค้นพบอีเว้นท์ที่เหมาะสมในการแสดงจุดแข็งของคุณ"
+    },
+    "featuredEvents": {
+      "description": "อีเว้นท์ที่มาแรง ตามกระแสเทรนด์ในปัจจุบัน"
+    },
+    "latestJobs": {
+      "title": "ตำแหน่งงานล่าสุด",
+      "description": "โอกาสในการพัฒนาองค์กร และทำเพื่อสังคม"
+    },
+    "organizations": {
+      "description": "ค้นพบองค์กรเยาวชน ขับเคลื่อนโดยเยาวชน เพื่อสังคม"
+    },
+    "viewMoreJobs": "ดูตำแหน่งงานเพิ่มเติม"
+  },
+  "Common": {
+    "buttons": {
+      "login": "เข้าสู่ระบบ",
+      "signup": "สมัครสมาชิก",
+      "submit": "ยืนยัน",
+      "cancel": "ยกเลิก",
+      "save": "บันทึก",
+      "search": "ค้นหา",
+      "apply": "สมัคร",
+      "viewAll": "ดูทั้งหมด"
+    },
+    "navigation": {
+      "home": "หน้าหลัก",
+      "events": "อีเว้นท์",
+      "jobs": "งาน",
+      "organizations": "องค์กร",
+      "map": "แผนที่",
+      "statistics": "สถิติ",
+      "profile": "โปรไฟล์"
+    },
+    "general": {
+      "or": "หรือ",
+      "loading": "รอสักครู่..."
+    }
+  },
+  "Auth": {
+    "login": {
+      "title": "เข้าสู่ระบบ",
+      "emailPlaceholder": "อีเมล",
+      "passwordPlaceholder": "รหัสผ่าน",
+      "forgotPassword": "ลืมรหัสผ่าน?",
+      "noAccount": "ยังไม่มีบัญชี?",
+      "signupHere": "สมัครสมาชิกที่นี่",
+      "googleButton": "เข้าสู่ระบบด้วย Google",
+      "success": "เข้าสู่ระบบสําเร็จ"
+    },
+    "signup": {
+      "title": "สร้างบัญชีของคุณ",
+      "namePlaceholder": "ชื่อ-นามสกุล",
+      "emailPlaceholder": "อีเมล",
+      "passwordPlaceholder": "รหัสผ่าน",
+      "confirmPasswordPlaceholder": "ยืนยันรหัสผ่าน",
+      "haveAccount": "มีบัญชีอยู่แล้ว?",
+      "loginHere": "เข้าสู่ระบบที่นี่"
+    },
+    "preferences": {
+      "title": "เลือกความสนใจของคุณ",
+      "subtitle": "เลือกหมวดหมู่ที่คุณสนใจ"
+    }
+  },
+  "Map": {
+    "title": "แผนที่",
+    "searchPlaceholder": "ค้นหาสถานที่",
+    "filters": {
+      "events": "อีเว้นท์",
+      "jobs": "งาน",
+      "organizations": "องค์กร"
+    }
+  },
+  "Events": {
+    "title": "อีเว้นท์",
+    "upcoming": "อีเว้นท์ที่กำลังจะมาถึง",
+    "featured": "อีเว้นท์ที่เราแนะนำ",
+    "register": "ลงทะเบียน",
+    "filters": {
+      "category": "หมวดหมู่",
+      "date": "วันที่",
+      "location": "สถานที่"
+    },
+    "detail": {
+      "notSpecified": "ไม่ระบุ",
+      "details": "รายละเอียด",
+      "description": "คำอธิบายกิจกรรม",
+      "location": "สถานที่",
+      "contactChannels": "ช่องทางติดต่อสอบถาม",
+      "register": "ลงทะเบียน"
+    },
+    "search": {
+      "prefix": "ค้นหา",
+      "highlight": "อีเว้นท์",
+      "suffix": "เพื่อความก้าวหน้าของคุณ"
+    },
+    "searchPlaceholder": {
+      "full": "ค้นหาอีเว้นท์",
+      "brief": "ค้นหา"
+    },
+    "notFound": "ไม่พบอีเว้นท์"
+  },
+  "Jobs": {
+    "title": "งาน",
+    "featured": "งานแนะนำ",
+    "apply": "สมัครเลย",
+    "filters": {
+      "category": "หมวดหมู่",
+      "type": "ประเภทงาน",
+      "location": "สถานที่"
+    }
+  },
+  "Organizations": {
+    "title": "องค์กร",
+    "featured": "องค์กรชั้นนำ",
+    "filters": {
+      "category": "หมวดหมู่",
+      "location": "สถานที่"
+    }
+  },
+  "Statistics": {
+    "title": "สถิติผู้ใช้",
+    "summary": "สรุปกิจกรรมของคุณ",
+    "eventsAttended": "อีเว้นท์ที่เข้าร่วม",
+    "eventTypes": {
+      "title": "แบ่งตามประเภทอีเว้นท์",
+      "description": "การกระจายของอีเว้นท์ตามหมวดหมู่"
+    },
+    "noData": "ไม่มีข้อมูลอีเว้นท์",
+    "times": "ครั้ง"
   }
 }

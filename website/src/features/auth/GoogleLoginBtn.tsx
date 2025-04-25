@@ -1,6 +1,7 @@
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "@/i18n/routing";
 import { useGoogleLogin } from "@react-oauth/google";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
 import toast from "react-hot-toast";
@@ -9,13 +10,15 @@ import { googleOauthCallback } from "./api/action";
 export default function GoogleLoginBtn() {
   const { setAuthState } = useAuth();
   const router = useRouter();
+  const t = useTranslations("Auth");
+  
   const login = useGoogleLogin({
     flow: "auth-code",
     onSuccess: async (tokenResponse) => {
       const result = await googleOauthCallback(tokenResponse.code);
       if (result.success) {
         setAuthState();
-        const toastId = toast.success("เข้าสู่ระบบสําเร็จ");
+        const toastId = toast.success(t("login.success"));
         setTimeout(() => {
           toast.dismiss(toastId); // Clear the success toast
           router.push("/home"); // Redirect to home
@@ -41,7 +44,7 @@ export default function GoogleLoginBtn() {
         height={33}
         alt="google-login"
       />
-      เข้าสู่ระบบด้วย Google
+      {t("login.googleButton")}
     </button>
   );
 }

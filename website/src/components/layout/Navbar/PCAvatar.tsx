@@ -3,11 +3,13 @@ import { useAuth } from "@/context/AuthContext";
 import DropDownMenu from "./DropDownMenu";
 import { Link } from "@/i18n/routing";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useTranslations } from "next-intl";
 
 export default function PCAvatar() {
   const { isAuth, userProfile, loading } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const t = useTranslations("Common.buttons");
 
   // Move the click handler setup to a separate effect that depends on isAuth
   useEffect(() => {
@@ -47,7 +49,7 @@ export default function PCAvatar() {
       {!isAuth ? (
         <Link href="/login">
           <div className="flex h-[42px] justify-center items-center text-gray-800 hover:text-gray-600 font-normal">
-            เข้าสู่ระบบ / สมัครสมาชิก
+            {`${t("login")} / ${t("signup")}`}
           </div>
         </Link>
       ) : (

@@ -3,18 +3,20 @@ import { OrganizationCard } from "@/features/orgs/components/OrgCard";
 import { Search } from "lucide-react";
 import { getAllOrgs } from "@/features/orgs/api/action";
 import { OrganizationBrief } from "@/lib/types";
+import { getTranslations } from "next-intl/server";
 
 export default async function OrgListingPage({
   params,
 }: Readonly<{ params: { locale: string } }>) {
+  const t = await getTranslations("Organizations");
   const orgs: OrganizationBrief[] = await getAllOrgs();
   console.log(orgs);
   return (
     <div className="font-prompt max-w-[1170px] mx-auto px-6 pb-5 mt-[100px]">
       <div className="text-center font-semibold text-2xl border-b-2 pb-[11px]">
-        <span className="text-black">ค้นหา</span>
-        <span className="text-orange-normal"> &quot;องค์กร&quot; </span>
-        <span className="text-black">ที่ตอบโจทย์เป้าหมายของคุณ</span>
+        <span className="text-black">{t("search.prefix")}</span>
+        <span className="text-orange-normal"> &quot;{t("search.highlight")}&quot; </span>
+        <span className="text-black">{t("search.suffix")}</span>
       </div>
 
       {/* <div className="border-[1.5px] mt-[26px] border-gray-stroke/70" /> */}
@@ -22,7 +24,7 @@ export default async function OrgListingPage({
         <div className="flex-grow bg-white relative max-w-[455px] border border-gray-300 rounded-full">
           <input
             type="text"
-            placeholder="ค้นหาคีย์เวิร์ด"
+            placeholder={t("searchPlaceholder")}
             className="flex-grow  h-[48px] w-full px-4 py-2 placeholder:text-gray-inactive placeholder:font-light text-gray-700 bg-transparent outline-none"
           />
           <div className="bg-white absolute top-0 rounded-r-full pr-1 right-0 h-[48px] w-[55px] flex items-center justify-end">
@@ -60,7 +62,7 @@ export default async function OrgListingPage({
         ) : (
           <div className="flex flex-col items-center justify-center mt-[100px] mb-[150px] text-center">
             <p className="text-2xl font-medium text-gray-600 mb-2">
-              ไม่พบองค์กร
+              {t("notFound")}
             </p>
           </div>
         )}

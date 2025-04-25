@@ -14,9 +14,11 @@ import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
 import { getUserStatistic } from "@/features/statistic/api/action";
 import { UserStat } from "@/lib/types";
+import { useTranslations } from "next-intl";
 
 export default function UserStatisticsPage() {
   const [userStat, setUserStat] = useState<UserStat | null>(null);
+  const t = useTranslations("Statistics");
 
   const { userProfile } = useAuth();
 
@@ -63,7 +65,7 @@ export default function UserStatisticsPage() {
                       : 0}
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    อีเว้นท์ที่เข้าร่วม
+                    {t("eventsAttended")}
                   </span>
                 </div>
               </div>
@@ -75,9 +77,9 @@ export default function UserStatisticsPage() {
         <div className="md:col-span-2">
           <Card>
             <CardHeader>
-              <CardTitle>ประเภทอีเว้นท์</CardTitle>
+              <CardTitle>{t("eventTypes.title")}</CardTitle>
               <CardDescription>
-                ประเภทอีเว้นท์ต่างๆ ที่เคยเข้าร่วม
+                {t("eventTypes.description")}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -85,7 +87,7 @@ export default function UserStatisticsPage() {
                 <CategoryStats CategoryData={userStat.CategoryData} />
               ) : (
                 <div className="flex justify-center items-center text-muted-foreground">
-                  <p>ไม่พบข้อมูลของคุณ</p>
+                  <p>{t("noData")}</p>
                 </div>
               )}
             </CardContent>

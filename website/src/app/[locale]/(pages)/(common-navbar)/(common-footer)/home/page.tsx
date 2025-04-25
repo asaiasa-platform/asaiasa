@@ -11,6 +11,7 @@ import {
   getRecentOrgs,
   getRecommendedEvents,
 } from "@/features/home/api/action";
+import { getTranslations } from "next-intl/server";
 
 interface HomeProps {
   params: {
@@ -20,6 +21,13 @@ interface HomeProps {
 
 export default async function Home({ params }: Readonly<HomeProps>) {
   try {
+    // Get translations
+    const t = await getTranslations("HomePage");
+    const eventsT = await getTranslations("Events");
+    const jobsT = await getTranslations("Jobs");
+    const orgsT = await getTranslations("Organizations");
+    const commonT = await getTranslations("Common.buttons");
+
     // Fetch all data concurrently
     const [recentJobs, recentOrgs, featuredEvents, recommendedEvents] =
       await Promise.all([
@@ -42,10 +50,10 @@ export default async function Home({ params }: Readonly<HomeProps>) {
                 <div className="flex justify-between items-center mb-8 gap-4">
                   <div>
                     <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-                      อีเว้นท์สำหรับคุณ
+                      {t("recommendedEvents.title")}
                     </h2>
                     <p className="text-gray-600 mt-2">
-                      ค้นพบอีเว้นท์ที่เหมาะสมในการแสดงจุดแข็งของคุณ
+                      {t("recommendedEvents.description")}
                     </p>
                   </div>
                 </div>
@@ -61,17 +69,17 @@ export default async function Home({ params }: Readonly<HomeProps>) {
                 <div className="flex justify-between items-center mb-8 gap-4">
                   <div>
                     <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-                      อีเว้นท์ที่เราแนะนำ
+                      {eventsT("featured")}
                     </h2>
                     <p className="text-gray-600 mt-2">
-                      อีเว้นท์ที่มาแรง ตามกระแสเทรนด์ในปัจจุบัน
+                      {t("featuredEvents.description")}
                     </p>
                   </div>
                   <Link
                     href="/events/page/1?category=all"
                     className="text-orange-dark hover:text-orange-normal flex items-center gap-1 font-medium shrink-0 group"
                   >
-                    ดูทั้งหมด
+                    {commonT("viewAll")}
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-all" />
                   </Link>
                 </div>
@@ -87,10 +95,10 @@ export default async function Home({ params }: Readonly<HomeProps>) {
                 <div className="flex justify-between items-center mb-8 gap-4">
                   <div>
                     <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-                      ตำแหน่งงานล่าสุด
+                      {t("latestJobs.title")}
                     </h2>
                     <p className="text-gray-600 mt-2">
-                      โอกาสในการพัฒนาองค์กร และทำเพื่อสังคม
+                      {t("latestJobs.description")}
                     </p>
                   </div>
                 </div>
@@ -100,7 +108,7 @@ export default async function Home({ params }: Readonly<HomeProps>) {
                     href="/jobs/page/1"
                     className="bg-white border border-orange-normal text-orange-dark hover:bg-orange-50 px-8 py-2 rounded-md"
                   >
-                    ดูตำแหน่งงานเพิ่มเติม
+                    {t("viewMoreJobs")}
                   </Link>
                 </div>
               </div>
@@ -114,17 +122,17 @@ export default async function Home({ params }: Readonly<HomeProps>) {
                 <div className="flex justify-between items-center mb-8 gap-4">
                   <div>
                     <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-                      องค์กรชั้นนำ
+                      {orgsT("featured")}
                     </h2>
                     <p className="text-gray-600 mt-2">
-                      ค้นพบองค์กรเยาวชน ขับเคลื่อนโดยเยาวชน เพื่อสังคม
+                      {t("organizations.description")}
                     </p>
                   </div>
                   <Link
                     href="/orgs"
                     className="text-orange-dark hover:text-orange-normal flex items-center gap-1 font-medium shrink-0 group"
                   >
-                    ดูทั้งหมด
+                    {commonT("viewAll")}
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-all" />
                   </Link>
                 </div>

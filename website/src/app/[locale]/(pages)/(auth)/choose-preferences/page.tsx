@@ -16,6 +16,7 @@ import { CategoryProps } from "@/lib/types";
 import toast from "react-hot-toast";
 import { Link } from "@/i18n/routing";
 import { getCategoryIcon, getCategoryName } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 export default function PreferencesPage() {
   const [selectedCategories, setSelectedCategories] = useState<CategoryProps[]>(
@@ -25,6 +26,10 @@ export default function PreferencesPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState<CategoryProps[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const t = useTranslations("Auth.preferences");
+  const commonT = useTranslations("Common.navigation");
+  const generalT = useTranslations("Common.general");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -92,9 +97,9 @@ export default function PreferencesPage() {
     }
 
     if (result.success) {
-      toast.success("บันทึกสําเร็จ");
+      toast.success(t("saveSuccess"));
     } else {
-      toast.error("บันทึกไม่สําเร็จ กรุณาลองใหม่อีกครั้ง");
+      toast.error(t("saveError"));
     }
     setIsSubmitting(false);
   };
@@ -105,21 +110,20 @@ export default function PreferencesPage() {
         <Link href="/home" className="p-1">
           <div className="flex gap-2">
             <ArrowLeft height={30} width={30} />
-            <p className="self-center hidden sm:block">กลับสู่หน้าหลัก</p>
+            <p className="self-center hidden sm:block">{commonT("home")}</p>
           </div>
         </Link>
         <div className="space-y-6 text-center mb-10">
-          <h1 className="text-3xl font-bold">เลือกหมวดหมู่ที่สนใจ</h1>
+          <h1 className="text-3xl font-bold">{t("title")}</h1>
           <p className="text-muted-foreground max-w-md mx-auto">
-            กรุณาเลือกหมวดหมู่ที่คุณสนใจ
-            เพื่อการแสดงผลกิจกรรมและงานที่ตรงตามความสนใจของคุณ
+            {t("subtitle")}
           </p>
         </div>
 
         {isLoading ? (
           <div className="flex flex-col gap-1 justify-center items-center w-full pt-16 pb-20">
             <Spinner />
-            <span className="text-center">Loading...</span>
+            <span className="text-center">{generalT("loading")}</span>
           </div>
         ) : (
           <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-10">
@@ -171,10 +175,10 @@ export default function PreferencesPage() {
             {isSubmitting ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" />
-                รอสักครู่
+                {t("submitting")}
               </>
             ) : (
-              "ยืนยัน"
+              t("submit")
             )}
           </Button>
         </div>

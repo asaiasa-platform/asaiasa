@@ -5,20 +5,22 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff, House } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "@/i18n/routing";
+import { Link, useRouter } from "@/i18n/routing";
 import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useAuth } from "@/context/AuthContext";
 import GoogleLoginBtn from "@/features/auth/GoogleLoginBtn";
 import { logIn } from "@/features/auth/api/action";
-
+import { useTranslations } from "next-intl";
 
 export default function LoginPage(): JSX.Element {
   const [isRedirecting, setIsRedirecting] = useState(false);
   const { setAuthState } = useAuth();
   const router = useRouter();
+  const t = useTranslations("Auth.login");
+  const commonT = useTranslations("Common.navigation");
+  const generalT = useTranslations("Common.general");
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -39,7 +41,7 @@ export default function LoginPage(): JSX.Element {
 
   const onSubmit = async (data: FieldValues) => {
     // Show loading toast immediately when the request is sent
-    const loadingToastId = toast.loading("รอสักครู่...");
+    const loadingToastId = toast.loading(generalT("loading"));
 
     try {
       const result = await logIn({
@@ -53,7 +55,7 @@ export default function LoginPage(): JSX.Element {
       if (result.success) {
         // Await the full auth state setup
         setAuthState();
-        const successToastId = toast.success("เข้าสู่ระบบสําเร็จ");
+        const successToastId = toast.success(t("success"));
 
         // Delay the redirect to show the toast
         setTimeout(() => {
@@ -81,7 +83,7 @@ export default function LoginPage(): JSX.Element {
             text-base font-medium text-start px-5 py-1 transition-all duration-200"
           >
             <House height={25} width={25} />
-            <p className="self-center">กลับสู่หน้าหลัก</p>
+            <p className="self-center">{commonT("home")}</p>
           </div>
         </Link>
         <div className="my-auto flex px-[5%]">
@@ -108,10 +110,10 @@ export default function LoginPage(): JSX.Element {
               href={"/"}
             >
               <House height={25} width={25} />
-              <p className="self-center hidden sm:block">กลับสู่หน้าหลัก</p>
+              <p className="self-center hidden sm:block">{commonT("home")}</p>
             </Link>
             <p className="text-4xl font-semibold text-center text-orange-dark">
-              เข้าสู่ระบบ
+              {t("title")}
             </p>
 
             <form
@@ -120,7 +122,7 @@ export default function LoginPage(): JSX.Element {
             >
               <div>
                 <Label className="text-base font-normal" htmlFor="email">
-                  อีเมล{" "}
+                  {t("emailPlaceholder")}{" "}
                   {errors.email && (
                     <span className="error-msg">
                       {errors.email.message as string}
@@ -138,12 +140,12 @@ export default function LoginPage(): JSX.Element {
                   className="auth-input"
                   type="email"
                   id="email"
-                  placeholder="อีเมล"
+                  placeholder={t("emailPlaceholder")}
                 />
               </div>
               <div>
                 <Label className="text-base font-normal" htmlFor="password">
-                  รหัสผ่าน{" "}
+                  {t("passwordPlaceholder")}{" "}
                   {errors.password && (
                     <span className="error-msg">
                       {errors.password.message as string}
@@ -158,7 +160,7 @@ export default function LoginPage(): JSX.Element {
                     className="auth-input "
                     type={showPassword ? "text" : "password"}
                     id="password"
-                    placeholder="รหัสผ่าน"
+                    placeholder={t("passwordPlaceholder")}
                   />
                   <Button
                     type="button"
@@ -183,7 +185,7 @@ export default function LoginPage(): JSX.Element {
                   href={"/forgot-password"}
                   className="text-sm sm:text-base font-normal underline hover:text-orange-dark text-gray-600"
                 >
-                  ลืมรหัสผ่าน?
+                  {t("forgotPassword")}
                 </Link>
               </div>
               <Button
@@ -192,22 +194,22 @@ export default function LoginPage(): JSX.Element {
                 type="submit"
                 disabled={isSubmitting || isRedirecting}
               >
-                เข้าสู่ระบบ
+                {t("title")}
               </Button>
             </form>
 
             <div className="flex gap-1 justify-center mt-[17px]">
-              <p className="font-light">คุณยังไม่เป็นสมาชิกใช่หรือไม่?</p>
+              <p className="font-light">{t("noAccount")}</p>
               <Link
                 href={"/signup"}
                 className="text-orange-dark hover:underline "
               >
-                สมัครเลย
+                {t("signupHere")}
               </Link>
             </div>
             <div className="h-[21px] flex justify-center items-center my-[26px]">
               <div className="w-full border border-gray-300 relative" />
-              <p className="mx-2 text-sm">หรือ</p>
+              <p className="mx-2 text-sm">{generalT("or")}</p>
               <div className="w-full border border-gray-300 relative" />
             </div>
             <div className="w-full">

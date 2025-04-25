@@ -1,27 +1,31 @@
 "use client";
 
 import Image from "next/image";
-import { Link } from "@/i18n/routing";
+import { Link, usePathname } from "@/i18n/routing";
 import { useState } from "react";
 import NormalMenu from "./NormalMenu";
 import CompactNormalMenu from "./CompactNormalMenu";
 import MobileAvatar from "./MobileAvatar";
 import LangSwitcher from "@/components/common/LangSwitcher";
 import PCAvatar from "./PCAvatar";
+import { useTranslations } from "next-intl";
 
 export default function NavigationBar() {
+  const t = useTranslations("Common.navigation");
+  
   const menuItems = [
     {
-      label: "อีเว้นท์",
+      label: t("events"),
       href: "/events/page/1?category=all",
     },
     {
-      label: "สมัครงาน",
+      label: t("jobs"),
       href: "/jobs/page/1",
     },
-    { label: "องค์กร", href: "/orgs" },
-    { label: "แผนที่", href: "/map" },
+    { label: t("organizations"), href: "/orgs" },
+    { label: t("map"), href: "/map" },
   ];
+  
   const [isMiniMenuOpen, setIsMiniMenuOpen] = useState(false);
   const handleCloseMenu = () => {
     setIsMiniMenuOpen(!isMiniMenuOpen);

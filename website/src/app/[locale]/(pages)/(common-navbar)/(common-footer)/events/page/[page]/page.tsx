@@ -7,6 +7,7 @@ import EventList from "@/components/common/EventList";
 import { redirect } from "@/i18n/routing";
 import { DynamicSearchBar } from "@/components/common/DynamicSearch";
 import { fetchAllEvents } from "@/features/events/api/action";
+import { getTranslations } from "next-intl/server";
 // import EsgFilter from "@/components/common/EsgFilter";
 export const dynamic = "force-dynamic"; // Ensure fresh data on each request
 
@@ -17,6 +18,8 @@ export default async function EventListingPageComp({
   params: { page: string; locale: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }>) {
+  const t = await getTranslations("Events");
+  
   const maxEventsPerPage = 12;
   const currentPage = params.page || "1";
   const search = searchParams.search?.toString() ?? "";
@@ -66,8 +69,8 @@ export default async function EventListingPageComp({
   return (
     <div className="font-prompt max-w-[1170px] mx-auto px-6 mt-[90px] sm:mt-[100px] min-h-[80vh]">
       <p className="text-xl md:text-3xl text-center font-semibold">
-        ค้นหา <span className="text-orange-normal">&quot;อีเว้นท์&quot;</span>{" "}
-        ที่ตอบโจทย์
+        {t("search.prefix")} <span className="text-orange-normal">&quot;{t("search.highlight")}&quot;</span>{" "}
+        {t("search.suffix")}
       </p>
       <div className="border-[1.5px] mt-[15px] sm:mt-[20px] border-gray-stroke/70" />
       <CategoryTab />
@@ -76,8 +79,8 @@ export default async function EventListingPageComp({
           <DynamicSearchBar
             defaultValue={search}
             type="events"
-            fullPlace="ค้นหาชื่ออีเว้นท์ สถานที่ หรือคีย์เวิร์ด"
-            briefPlace="ค้นหาคีย์เวิร์ดอีเว้นท์"
+            fullPlace={t("searchPlaceholder.full")}
+            briefPlace={t("searchPlaceholder.brief")}
           />
           {/* <EsgFilter /> */}
         </div>

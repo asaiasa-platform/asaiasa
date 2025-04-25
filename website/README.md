@@ -58,3 +58,44 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Internationalization (i18n)
+
+This project uses `next-intl` for internationalization. The supported languages are Thai (th) and English (en).
+
+### Translation Files
+
+Translation files are located in the `messages` directory:
+- `th.json` - Thai translations
+- `en.json` - English translations
+
+### Using Translations in Components
+
+To use translations in your components, import the `useTranslations` hook:
+
+```tsx
+import { useTranslations } from "next-intl";
+
+export default function MyComponent() {
+  // Get translations for a specific namespace
+  const t = useTranslations("Common.buttons");
+  
+  return (
+    <button>
+      {t("login")}
+    </button>
+  );
+}
+```
+
+### Adding New Translations
+
+1. Identify all user-facing text in your component
+2. Add the translations to both `th.json` and `en.json` files using a logical namespace structure
+3. Use the `useTranslations` hook in your component to access the translations
+
+### Routing
+
+The application uses the Next.js app router with i18n support. The routing configuration is in `src/i18n/routing.ts`.
+
+Language detection is automatic based on the user's browser settings, with Thai as the default language.

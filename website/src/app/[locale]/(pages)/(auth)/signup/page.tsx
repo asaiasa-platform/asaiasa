@@ -12,12 +12,16 @@ import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/AuthContext";
 import { signUp } from "@/features/auth/api/action";
+import { useTranslations } from "next-intl";
 
 export default function SignUpPage() {
   const { setAuthState } = useAuth();
   const router = useRouter();
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const t = useTranslations("Auth.signup");
+  const commonT = useTranslations("Common.navigation");
+  const generalT = useTranslations("Common.general");
 
   const toggleVisibility = () => setShowPassword(!showPassword);
 
@@ -32,18 +36,18 @@ export default function SignUpPage() {
   });
 
   const passwordCriteria = [
-    { regex: /.{8,}/, label: "ตวามยาวอย่างน้อย 8 ตัวอักษร" },
-    { regex: /[A-Z]/, label: "ต้องมีตัวอักษรพิมพ์ใหญ่" },
-    { regex: /[a-z]/, label: "ต้องมีตัวอักษรพิมพ์เล็ก" },
-    { regex: /[0-9]/, label: "ต้องมีตัวเลขอย่างน้อยหนึ่งตัว" },
-    { regex: /[!@#$%^&*_]/, label: "ต้องมีอักขระพิเศษ (!@#$%^&*_)" },
+    { regex: /.{8,}/, label: t("passwordCriteria.length") },
+    { regex: /[A-Z]/, label: t("passwordCriteria.uppercase") },
+    { regex: /[a-z]/, label: t("passwordCriteria.lowercase") },
+    { regex: /[0-9]/, label: t("passwordCriteria.number") },
+    { regex: /[!@#$%^&*_]/, label: t("passwordCriteria.special") },
   ];
   const password = watch("password");
   const checkCriteria = (regex: RegExp) => regex.test(password);
 
   const onSubmit = async (data: FieldValues) => {
     // Show loading toast immediately when the request is sent
-    const loadingToastId = toast.loading("รอสักครู่...");
+    const loadingToastId = toast.loading(generalT("loading"));
 
     try {
       const result = await signUp(data);
@@ -64,7 +68,7 @@ export default function SignUpPage() {
       if (result.success) {
         // Await the full auth state setup
         setAuthState();
-        const successToastId = toast.success("ลงทะเบียนสําเร็จ");
+        const successToastId = toast.success(t("success"));
 
         // Delay the redirect to show the toast
         setTimeout(() => {
@@ -78,7 +82,7 @@ export default function SignUpPage() {
     } catch (error) {
       // if fail to sent request to server
       toast.dismiss();
-      toast.error(error instanceof Error ? error.message : "เกิดข้อผิดพลาด");
+      toast.error(error instanceof Error ? error.message : t("error"));
       console.error("Login error:", error);
     }
   };
@@ -96,15 +100,15 @@ export default function SignUpPage() {
           href={"/login"}
         >
           <ArrowLeft height={25} width={25} />
-          <p className="self-center hidden sm:block">หน้าเข้าสู่ระบบ</p>
+          <p className="self-center hidden sm:block">{t("backToLogin")}</p>
         </Link>
         <p className="text-3xl sm:text-4xl font-semibold text-center text-orange-dark mt-8 md:mt-[50px] lg:mt-[34px]">
-          สมัครสมาชิก
+          {t("title")}
         </p>
         <div className="flex flex-col sm:flex-row justify-center items-center w-full gap-4 sm:gap-[26px]">
           <div className="w-full">
             <Label className="text-base font-normal" htmlFor="first-name">
-              ชื่อจริง
+              {t("firstNameLabel")}
               {errors.firstName && (
                 <span className="error-msg">
                   {errors.firstName.message as string}
@@ -116,13 +120,13 @@ export default function SignUpPage() {
               className="auth-input"
               type="text"
               id="first-name"
-              placeholder="ชื่อจริง"
+              placeholder={t("firstNamePlaceholder")}
             />
           </div>
 
           <div className="w-full">
             <Label className="text-base font-normal" htmlFor="last-name">
-              นามสกุล
+              {t("lastNameLabel")}
               {errors.lastName && (
                 <span className="error-msg">
                   {errors.lastName.message as string}
@@ -134,13 +138,13 @@ export default function SignUpPage() {
               className="auth-input"
               type="text"
               id="last-name"
-              placeholder="นามสกุล"
+              placeholder={t("lastNamePlaceholder")}
             />
           </div>
         </div>
         <div className="w-full">
           <Label className="text-base font-normal" htmlFor="email">
-            อีเมล
+            {t("emailLabel")}
             {errors.email && (
               <span className="error-msg">
                 {errors.email.message as string}
@@ -152,12 +156,12 @@ export default function SignUpPage() {
             className="auth-input"
             type="email"
             id="email"
-            placeholder="example@gmail.com"
+            placeholder={t("emailPlaceholder")}
           />
         </div>
         <div className="w-full">
           <Label className="text-base font-normal" htmlFor="phone-num">
-            เบอร์โทรศัพท์{" "}
+            {t("phoneLabel")}{" "}
             {errors.phone && (
               <span className="error-msg">
                 {errors.phone.message as string}
@@ -169,13 +173,13 @@ export default function SignUpPage() {
             className="auth-input"
             type="text"
             id="phone-num"
-            placeholder="0812345678"
+            placeholder={t("phonePlaceholder")}
           />
         </div>
         <div className="flex flex-col sm:flex-row justify-center items-center w-full gap-4 sm:gap-[26px]">
           <div className="w-full">
             <Label className="text-base font-normal" htmlFor="password">
-              รหัสผ่าน{" "}
+              {t("passwordLabel")}{" "}
               {errors.password && (
                 <span className="error-msg">
                   {errors.password.message as string}
@@ -188,7 +192,7 @@ export default function SignUpPage() {
                 className="auth-input "
                 type={showPassword ? "text" : "password"}
                 id="password"
-                placeholder="รหัสผ่าน"
+                placeholder={t("passwordPlaceholder")}
                 onFocus={() => setTooltipVisible(true)}
                 onBlur={() => setTooltipVisible(false)}
               />
@@ -229,7 +233,7 @@ export default function SignUpPage() {
           </div>
           <div className="w-full">
             <Label className="text-base font-normal" htmlFor="confirmPassword">
-              ยืนยันรหัสผ่าน{" "}
+              {t("confirmPasswordLabel")}{" "}
               {errors.confirmPassword && (
                 <span className="error-msg">
                   {errors.confirmPassword.message as string}
@@ -242,7 +246,7 @@ export default function SignUpPage() {
                 className="auth-input "
                 type={showPassword ? "text" : "password"}
                 id="confirmPassword"
-                placeholder="ยืนยันรหัสผ่าน"
+                placeholder={t("confirmPasswordPlaceholder")}
               />
               <Button
                 type="button"
@@ -273,19 +277,19 @@ export default function SignUpPage() {
               className="hover:cursor-pointer font-light text-sm"
               htmlFor="policies"
             >
-              คุณยอมรับ
+              {t("acceptLabel")}
               <Link
                 className="ml-1 hover:underline text-orange-dark hover:text-orange-normal"
                 href={"/info/tos"}
               >
-                ข้อกำหนดการใช้งาน
+                {t("termsOfService")}
               </Link>
-              <span> และ </span>
+              <span> {t("and")} </span>
               <Link
                 className="ml-1 hover:underline text-orange-dark hover:text-orange-normal"
                 href={"/info/privacy"}
               >
-                นโยบายความเป็นส่วนตัว
+                {t("privacyPolicy")}
               </Link>
             </Label>
           </div>
@@ -301,20 +305,8 @@ export default function SignUpPage() {
               type="submit"
               disabled={isSubmitting}
             >
-              ยืนยัน
+              {t("submit")}
             </Button>
-            {/* <div className="flex self-center sm:self-end ">
-              <p className="text-base font-light">
-                คุณเป็นสมาชิกอยู่แล้วหรือไม่?
-              </p>
-
-              <Link
-                className="ml-1 hover:underline font-normal text-orange-dark hover:text-orange-normal"
-                href={"/login"}
-              >
-                เข้าสู่ระบบ
-              </Link>
-            </div> */}
           </div>
         </div>
       </form>

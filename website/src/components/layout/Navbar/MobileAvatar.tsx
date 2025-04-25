@@ -9,9 +9,11 @@ import {
 import DropDownMenu from "./DropDownMenu";
 import { Link } from "@/i18n/routing";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useTranslations } from "next-intl";
 
 export default function MobileAvatar() {
   const { isAuth, userProfile, loading } = useAuth();
+  const t = useTranslations("Common.buttons");
 
   // Don't render anything until auth state is confirmed
   if (loading) {
@@ -30,7 +32,7 @@ export default function MobileAvatar() {
                     flex h-[42px] justify-center items-center font-normal hover:bg-slate-50 text-black
                     rounded-full border transition-all duration-200 text-sm"
             >
-              เข้าสู่ระบบ / สมัครสมาชิก
+              {`${t("login")} / ${t("signup")}`}
             </div>
           </Link>
         </div>

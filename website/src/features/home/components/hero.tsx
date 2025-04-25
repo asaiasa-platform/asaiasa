@@ -9,20 +9,22 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function HeroSection() {
+  const t = useTranslations("HomePage.hero");
+  
   return (
     <section className="relative w-full bg-orange-50 pt-20 pb-8">
       <div className="max-w-[1170px] mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="space-y-6">
             <h1 className="font-prompt text-center md:text-left text-4xl md:text-5xl font-bold text-gray-900">
-              <p>ค้นหาโอกาสใหม่</p>
-              <p className="text-orange-dark mt-4">เพื่อความก้าวหน้าของคุณ</p>
+              <p>{t("headline1")}</p>
+              <p className="text-orange-dark mt-4">{t("headline2")}</p>
             </h1>
             <p className="text-lg text-gray-700 text-center md:text-left">
-              อีเว้นท์ งาน องค์กร ที่ขับเคลื่อนโดยเยาวชน มาเป็นส่วนหนึ่งในการ
-              คิดและวางแผนเพื่ออนาคตกัน!
+              {t("description")}
             </p>
           </div>
           <div className="relative w-full max-w-[80%] md:max-w-lg mx-auto p-6">
