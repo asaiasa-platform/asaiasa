@@ -24,7 +24,6 @@ export default async function Home({ params }: Readonly<HomeProps>) {
     // Get translations
     const t = await getTranslations("HomePage");
     const eventsT = await getTranslations("Events");
-    const jobsT = await getTranslations("Jobs");
     const orgsT = await getTranslations("Organizations");
     const commonT = await getTranslations("Common.buttons");
 

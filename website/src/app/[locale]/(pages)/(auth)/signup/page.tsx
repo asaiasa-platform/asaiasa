@@ -20,7 +20,6 @@ export default function SignUpPage() {
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const t = useTranslations("Auth.signup");
-  const commonT = useTranslations("Common.navigation");
   const generalT = useTranslations("Common.general");
 
   const toggleVisibility = () => setShowPassword(!showPassword);

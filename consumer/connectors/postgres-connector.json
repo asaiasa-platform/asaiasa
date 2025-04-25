@@ -1,0 +1,21 @@
+{
+  "name": "postgres-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "database.hostname": "<database_host>",
+    "database.port": "<database_port>",
+    "database.user": "<database_user>",
+    "database.password": "<database_password>",
+    "database.dbname": "<database_name>",
+    "database.server.name": "postgres-server",
+    "plugin.name": "pgoutput",
+    "slot.name": "debezium_slot",
+    "publication.name": "debezium_pub",
+    "table.include.list": "<schema_name>.<table_name>",
+    "topic.prefix": "<topic_prefix>",
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter.schemas.enable": "false"
+  }
+}

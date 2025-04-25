@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Link, usePathname } from "@/i18n/routing";
+import { Link } from "@/i18n/routing";
 import { useState } from "react";
 import NormalMenu from "./NormalMenu";
 import CompactNormalMenu from "./CompactNormalMenu";
