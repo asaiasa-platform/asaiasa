@@ -97,7 +97,7 @@ export default function SigninPage() {
             <span className="font-medium">{t("sign-in-to")}</span>
             <div className="flex flex-col gap-1">
               <Image
-                src={"/inline-logo.svg"}
+                src={"/logo-2.png"}
                 width={1500}
                 height={1000}
                 alt="Logo"

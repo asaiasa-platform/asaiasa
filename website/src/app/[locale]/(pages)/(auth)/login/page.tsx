@@ -87,7 +87,7 @@ export default function LoginPage(): JSX.Element {
         <div className="my-auto flex px-[5%]">
           <Image
             className="justify-self-center"
-            src={"/inline-logo.webp"}
+            src={"/logo-2.png"}
             width={1000}
             height={179}
             alt="login"

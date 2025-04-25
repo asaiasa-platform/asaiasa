@@ -19,7 +19,7 @@ export default function Home() {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <div className="relative flex justify-start items-start w-[100px] sm:w-[150px]">
             <Image
-              src={"/inline-logo.svg"}
+              src={"/logo-2.png"}
               width={1500}
               height={1000}
               alt="Logo"
