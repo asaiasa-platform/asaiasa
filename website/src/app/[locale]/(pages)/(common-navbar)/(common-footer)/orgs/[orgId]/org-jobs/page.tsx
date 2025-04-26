@@ -3,10 +3,12 @@ import Spinner from "@/components/ui/spinner";
 import { getAllOrgsJobs } from "@/features/orgs/api/action";
 import { JobCardProps } from "@/lib/types";
 import React, { Suspense } from "react";
+import { getTranslations } from "next-intl/server";
 
 export default async function OrgJobsPage({
   params,
 }: Readonly<{ params: { orgId: string } }>) {
+  const t = await getTranslations("OrgDetail");
   const jobs: JobCardProps[] = await getAllOrgsJobs(params.orgId);
   console.log(jobs);
 
@@ -35,11 +37,10 @@ export default async function OrgJobsPage({
       ) : (
         <div className="flex flex-col items-center justify-center mt-[100px] mb-[150px] text-center">
           <p className="text-2xl font-medium text-gray-600 mb-2">
-            ไม่พบตำแหน่งงาน
+            {t("noJobs")}
           </p>
           <p className="text-gray-500">
-            องค์กรนี้ยังไม่มีการเปิดรับสมัครงานในขณะนี้
-            กรุณาตรวจสอบอีกครั้งในภายหลัง
+            {t("noJobsMessage")}
           </p>
         </div>
       )}

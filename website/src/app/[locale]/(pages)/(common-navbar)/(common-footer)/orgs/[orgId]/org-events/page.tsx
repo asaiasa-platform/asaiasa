@@ -3,10 +3,12 @@ import Spinner from "@/components/ui/spinner";
 import { getAllOrgsEvents } from "@/features/orgs/api/action";
 import { Event } from "@/lib/types";
 import React, { Suspense } from "react";
+import { getTranslations } from "next-intl/server";
 
 export default async function OrgEventsPage({
   params,
 }: Readonly<{ params: { orgId: string } }>) {
+  const t = await getTranslations("OrgDetail");
   const events: Event[] = await getAllOrgsEvents(params.orgId);
 
   return (
@@ -36,11 +38,10 @@ export default async function OrgEventsPage({
       ) : (
         <div className="flex flex-col items-center justify-center mt-[60px] mb-[150px] text-center">
           <p className="text-2xl font-medium text-gray-600 mb-2">
-            ไม่พบอีเว้นท์
+            {t("noEvents")}
           </p>
           <p className="text-gray-500">
-            องค์กรนี้ยังไม่เคยให้ข้อมูลเกี่ยวกับกิจกรรม
-            หรือยังไม่เคยจัดกิจกรรมใด ๆ มาก่อน
+            {t("noEventsMessage")}
           </p>
         </div>
       )}

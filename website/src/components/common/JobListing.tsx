@@ -2,6 +2,7 @@ import React from "react";
 import JobCard from "./JobCard";
 import { JobCardProps } from "@/lib/types";
 import ListPagination from "./ListPagination";
+import { useTranslations } from "next-intl";
 
 interface JobListProps {
   jobs: JobCardProps[];
@@ -12,7 +13,8 @@ export default function JobListing({
   jobs,
   totalPages,
 }: Readonly<JobListProps>) {
-  console.log("jobs: ", jobs);
+  const t = useTranslations("Jobs");
+  
   // console.log("job length: ", jobs.length);
   // console.log("total pages: ", totalPages);
   return (
@@ -47,10 +49,10 @@ export default function JobListing({
       ) : (
         <div className="flex flex-col items-center justify-center mt-[100px] mb-[150px]">
           <p className="text-2xl font-medium text-gray-600 mb-2">
-            ไม่พบตำแหน่งงาน
+            {t("notFound")}
           </p>
           <p className="text-gray-500">
-            กรุณาลองค้นหาด้วยคำค้นอื่น หรือลองเปลี่ยนตัวกรอง
+            {t("tryAnotherSearch")}
           </p>
         </div>
       )}

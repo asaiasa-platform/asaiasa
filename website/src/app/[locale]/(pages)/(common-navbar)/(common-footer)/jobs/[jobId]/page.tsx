@@ -13,10 +13,12 @@ import {
   BookOpen,
 } from "lucide-react";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
 export default async function JobPage({
   params,
 }: Readonly<{ params: { jobId: string; locale: string } }>) {
+  const t = await getTranslations("JobDetail");
   const job: JobDescriptionPage = await getJobDescription(params.jobId);
 
   if (!job) {
@@ -66,7 +68,7 @@ export default async function JobPage({
               <div className="flex items-center gap-2">
                 <DollarSign className="text-primary shrink-0" />
                 <span className="text-sm text-gray-700">
-                  ฿{job.salary.toLocaleString()}/month
+                  ฿{job.salary.toLocaleString()}/{t("perMonth")}
                 </span>
               </div>
             )}
@@ -93,28 +95,28 @@ export default async function JobPage({
 
           <div className="space-y-6">
             <section>
-              <h2 className="text-xl font-semibold mb-2">Job Description</h2>
+              <h2 className="text-xl font-semibold mb-2">{t("jobDescription")}</h2>
               <pre className="font-prompt text-base font-normal whitespace-pre-wrap break-words text-gray-700">
-                {job.description}
+                {job.description || t("notSpecified")}
               </pre>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold mb-2">Job Scope</h2>
+              <h2 className="text-xl font-semibold mb-2">{t("responsibilities")}</h2>
               <pre className="font-prompt text-base font-normal whitespace-pre-wrap break-words text-gray-700">
-                {job.scope}
+                {job.scope || t("notSpecified")}
               </pre>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold mb-2">Qualifications</h2>
+              <h2 className="text-xl font-semibold mb-2">{t("qualifications")}</h2>
               <pre className="font-prompt text-base font-normal whitespace-pre-wrap break-words text-gray-700">
-                {job.qualifications}
+                {job.qualifications || t("notSpecified")}
               </pre>
             </section>
 
             {/* <section>
-            <h2 className="text-xl font-semibold mb-2">Benefits</h2>
+            <h2 className="text-xl font-semibold mb-2">{t("benefits")}</h2>
             <p className="text-gray-700 whitespace-pre-line">{job.benefits}</p>
           </section> */}
 

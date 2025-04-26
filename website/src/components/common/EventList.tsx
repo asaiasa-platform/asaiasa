@@ -2,16 +2,19 @@ import EventCard from "@/components/common/EventCard";
 import ListPagination from "@/components/common/ListPagination";
 import React from "react";
 import { Event } from "@/lib/types";
+import { useTranslations } from "next-intl";
 
 interface EventListProps {
   events: Event[];
   totalPages: number;
 }
 
-export default async function EventList({
+export default function EventList({
   events,
   totalPages,
 }: Readonly<EventListProps>) {
+  const t = useTranslations("Events");
+  
   return (
     <>
       {events.length > 0 ? (
@@ -45,10 +48,10 @@ export default async function EventList({
       ) : (
         <div className="flex flex-col items-center justify-center mt-[100px] mb-[150px]">
           <p className="text-2xl font-medium text-gray-600 mb-2">
-            ไม่พบอีเว้นท์
+            {t("notFound")}
           </p>
           <p className="text-gray-500">
-            กรุณาลองค้นหาด้วยคำค้นอื่น หรือลองเปลี่ยนตัวกรอง
+            {t("tryAnotherSearch")}
           </p>
         </div>
       )}

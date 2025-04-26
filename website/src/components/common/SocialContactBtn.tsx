@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface SocialContactButtonProps {
   mediaType: string;
@@ -22,6 +23,8 @@ const SocialContactButton = ({
   mediaLink,
   className = "",
 }: SocialContactButtonProps) => {
+  const t = useTranslations("Common.social");
+  
   // Function to get the appropriate icon and color based on media type
   const getContactInfo = (mediaType: string) => {
     const type = mediaType.toLowerCase();
@@ -32,7 +35,7 @@ const SocialContactButton = ({
     if (type.includes("linkedin"))
       return { icon: FaLinkedin, color: "#0A66C2" };
     if (type.includes("twitter")) return { icon: FaTwitter, color: "#1DA1F2" };
-    if (type.includes("website") || type.includes("เว็บไซต์"))
+    if (type.includes("website") || type.includes(t("website").toLowerCase()))
       return { icon: FaGlobe, color: "#000000" };
     return { icon: FaGlobe, color: "#000000" }; // Default icon
   };

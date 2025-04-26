@@ -5,6 +5,7 @@ import React from "react";
 import { IoLocationSharp } from "react-icons/io5";
 import Badge from "./Badge";
 import { Tag } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface EventCardProps {
   title: string;
@@ -36,6 +37,8 @@ export default function EventCard({
   showOrg = true,
   categories,
 }: Readonly<EventCardProps>) {
+  const t = useTranslations("Events.detail");
+
   return (
     <div className="flex flex-col gap-1">
       {showOrg && (
@@ -72,20 +75,20 @@ export default function EventCard({
                 src={imgUrl}
                 width={191}
                 height={255}
-                alt="อีเว้นท์"
+                alt="event"
               />
             </div>
           </div>
           <div className="line-clamp-1 text-sm min-h-5 text-gray-500 mt-3">
-            {startDate ? formatDateRange(startDate, endDate) : "ไม่ระบุ"}
+            {startDate ? formatDateRange(startDate, endDate) : t("notSpecified")}
           </div>
           <div className="font-medium text-base line-clamp-2 mt-1 w-full">
-            {title ?? "ไม่ระบุ"}
+            {title ?? t("notSpecified")}
           </div>
         </Link>
         <div className="flex items-center gap-1">
           <Tag className="w-3 h-3 text-orange-dark" />
-          <p className="text-xs text-gray-inactive">หมวดหมู่</p>
+          <p className="text-xs text-gray-inactive">{t("category")}</p>
         </div>
         <div className="inline-flex flex-wrap gap-1">
           {categories?.map((category, index) => (
@@ -100,8 +103,8 @@ export default function EventCard({
               {locationType === "onsite"
                 ? location !== ""
                   ? location
-                  : "ไม่ระบุ"
-                : "ออนไลน์"}
+                  : t("notSpecified")
+                : t("online")}
             </div>
           </div>
         </div>

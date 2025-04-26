@@ -6,16 +6,18 @@ import JobFilterMobile from "@/features/jobs/components/JobFilterMobile";
 import { DynamicSearchBar } from "@/components/common/DynamicSearch";
 import { getJobs } from "@/features/jobs/api/action";
 import { JobCardProps } from "@/lib/types";
+import { getTranslations } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
 
 export default async function JobListingPage({
-  // params,
+  params,
   searchParams,
 }: Readonly<{
   params: { page: string; locale: string };
   searchParams: Record<string, string>;
 }>) {
+  const t = await getTranslations("Jobs");
   const search = searchParams.search?.toString() ?? "";
 
   const result = await getJobs(searchParams);
@@ -31,10 +33,9 @@ export default async function JobListingPage({
         px-6 gap-5 lg:gap-28 h-[120px] overflow-hidden"
         >
           <div className="flex flex-col items-start">
-            <p className="text-2xl font-semibold">ค้นหางานที่ตอบโจทย์</p>
+            <p className="text-2xl font-semibold">{t("searchTitle")}</p>
             <p className="text-gray-inactive text-sm">
-              อยากสร้างการเปลี่ยนแปลงใช่ไหม?
-              พบงานที่สร้างผลกระทบเชิงบวกได้ที่นี่!
+              {t("searchSubtitle")}
             </p>
           </div>
           <div className="hidden sm:block sm:mt-12 min-w-[200px]">
@@ -58,8 +59,8 @@ export default async function JobListingPage({
               <DynamicSearchBar
                 defaultValue={search}
                 type="jobs"
-                fullPlace="ค้นหาชื่องาน บริษัท หรือคีย์เวิร์ด"
-                briefPlace="ค้นหาคีย์เวิร์ดงาน"
+                fullPlace={t("searchPlaceholder.full")}
+                briefPlace={t("searchPlaceholder.brief")}
               />
             </div>
             <div className="md:hidden">

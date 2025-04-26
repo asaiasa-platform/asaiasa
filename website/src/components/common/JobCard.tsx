@@ -5,7 +5,7 @@ import { Link } from "@/i18n/routing";
 import { JobCardProps } from "@/lib/types";
 import { formatRelativeTime, getProvinceNameByCode } from "@/lib/utils";
 import { Factory, MapPin } from "lucide-react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
 
@@ -24,6 +24,8 @@ export default function JobCard({
   categories,
 }: Readonly<JobCardProps>) {
   const locale = useLocale();
+  const t = useTranslations("Jobs");
+  
   return (
     <Link
       href={`/jobs/${id}`}
@@ -88,7 +90,7 @@ export default function JobCard({
                     •
                   </span>
                   <span className="text-sm font-normal text-orange-normal translate-y-[1px]">
-                    {`฿${salary}/เดือน`}
+                    {`฿${salary}/${t("perMonth")}`}
                   </span>
                 </>
               )}
@@ -101,7 +103,7 @@ export default function JobCard({
         </p>
         <div className="flex items-center gap-1 mt-2 mb-1 text-gray-inactive">
           <Factory className="w-3 h-3" />
-          <p className="text-xs">ประเภทธุรกิจ</p>
+          <p className="text-xs">{t("businessType")}</p>
         </div>
         <div className="inline-flex gap-2 flex-wrap h-fit">
           {categories.map((sector, i) => (

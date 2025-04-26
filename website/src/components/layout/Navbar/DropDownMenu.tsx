@@ -2,9 +2,12 @@ import React from "react";
 import { ChartBar, Lightbulb, LogOut } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 export default function DropDownMenu() {
   const { removeAuthState } = useAuth();
+  const t = useTranslations("Common.userMenu");
+  
   return (
     <>
       {/* <div className="flex gap-1 ">
@@ -52,18 +55,18 @@ export default function DropDownMenu() {
         <Link href={"/user-statistics"} className={btnStyleVariant2}>
           <>
             <ChartBar className="h-[18px]" />
-            <span className="text-sm font-normal">สถิติกิจกรรม</span>
+            <span className="text-sm font-normal">{t("statistics")}</span>
           </>
         </Link>
         <Link href={"/choose-preferences"} className={btnStyleVariant2}>
           <>
             <Lightbulb className="h-[18px]" />
-            <span className="text-sm font-normal">ความสนใจ</span>
+            <span className="text-sm font-normal">{t("preferences")}</span>
           </>
         </Link>
         <button onClick={removeAuthState} className={btnStyleVariant2}>
           <LogOut className="h-[18px]" />
-          <span className="text-sm font-normal">ออกจากระบบ</span>
+          <span className="text-sm font-normal">{t("logout")}</span>
         </button>
       </div>
     </>

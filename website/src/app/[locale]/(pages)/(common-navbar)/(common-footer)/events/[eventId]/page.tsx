@@ -19,12 +19,14 @@ import parse, {
 import { Link } from "@/i18n/routing";
 import NotFoundSVG from "@/components/page/NotFound";
 import SocialContactButton from "@/components/common/SocialContactBtn";
+import { getTranslations } from "next-intl/server";
 
 export default async function EventDescription({
   params,
 }: Readonly<{
   params: { eventId: string }; // Accept event ID from URL params
 }>) {
+  const t = await getTranslations("Events.detail");
   const { eventId } = params;
   const data: EventDescriptionProps = await getEventDescription(eventId);
   console.log(data);
@@ -126,19 +128,19 @@ export default async function EventDescription({
               <div className="flex justify-start items-center flex-row gap-3">
                 <IoCalendarSharp className="shrink-0 text-orange-dark text-lg" />
                 <p className="line-clamp-2 font-normal sm:text-base md:text-lg">
-                  {startDate ? formatDateRange(startDate, endDate) : "ไม่ระบุ"}
+                  {startDate ? formatDateRange(startDate, endDate) : t("notSpecified")}
                 </p>
               </div>
               <div className="inline-flex justify-start items-center flex-row gap-3">
                 <IoTimeOutline className="shrink-0 text-orange-dark text-lg" />
                 <p className="line-clamp-2 font-normal sm:text-base md:text-lg">
-                  {startTime ? formatTimeRange(startTime, endTime) : "ไม่ระบุ"}
+                  {startTime ? formatTimeRange(startTime, endTime) : t("notSpecified")}
                 </p>
               </div>
               <div className="inline-flex justify-start items-center flex-row gap-3">
                 <IoLocationSharp className="shrink-0 text-orange-dark text-lg" />
                 <p className="line-clamp-2 font-normal sm:text-base md:text-lg">
-                  {locationName !== "" ? locationName : "ไม่ระบุ"}
+                  {locationName !== "" ? locationName : t("notSpecified")}
                 </p>
               </div>
             </div>
@@ -150,7 +152,7 @@ export default async function EventDescription({
                 src={picUrl}
                 width={300}
                 height={500}
-                alt="อีเว้นท์"
+                alt="event"
               />
             </div>
           </div>
@@ -191,19 +193,19 @@ export default async function EventDescription({
             <div className="flex justify-start items-center flex-row gap-3">
               <IoCalendarSharp className="shrink-0 text-orange-dark text-base" />
               <p className="line-clamp-2 font-normal text-sm">
-                {startDate ? formatDateRange(startDate, endDate) : "ไม่ระบุ"}
+                {startDate ? formatDateRange(startDate, endDate) : t("notSpecified")}
               </p>
             </div>
             <div className="inline-flex justify-start items-center flex-row gap-3">
               <IoTimeOutline className="shrink-0 text-orange-dark text-lg" />
               <p className="line-clamp-2 font-normal text-sm">
-                {startTime ? formatTimeRange(startTime, endTime) : "ไม่ระบุ"}
+                {startTime ? formatTimeRange(startTime, endTime) : t("notSpecified")}
               </p>
             </div>
             <div className="inline-flex justify-start items-center flex-row gap-3">
               <IoLocationSharp className="shrink-0 text-orange-dark text-lg" />
               <p className="line-clamp-2 font-normal text-sm">
-                {locationName !== "" ? locationName : "ไม่ระบุ"}
+                {locationName !== "" ? locationName : t("notSpecified")}
               </p>
             </div>
           </div>
@@ -211,7 +213,7 @@ export default async function EventDescription({
       </div>
       <div className="lg:w-[90%] xl:w-[80%] mx-auto px-3 md:px-10 lg:px-14">
         <p className="font-semibold text-xl md:text-2xl mt-[32px]">
-          รายละเอียด
+          {t("details")}
         </p>
         <div className="w-full mt-[8px] mb-[16px]" />
         <div className="flex flex-col gap-[32px] md:gap-[4%] md:flex-row justify-between">
@@ -219,7 +221,7 @@ export default async function EventDescription({
             {content && (
               <div className="flex flex-col gap-[10px]">
                 <p className="font-semibold text-xl md:text-2xl">
-                  คำอธิบายกิจกรรม
+                  {t("description")}
                 </p>
                 <div className="font-prompt text-base font-normal whitespace-pre-wrap break-words">
                   {parse(content, options)}
@@ -230,10 +232,10 @@ export default async function EventDescription({
             {locationName && (
               <div className="flex flex-col gap-[10px] w-full">
                 <p className="font-semibold text-xl md:text-2xl mt-[16px]">
-                  สถานที่
+                  {t("location")}
                 </p>
                 <p className="text-base font-normal">
-                  {locationName ?? "ไม่ระบุ"}
+                  {locationName ?? t("notSpecified")}
                 </p>
                 {latitude !== null &&
                   longitude !== null &&
@@ -251,7 +253,7 @@ export default async function EventDescription({
             {contactChannels && contactChannels.length > 0 && (
               <div className="flex flex-col gap-[10px]">
                 <p className="font-semibold text-xl md:text-2xl mt-[16px]">
-                  ช่องทางติดต่อสอบถาม
+                  {t("contactChannels")}
                 </p>
                 <div className="flex flex-row gap-2 flex-wrap">
                   {contactChannels.map((item, index) => {
@@ -274,7 +276,7 @@ export default async function EventDescription({
               w-full h-auto pt-[20px] pb-[30px] px-[5%] border rounded-[10px] drop-shadow-lg bg-white"
               >
                 <p className="text-left text-xl font-medium w-full">
-                  ลงทะเบียน
+                  {t("register")}
                 </p>
                 <div className="flex flex-col gap-5 w-full">
                   <EventRegBtn url={registerLink} eventId={eventId} />

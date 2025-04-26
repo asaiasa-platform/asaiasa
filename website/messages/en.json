@@ -46,6 +46,17 @@
     "general": {
       "or": "or",
       "loading": "Loading..."
+    },
+    "filters": {
+      "filter": "Filter"
+    },
+    "social": {
+      "website": "website"
+    },
+    "userMenu": {
+      "statistics": "Activity Statistics",
+      "preferences": "Preferences",
+      "logout": "Logout"
     }
   },
   "Auth": {
@@ -97,8 +108,10 @@
       "details": "Details",
       "description": "Event Description",
       "location": "Location",
-      "contactChannels": "Contact Information",
-      "register": "Register"
+      "contactChannels": "Contact Channels",
+      "register": "Register",
+      "category": "Category",
+      "online": "Online"
     },
     "search": {
       "prefix": "Find new",
@@ -109,7 +122,8 @@
       "full": "Search for events",
       "brief": "Search"
     },
-    "notFound": "No events found"
+    "notFound": "No events found",
+    "tryAnotherSearch": "Please try another search term or change filters"
   },
   "Jobs": {
     "title": "Jobs",
@@ -119,7 +133,22 @@
       "category": "Category",
       "type": "Job Type",
       "location": "Location"
-    }
+    },
+    "searchTitle": "Find jobs that suit you",
+    "searchSubtitle": "Want to make a difference? Find jobs with positive impact here!",
+    "businessType": "Business Type",
+    "perMonth": "per month",
+    "search": {
+      "prefix": "Find new",
+      "highlight": "Jobs",
+      "suffix": "for your career"
+    },
+    "searchPlaceholder": {
+      "full": "Search for job titles, companies, or keywords",
+      "brief": "Search for job keywords"
+    },
+    "notFound": "No jobs found",
+    "tryAnotherSearch": "Please try another search term or change filters"
   },
   "Organizations": {
     "title": "Organizations",
@@ -127,7 +156,14 @@
     "filters": {
       "category": "Category",
       "location": "Location"
-    }
+    },
+    "search": {
+      "prefix": "Find new",
+      "highlight": "Organizations",
+      "suffix": "for your advancement"
+    },
+    "searchPlaceholder": "Search for organizations",
+    "notFound": "No organizations found"
   },
   "Statistics": {
     "title": "User Statistics",
@@ -138,6 +174,106 @@
       "description": "Distribution of events by category"
     },
     "noData": "No event data available",
-    "times": "times"
+    "times": "times",
+    "eventsCount": "All events",
+    "orgCount": "Organizations",
+    "userCount": "Users"
+  },
+  "Footer": {
+    "address": "239 Huay Kaew Road, Suthep, Mueang Chiang Mai District, Chiang Mai 50200",
+    "contactChannels": "Contact Channels",
+    "email": "Email",
+    "phone": "Phone"
+  },
+  "JobDetail": {
+    "applyNow": "Apply Now",
+    "jobDetails": "Job Details",
+    "jobDescription": "Job Description",
+    "responsibilities": "Responsibilities",
+    "qualifications": "Qualifications",
+    "benefits": "Benefits",
+    "notSpecified": "Not specified",
+    "salaryLabel": "Salary",
+    "contactChannels": "Contact Information"
+  },
+  "OrgDetail": {
+    "detail": "Details",
+    "about": "About Organization",
+    "location": "Location",
+    "events": "Events",
+    "jobs": "Jobs",
+    "showMore": "Show more events",
+    "noEvents": "No events available",
+    "noEventsMessage": "This organization has not provided information about activities or has not organized any activities before.",
+    "noJobs": "No job openings available",
+    "noJobsMessage": "This organization is not currently hiring. Please check back later.",
+    "businessType": "Business Type",
+    "specialty": "Specialty",
+    "contactInfo": "Contact Information",
+    "address": "Address",
+    "email": "Email",
+    "phone": "Phone",
+    "otherChannels": "Other Channels"
+  },
+  "Privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last Updated:",
+    "effectiveDate": "January 1, 2024",
+    "section1": {
+      "title": "1. Information We Collect",
+      "intro": "We collect information that you provide to us directly, such as:",
+      "items": {
+        "item1": "Name, surname, and contact information",
+        "item2": "Login information and user account details",
+        "item3": "Transaction information",
+        "item4": "Website usage information"
+      }
+    },
+    "section2": {
+      "title": "2. How We Use Your Information",
+      "intro": "We use your information to:",
+      "items": {
+        "item1": "Provide and improve user experience",
+        "item2": "Process your requests and transactions",
+        "item3": "Send information and marketing materials (with your consent)",
+        "item4": "Improve and develop our services"
+      }
+    },
+    "section3": {
+      "title": "3. Information Disclosure",
+      "intro": "We do not disclose your personal information to third parties, except:",
+      "items": {
+        "item1": "With your consent",
+        "item2": "To comply with legal requirements",
+        "item3": "With business partners who provide services to us"
+      }
+    },
+    "section4": {
+      "title": "4. Security",
+      "content": "We implement appropriate technical and physical security measures to protect your information from unauthorized access, use, or disclosure."
+    },
+    "section5": {
+      "title": "5. Your Rights",
+      "intro": "You have the right to:",
+      "items": {
+        "item1": "Access your personal information",
+        "item2": "Correct inaccurate information",
+        "item3": "Request deletion of your data",
+        "item4": "Object to processing of your data",
+        "item5": "Withdraw consent"
+      }
+    },
+    "section6": {
+      "title": "6. Contact Us",
+      "intro": "If you have questions about this privacy policy or wish to exercise your rights, please contact us at:",
+      "contact": {
+        "email": "Email: privacy@example.com",
+        "phone": "Phone: 02-xxx-xxxx",
+        "address": "Address: No. xx, xxx Building, xxx Road, xxx District, xxx Province"
+      }
+    }
+  },
+  "ToS": {
+    "title": "Terms of Service"
   }
 }

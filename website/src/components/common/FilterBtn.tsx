@@ -1,6 +1,7 @@
 import { SlidersHorizontal } from "lucide-react";
 import React from "react";
 import Badge from "./Badge";
+import { useTranslations } from "next-intl";
 
 interface FilterBtnProps {
   getActiveFiltersCount: () => number;
@@ -11,6 +12,8 @@ export default function FilterBtn({
   getActiveFiltersCount,
   canShorten = true,
 }: Readonly<FilterBtnProps>) {
+  const t = useTranslations("Common.filters");
+  
   return (
     <button
       className="flex justify-center items-center gap-1 border bg-white 
@@ -21,7 +24,7 @@ export default function FilterBtn({
       <span
         className={`text-sm font-medium ${canShorten ? "hidden md:block" : ""}`}
       >
-        ตัวกรอง
+        {t("filter")}
       </span>
       {getActiveFiltersCount() > 0 && (
         <Badge
