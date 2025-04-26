@@ -16,7 +16,8 @@ import { signIn } from "@/features/auth/api/action";
 import { useSearchParams } from "next/navigation";
 
 export default function SigninPage() {
-  const t = useTranslations("HomePage");
+  const t = useTranslations("SignIn");
+  const c = useTranslations("Common");
   const [showPassword, setShowPassword] = useState(false);
   const { setAuthState } = useAuth();
   const {
@@ -64,8 +65,8 @@ export default function SigninPage() {
         // Await the full auth state setup
         setAuthState();
         toast({
-          title: "Success",
-          description: "Signin using email successful",
+          title: c("success"),
+          description: t("success-message"),
         });
 
         handleRedirect();
@@ -75,7 +76,7 @@ export default function SigninPage() {
     } catch (error) {
       console.error("Login error:", error);
       toast({
-        title: "Login failed",
+        title: t("login-failed"),
         description:
           error instanceof Error
             ? error.message
@@ -94,7 +95,7 @@ export default function SigninPage() {
       <div className="mx-auto flex w-full flex-col justify-center space-y-3 max-w-[400px]">
         <div className="flex flex-col space-y-2 text-center">
           <h1 className="flex flex-col gap-2 text-2xl tracking-tight">
-            <span className="font-medium">{t("sign-in-to")}</span>
+            <span className="font-medium">{t("title")}</span>
             <div className="flex flex-col gap-1">
               <Image
                 src={"/logo-2.png"}
@@ -103,13 +104,13 @@ export default function SigninPage() {
                 alt="Logo"
               />
               <span className="text-xs font-light text-left text-gray-500 italic mb-4">
-                Organization CMS Console
+                {t("cms-console")}
               </span>
             </div>
           </h1>
 
           <p className="text-sm text-muted-foreground">
-            Enter your email below to sign in
+            {t("enter-email")}
           </p>
         </div>
         <div className="grid gap-6">
@@ -117,17 +118,17 @@ export default function SigninPage() {
             <div className="grid gap-6">
               <div className="grid gap-2">
                 <div>
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">{t("email")}</Label>
                   <Input
                     {...register("email", {
-                      required: "Email is required",
+                      required: t("email-required"),
                       pattern: {
                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                        message: "Invalid email address",
+                        message: t("invalid-email"),
                       },
                     })}
                     id="email"
-                    placeholder="example@gmail.com"
+                    placeholder={t("email-placeholder")}
                     type="email"
                     autoCapitalize="none"
                     autoComplete="email"
@@ -138,14 +139,14 @@ export default function SigninPage() {
                   )}
                 </div>
                 <div>
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">{t("password")}</Label>
                   <div className="relative">
                     <Input
                       {...register("password", {
-                        required: "Password is required",
+                        required: t("password-required"),
                       })}
                       id="password"
-                      placeholder="Enter your password"
+                      placeholder={t("password-placeholder")}
                       type={showPassword ? "text" : "password"}
                       autoCapitalize="none"
                       autoComplete="password"
@@ -158,7 +159,7 @@ export default function SigninPage() {
                       className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                       onClick={togglePasswordVisibility}
                       aria-label={
-                        showPassword ? "Hide password" : "Show password"
+                        showPassword ? t("hide-password") : t("show-password")
                       }
                     >
                       {showPassword ? (
@@ -175,7 +176,7 @@ export default function SigninPage() {
                 </div>
               </div>
               <Button type="submit" disabled={isSubmitting}>
-                Sign in with Email
+                {t("sign-in-button")}
               </Button>
             </div>
           </form>
@@ -185,7 +186,7 @@ export default function SigninPage() {
             </div>
             <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-background px-2 text-muted-foreground">
-                Or continue with
+                {t("or-continue-with")}
               </span>
             </div>
           </div>

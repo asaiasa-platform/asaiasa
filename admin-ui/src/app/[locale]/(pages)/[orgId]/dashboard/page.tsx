@@ -22,6 +22,7 @@ import { CalendarIcon, UserIcon, BriefcaseIcon } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { getMyOrgs } from "@/features/organization/api/action";
 import { OrganizationCardProps } from "@/lib/types";
+import { useTranslations } from "next-intl";
 
 const data = [
   {
@@ -55,7 +56,9 @@ export default function DashboardPage({
 }: Readonly<{
   params: { orgId: string };
 }>) {
-  const [greeting, setGreeting] = useState("Good morning");
+  const t = useTranslations("Dashboard");
+  const c = useTranslations("Common");
+  const [greeting, setGreeting] = useState(t("good-morning"));
   const { userProfile } = useAuth();
   const [org, setOrg] = useState<OrganizationCardProps>();
   const orgId = params.orgId;
@@ -64,11 +67,11 @@ export default function DashboardPage({
   useEffect(() => {
     const hour = new Date().getHours();
     if (hour >= 12 && hour < 18) {
-      setGreeting("Good afternoon");
+      setGreeting(t("good-afternoon"));
     } else if (hour >= 18) {
-      setGreeting("Good evening");
+      setGreeting(t("good-evening"));
     }
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     const fetchOrgById = async () => {
@@ -90,14 +93,14 @@ export default function DashboardPage({
           {greeting}, {userProfile?.firstName}
         </h2>
         <div className="flex items-center space-x-2">
-          <Button>Download Report</Button>
+          <Button>{t("download-report")}</Button>
         </div>
       </div>
       <div className="flex flex-col lg:flex-row gap-4">
         <Card className="flex-1">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Total Employees
+              {t("total-employees")}
             </CardTitle>
             <UserIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
@@ -111,7 +114,7 @@ export default function DashboardPage({
         <Card className="flex-1">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Open Positions
+              {t("open-positions")}
             </CardTitle>
             <BriefcaseIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
@@ -122,7 +125,7 @@ export default function DashboardPage({
         </Card>
         <Card className="flex-1">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Lived Events</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("lived-events")}</CardTitle>
             <CalendarIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -150,11 +153,11 @@ export default function DashboardPage({
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="col-span-4">
           <CardHeader>
-            <CardTitle>Employee Growth</CardTitle>
+            <CardTitle>{t("employee-growth")}</CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
             <div className="flex justify-center items-center my-auto">
-              Under Development
+              {c("under-development")}
             </div>
             {/* <ResponsiveContainer width="100%" height={350}>
               <BarChart data={data}>
@@ -180,12 +183,12 @@ export default function DashboardPage({
         </Card>
         <Card className="col-span-3">
           <CardHeader>
-            <CardTitle>Recent Activities</CardTitle>
+            <CardTitle>{t("recent-activities")}</CardTitle>
             <CardDescription></CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex justify-center items-center my-auto">
-              Under Development
+              {c("under-development")}
             </div>
             {/* <div className="space-y-8">
               <div className="flex items-center">

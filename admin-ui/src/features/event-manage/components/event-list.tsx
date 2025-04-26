@@ -10,7 +10,7 @@ import {
 import React from "react";
 import { Calendar, MapPin } from "lucide-react";
 import Image from "next/image";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Event } from "@/lib/types";
 import Spinner from "@/components/ui/spinner";
 
@@ -28,12 +28,14 @@ export default function EventList({
   isLoading,
 }: Readonly<EventListProps>) {
   const locale = useLocale();
+  const c = useTranslations("Common");
+  const t = useTranslations("EventManagement");
 
   if (isLoading) {
     return (
       <div className="flex flex-col gap-1 justify-center items-center mt-[200px] w-full">
         <Spinner />
-        <span className="text-center">Loading...</span>
+        <span className="text-center">{c("loading")}</span>
       </div>
     );
   }
@@ -41,7 +43,7 @@ export default function EventList({
   if (events === undefined || events.length === 0) {
     return (
       <div className="flex flex-col gap-1 justify-center items-center mt-[200px] w-full">
-        <span className="text-center">No events found</span>
+        <span className="text-center">{t("no-events")}</span>
       </div>
     );
   }

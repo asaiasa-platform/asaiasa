@@ -18,6 +18,7 @@ import parse, {
 } from "html-react-parser";
 import { Organization } from "@/features/team-manage/lib/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useTranslations } from "next-intl";
 
 interface EventDisplayProps {
   org: Organization | undefined;
@@ -30,10 +31,12 @@ export default function EventDisplay({
   event,
   forAdmin,
 }: Readonly<EventDisplayProps>) {
+  const t = useTranslations("EventManagement");
+  
   if (!event) {
     return (
       <div className="flex flex-col gap-1 justify-center items-center h-full w-full">
-        <span className="text-center">Choose an event</span>
+        <span className="text-center">{t("choose-event")}</span>
       </div>
     );
   }
@@ -75,7 +78,7 @@ export default function EventDisplay({
     <div className="h-full overflow-y-auto bg-white min-w-[750px]">
       <div className="sticky top-0 z-10 bg-white/70 backdrop-blur flex justify-between items-center px-4 pb-2">
         <p className="text-xl font-medium text-center mt-2 p-2 border-l-4 border-orange-500">
-          ตัวอย่างหน้า
+          {t("preview")}
         </p>
         <Link
           href={`${forAdmin ? "/all-events" : "event-management"}/edit/${
@@ -84,7 +87,7 @@ export default function EventDisplay({
         >
           <Button variant={"outline"} className="border-primary drop-shadow-md">
             <MdOutlineEdit />
-            Manage Event
+            {t("manage-event")}
           </Button>
         </Link>
       </div>
@@ -129,7 +132,7 @@ export default function EventDisplay({
                 <span className="text-sm text-gray-700">
                   {event.startDate
                     ? formatDateRange(event.startDate, event.endDate)
-                    : "ไม่ระบุ"}
+                    : t("not-specified")}
                 </span>
               </div>
               <div className="flex items-center gap-3">
@@ -137,7 +140,7 @@ export default function EventDisplay({
                 <span className="text-sm text-gray-700">
                   {event.startTime
                     ? formatTimeRange(event.startTime, event.endTime)
-                    : "ไม่ระบุ"}
+                    : t("not-specified")}
                 </span>
               </div>
               <div className="flex items-center gap-3">
@@ -156,7 +159,7 @@ export default function EventDisplay({
                   rel="noopener noreferrer"
                   className="inline-block px-6 bg-orange-500 text-white text-center py-2.5 rounded-lg hover:bg-orange-600 transition-colors"
                 >
-                  ลงทะเบียน
+                  {t("register")}
                 </a>
               </div>
             )}
@@ -166,7 +169,7 @@ export default function EventDisplay({
         {/* Description Sections */}
         <div className="space-y-6 border-t pt-6">
           <div>
-            <h2 className="text-xl font-semibold mb-2">คำอธิบายกิจกรรม</h2>
+            <h2 className="text-xl font-semibold mb-2">{t("event-description")}</h2>
             <div>{parse(event.content, options)}</div>
           </div>
 
@@ -183,7 +186,7 @@ export default function EventDisplay({
           </div> */}
 
           <div>
-            <h2 className="text-xl font-semibold mb-2">สถานที่</h2>
+            <h2 className="text-xl font-semibold mb-2">{t("location")}</h2>
             <p className="text-gray-700 mb-2">{`- ${event.locationName}`}</p>
             <div className="w-[700px] h-[400px] rounded-lg mb-2 border">
               {event.latitude !== null && event.longitude !== null && (
@@ -195,7 +198,7 @@ export default function EventDisplay({
           {event.contactChannels && (
             <div>
               <h2 className="text-xl font-semibold mb-2">
-                ช่องทางติดต่อสอบถาม
+                {t("contact-channels")}
               </h2>
               {event.contactChannels.map((item, index) => (
                 <div key={index} className="flex gap-2 text-gray-700">

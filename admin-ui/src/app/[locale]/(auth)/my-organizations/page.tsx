@@ -7,8 +7,11 @@ import { Link } from "@/i18n/routing";
 import { OrganizationCardProps } from "@/lib/types";
 import { Loader2, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 export default function MyOrganizations() {
+  const t = useTranslations("MyOrganizations");
+  const c = useTranslations("Common");
   const [orgs, setOrgs] = useState<OrganizationCardProps[]>([]);
   const [isFetchingOrgs, setIsFetchingOrgs] = useState(false);
 
@@ -37,12 +40,12 @@ export default function MyOrganizations() {
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl sm:text-3xl font-bold mb-8">
-          {`My Organizations (${orgs.length})`}
+          {`${t("title")} (${orgs.length})`}
         </h1>
         <Link href={"/org-register"}>
           <Button className="mb-8">
             <Plus size={24} />
-            <span className="hidden sm:inline">Create Organization</span>
+            <span className="hidden sm:inline">{t("create-org")}</span>
           </Button>
         </Link>
       </div>
@@ -50,7 +53,7 @@ export default function MyOrganizations() {
       {isFetchingOrgs ? (
         <div className="flex items-center justify-center mt-5">
           <Loader2 className="h-10 w-10 animate-spin" />
-          <span className="ml-2">Loading...</span>
+          <span className="ml-2">{c("loading")}</span>
         </div>
       ) : (
         <div className="space-y-6">
@@ -61,7 +64,7 @@ export default function MyOrganizations() {
                 .map((org) => <OrganizationCard key={org.id} {...org} />)
             ) : (
               <div className="flex items-center justify-center mt-5">
-                <span className="text-center">No organizations found</span>
+                <span className="text-center">{t("no-orgs")}</span>
               </div>
             )}
           </div>

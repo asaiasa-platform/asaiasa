@@ -2,6 +2,126 @@
   "HomePage": {
     "title": "ASAiASA",
     "sign-in-to": "Sign in to",
-    "about": "Go to the about page"
+    "about": "Go to the about page",
+    "cms": "CMS",
+    "documentation": "Documentation",
+    "support": "Support",
+    "tagline": "ASAiASA CMS",
+    "description": "Streamline your organization's content on ASAiASA with our CMS. Manage events, job posts, and team members effortlessly.",
+    "register-org": "Register Your Organization",
+    "your-org": "Your Organization",
+    "key-features": "Key Features",
+    "get-in-touch": "Get in Touch",
+    "privacy-policy": "Privacy Policy",
+    "terms-of-service": "Terms of Service",
+    "copyright": "© 2025 ASAiASA. All rights reserved."
+  },
+  "Features": {
+    "event-management": {
+      "title": "Event Management",
+      "description": "Create, update, and delete events for your organization with ease."
+    },
+    "job-post-management": {
+      "title": "Job Post Management",
+      "description": "Efficiently manage job postings, keeping your opportunities up-to-date."
+    },
+    "member-management": {
+      "title": "Member Management",
+      "description": "Keep track of your organization's members and their information seamlessly."
+    }
+  },
+  "ContactForm": {
+    "email": "Email",
+    "placeholder": "Enter your email",
+    "submit": "Stay Updated"
+  },
+  "Common": {
+    "english": "English",
+    "thai": "ภาษาไทย",
+    "loading": "Loading...",
+    "under-development": "Under Development",
+    "create": "Create",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "search": "Search",
+    "next": "Next",
+    "previous": "Previous",
+    "all": "All",
+    "no-data": "No data found",
+    "success": "Success",
+    "error": "Error"
+  },
+  "SignIn": {
+    "title": "Sign in to",
+    "cms-console": "Organization CMS Console",
+    "enter-email": "Enter your email below to sign in",
+    "email": "Email",
+    "email-placeholder": "example@gmail.com",
+    "password": "Password",
+    "password-placeholder": "Enter your password",
+    "show-password": "Show password",
+    "hide-password": "Hide password",
+    "sign-in-button": "Sign in with Email",
+    "or-continue-with": "Or continue with",
+    "signin-google": "Sign in with Google",
+    "success-message": "Signin using email successful",
+    "login-failed": "Login failed",
+    "email-required": "Email is required",
+    "invalid-email": "Invalid email address",
+    "password-required": "Password is required"
+  },
+  "MyOrganizations": {
+    "title": "My Organizations",
+    "create-org": "Create Organization",
+    "no-orgs": "No organizations found"
+  },
+  "Dashboard": {
+    "good-morning": "Good morning",
+    "good-afternoon": "Good afternoon",
+    "good-evening": "Good evening",
+    "download-report": "Download Report",
+    "total-employees": "Total Employees",
+    "open-positions": "Open Positions",
+    "lived-events": "Lived Events",
+    "employee-growth": "Employee Growth",
+    "recent-activities": "Recent Activities"
+  },
+  "EventManagement": {
+    "title": "Event Management",
+    "search-placeholder": "Search Name",
+    "create-button": "Create",
+    "all": "All",
+    "live": "Live",
+    "draft": "Draft",
+    "past": "Past",
+    "page": "Page",
+    "of": "of",
+    "no-events": "No events found"
+  },
+  "JobManagement": {
+    "title": "Job Management",
+    "search-placeholder": "Search job titles",
+    "create-button": "Create",
+    "all": "All",
+    "published": "Published", 
+    "draft": "Draft",
+    "expired": "Expired",
+    "page": "Page",
+    "of": "of",
+    "no-jobs": "No jobs found"
+  },
+  "TeamManagement": {
+    "title": "Team Management",
+    "invite-members": "Invite Members",
+    "search-placeholder": "Search members",
+    "no-members": "No team members found"
+  },
+  "OrgManagement": {
+    "title": "Organization Management",
+    "profile": "Organization Profile",
+    "settings": "Organization Settings"
   }
 }

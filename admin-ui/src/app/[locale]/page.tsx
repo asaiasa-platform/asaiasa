@@ -11,8 +11,12 @@ import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import ContactForm from "@/features/landing-page/ContactForm";
 import LangSwitcher from "@/components/common/LangSwitcher";
+import { useTranslations } from "next-intl";
 
 export default function Home() {
+  const t = useTranslations("HomePage");
+  const tf = useTranslations("Features");
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <header className="bg-white shadow-sm">
@@ -24,7 +28,7 @@ export default function Home() {
               height={1000}
               alt="Logo"
             />
-            <span className="absolute -top-1 -right-7 text-xs text-gray-400">CMS</span>
+            <span className="absolute -top-1 -right-7 text-xs text-gray-400">{t("cms")}</span>
           </div>
           <div className="flex items-center space-x-4">
             <LangSwitcher />
@@ -32,13 +36,13 @@ export default function Home() {
               href="/docs"
               className="text-sm font-medium text-gray-500 hover:text-gray-900"
             >
-              Documentation
+              {t("documentation")}
             </Link>
             <Link
               href="/support"
               className="text-sm font-medium text-gray-500 hover:text-gray-900"
             >
-              Support
+              {t("support")}
             </Link>
           </div>
         </nav>
@@ -47,11 +51,10 @@ export default function Home() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl md:text-6xl">
-            ASAiASA CMS
+            {t("tagline")}
           </h1>
           <p className="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-            Streamline your organization&apos;s content on ASAiASA with our
-            CMS. Manage events, job posts, and team members effortlessly.
+            {t("description")}
           </p>
           <div className="mt-8 max-w-md mx-auto sm:flex sm:justify-center sm:gap-4">
             <Button
@@ -61,7 +64,7 @@ export default function Home() {
             >
               <Link href="/org-register">
                 <ClipboardPen className="mr-2 h-4 w-4" />
-                Register Your Organization{" "}
+                {t("register-org")}
               </Link>
             </Button>
             <Button
@@ -71,7 +74,7 @@ export default function Home() {
               className="w-full sm:w-auto flex items-center justify-center"
             >
               <Link href="/my-organizations">
-                <LogIn className="mr-2 h-4 w-4" /> Your Organization
+                <LogIn className="mr-2 h-4 w-4" /> {t("your-org")}
               </Link>
             </Button>
           </div>
@@ -79,30 +82,30 @@ export default function Home() {
 
         <div className="mt-16">
           <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-8">
-            Key Features
+            {t("key-features")}
           </h2>
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             <FeatureCard
               icon={<Calendar className="h-6 w-6" />}
-              title="Event Management"
-              description="Create, update, and delete events for your organization with ease."
+              title={tf("event-management.title")}
+              description={tf("event-management.description")}
             />
             <FeatureCard
               icon={<Briefcase className="h-6 w-6" />}
-              title="Job Post Management"
-              description="Efficiently manage job postings, keeping your opportunities up-to-date."
+              title={tf("job-post-management.title")}
+              description={tf("job-post-management.description")}
             />
             <FeatureCard
               icon={<Users className="h-6 w-6" />}
-              title="Member Management"
-              description="Keep track of your organization's members and their information seamlessly."
+              title={tf("member-management.title")}
+              description={tf("member-management.description")}
             />
           </div>
         </div>
 
         <div className="mt-16">
           <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-8">
-            Get in Touch
+            {t("get-in-touch")}
           </h2>
           <div className="max-w-md mx-auto">
             <ContactForm />
@@ -118,17 +121,17 @@ export default function Home() {
                 href="/privacy"
                 className="text-base text-gray-500 hover:text-gray-900"
               >
-                Privacy Policy
+                {t("privacy-policy")}
               </Link>
               <Link
                 href="/terms"
                 className="text-base text-gray-500 hover:text-gray-900"
               >
-                Terms of Service
+                {t("terms-of-service")}
               </Link>
             </div>
             <p className="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
-              &copy; 2025 ASAiASA. All rights reserved.
+              {t("copyright")}
             </p>
           </div>
         </div>

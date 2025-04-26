@@ -21,10 +21,13 @@ import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BiEdit } from "react-icons/bi";
+import { useTranslations } from "next-intl";
 
 export default function EventManagementPage({
   params,
 }: Readonly<{ params: { orgId: string } }>) {
+  const t = useTranslations("EventManagement");
+  const c = useTranslations("Common");
   const defaultLayout = [35, 65];
   const isMobile = useIsMobile();
   const [org, setOrg] = useState<Organization>();
@@ -148,7 +151,7 @@ export default function EventManagementPage({
                 <div className="relative w-full">
                   <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                   <Input
-                    placeholder="Search Name"
+                    placeholder={t("search-placeholder")}
                     className="pl-8"
                     onChange={(e) => setSearchTerms(e.target.value)}
                   />
@@ -156,7 +159,7 @@ export default function EventManagementPage({
                 <Link href={`event-management/add`}>
                   <Button>
                     <BiEdit />
-                    Create
+                    {t("create-button")}
                   </Button>
                 </Link>
               </div>
@@ -168,25 +171,25 @@ export default function EventManagementPage({
                       value="all"
                       className="text-zinc-600 dark:text-zinc-200"
                     >
-                      All
+                      {c("all")}
                     </TabsTrigger>
                     <TabsTrigger
                       value="published"
                       className="text-zinc-600 dark:text-zinc-200"
                     >
-                      Live
+                      {t("live")}
                     </TabsTrigger>
                     <TabsTrigger
                       value="draft"
                       className="text-zinc-600 dark:text-zinc-200"
                     >
-                      Draft
+                      {t("draft")}
                     </TabsTrigger>
                     <TabsTrigger
                       value="past"
                       className="text-zinc-600 dark:text-zinc-200"
                     >
-                      Past
+                      {t("past")}
                     </TabsTrigger>
                   </TabsList>
                 </div>
@@ -202,7 +205,7 @@ export default function EventManagementPage({
                     <ChevronLeft className="h-4 w-4" />
                   </Button>
                   <span className="text-xs mx-1">
-                    {currentPage}/{Math.max(1, totalPages)}
+                    {t("page")} {currentPage} {t("of")} {Math.max(1, totalPages)}
                   </span>
                   <Button
                     variant="outline"
@@ -264,7 +267,7 @@ export default function EventManagementPage({
       >
         <div className="h-full overflow-y-auto p-2">
           <EventDisplay
-            event={events.find((e) => e.id === Number(currentId))}
+            event={events.find((e) => e.id.toString() === currentId)}
             org={org}
           />
         </div>
