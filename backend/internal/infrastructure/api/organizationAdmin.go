@@ -47,7 +47,8 @@ func NewOrganizationAdminRouter(app *fiber.App, db *gorm.DB, enforcer casbin.IEn
 	// Dependencies Injections for Organization Open Jobs
 	orgOpenJobRepo := repository.NewOrgOpenJobRepository(db)
 	jobPreqRepo := repository.NewPrerequisiteRepository(db)
-	orgOpenJobService := service.NewOrgOpenJobService(orgOpenJobRepo, organizationRepo, jobPreqRepo, db, es, s3)
+	opensearchRepo := repository.NewOpenSearchRepository(es)
+	orgOpenJobService := service.NewOrgOpenJobService(orgOpenJobRepo, organizationRepo, jobPreqRepo, opensearchRepo, db, es, s3)
 	orgOpenJobHandler := handler.NewOrgOpenJobHandler(orgOpenJobService)
 	enforceMiddlewareWithOpenJob := rbac.EnforceMiddlewareWithResources("OrganizationOpenJob")
 

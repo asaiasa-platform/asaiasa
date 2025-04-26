@@ -514,23 +514,25 @@ func (s organizationContactService) DeleteContact(orgID uint, id uint) error {
 // --------------------------------------------------------------------------
 
 type orgOpenJobService struct {
-	jobRepo  repository.OrgOpenJobRepository
-	OrgRepo  repository.OrganizationRepository
-	PreqRepo repository.PrerequisiteRepository
-	DB       *gorm.DB
-	OS       *opensearch.Client
-	S3       *infrastructure.S3Uploader
+	jobRepo        repository.OrgOpenJobRepository
+	OrgRepo        repository.OrganizationRepository
+	PreqRepo       repository.PrerequisiteRepository
+	openSearchRepo repository.OpenSearchRepository
+	DB             *gorm.DB
+	OS             *opensearch.Client
+	S3             *infrastructure.S3Uploader
 }
 
 // Constructor
-func NewOrgOpenJobService(jobRepo repository.OrgOpenJobRepository, OrgRepo repository.OrganizationRepository, PreqRepo repository.PrerequisiteRepository, db *gorm.DB, os *opensearch.Client, s3 *infrastructure.S3Uploader) OrgOpenJobService {
+func NewOrgOpenJobService(jobRepo repository.OrgOpenJobRepository, OrgRepo repository.OrganizationRepository, PreqRepo repository.PrerequisiteRepository, openSearchRepo repository.OpenSearchRepository, db *gorm.DB, os *opensearch.Client, s3 *infrastructure.S3Uploader) OrgOpenJobService {
 	return orgOpenJobService{
-		jobRepo:  jobRepo,
-		OrgRepo:  OrgRepo,
-		PreqRepo: PreqRepo,
-		DB:       db,
-		OS:       os,
-		S3:       s3,
+		jobRepo:        jobRepo,
+		OrgRepo:        OrgRepo,
+		PreqRepo:       PreqRepo,
+		openSearchRepo: openSearchRepo,
+		DB:             db,
+		OS:             os,
+		S3:             s3,
 	}
 }
 
@@ -595,21 +597,20 @@ func (s orgOpenJobService) NewJob(orgID uint, req dto.JobRequest) error {
 		return errs.NewUnexpectedError()
 	}
 
-	// Upload image to S3
-	// if file != nil {
-	// 	picURL, err := s.S3.UploadJobBanner(ctx, file, fileHeader, orgID, job.ID)
-	// 	if err != nil {
-	// 		logs.Error(err)
-	// 		return errs.NewUnexpectedError()
-	// 	}
-
-	// 	// Update PicUrl in job
-	// 	err = s.jobRepo.UpdateJobPicture(orgID, job.ID, picURL)
-	// 	if err != nil {
-	// 		logs.Error(err)
-	// 		return errs.NewUnexpectedError()
-	// 	}
-	// }
+	// Get the complete job with all relations for Elasticsearch
+	completeJob, err := s.jobRepo.GetJobByID(job.ID)
+	if err != nil {
+		logs.Error(err)
+		logs.Error("Failed to get complete job for Elasticsearch, but database operation was successful")
+	} else {
+		// Convert to JobDocument and index in OpenSearch
+		jobDoc := convertToJobDocument(*completeJob)
+		err = s.openSearchRepo.CreateOrUpdateJob(jobDoc)
+		if err != nil {
+			logs.Error(err)
+			logs.Error("Failed to update job in OpenSearch, but database operation was successful")
+		}
+	}
 
 	return nil
 }
@@ -863,25 +864,6 @@ func (s orgOpenJobService) UpdateJob(orgID uint, jobID uint, dto dto.JobRequest)
 	job := ConvertToJobRequest(orgID, dto, categories)
 	job.ID = existJob.ID
 
-	// if file != nil {
-	// 	picURL, err := s.S3.UploadJobBanner(ctx, file, fileHeader, orgID, job.ID)
-	// 	if err != nil {
-	// 		logs.Error(err)
-	// 		return nil, errs.NewUnexpectedError()
-	// 	}
-
-	// 	job.PicUrl = picURL
-	// 	// Update PicUrl in job
-	// 	err = s.jobRepo.UpdateJobPicture(orgID, job.ID, picURL)
-	// 	if err != nil {
-	// 		logs.Error(err)
-	// 		return nil, errs.NewUnexpectedError()
-	// 	}
-	// } else {
-	// 	// If no new image is uploaded, use the existing image
-	// 	job.PicUrl = existJob.PicUrl
-	// }
-
 	// Convert prerequisites DTO to models
 	var updatedPrerequisites []models.Prerequisite
 	for _, preReq := range dto.Prerequisite {
@@ -899,6 +881,14 @@ func (s orgOpenJobService) UpdateJob(orgID uint, jobID uint, dto dto.JobRequest)
 	if err != nil {
 		logs.Error(err)
 		return nil, errs.NewUnexpectedError()
+	}
+
+	// Convert to JobDocument and index in OpenSearch
+	jobDoc := convertToJobDocument(*updatedJob)
+	err = s.openSearchRepo.CreateOrUpdateJob(jobDoc)
+	if err != nil {
+		logs.Error(err)
+		logs.Error("Failed to update job in OpenSearch, but database operation was successful")
 	}
 
 	updatedJob.PicUrl = job.PicUrl
@@ -922,9 +912,19 @@ func (s orgOpenJobService) UpdateJobPicture(orgID uint, jobID uint, picURL strin
 }
 
 func (s orgOpenJobService) RemoveJob(jobID uint) error {
+	// Get the job before deleting it (to have data for OpenSearch delete)
+	_, err := s.jobRepo.GetJobByID(jobID)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return errs.NewNotFoundError("job not found")
+		}
 
-	err := s.jobRepo.DeleteJob(jobID)
+		logs.Error(err)
+		return errs.NewUnexpectedError()
+	}
 
+	// Delete from database
+	err = s.jobRepo.DeleteJob(jobID)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			logs.Error("Job not found in the database")
@@ -933,6 +933,16 @@ func (s orgOpenJobService) RemoveJob(jobID uint) error {
 
 		logs.Error(err)
 		return errs.NewUnexpectedError()
+	}
+
+	// Delete from OpenSearch
+	jobDoc := dto.JobDocument{
+		ID: jobID,
+	}
+	err = s.openSearchRepo.DeleteJob(jobDoc)
+	if err != nil {
+		logs.Error(err)
+		logs.Error("Failed to delete job from OpenSearch, but database operation was successful")
 	}
 
 	return nil
@@ -946,4 +956,45 @@ func (s orgOpenJobService) CountsByOrgID(orgID uint) (int64, error) {
 	}
 
 	return count, nil
+}
+
+// convertToJobDocument converts a models.OrgOpenJob to dto.JobDocument
+func convertToJobDocument(job models.OrgOpenJob) *dto.JobDocument {
+	var categoryRequests []dto.CategoryRequest
+	for _, category := range job.Categories {
+		categoryRequests = append(categoryRequests, dto.CategoryRequest{
+			Value: category.ID,
+			Label: category.Name,
+		})
+	}
+
+	var prerequisites []dto.PrerequisiteRequest
+	for _, prereq := range job.Prerequisites {
+		prerequisites = append(prerequisites, dto.PrerequisiteRequest{
+			Title: prereq.Title,
+			Link:  prereq.Link,
+		})
+	}
+
+	organization := dto.OrganizationShortDocument{
+		ID:     job.Organization.ID,
+		Name:   job.Organization.Name,
+		PicUrl: job.Organization.PicUrl,
+	}
+
+	return &dto.JobDocument{
+		ID:            job.ID,
+		Title:         job.Title,
+		Description:   job.Description,
+		Workplace:     string(job.Workplace),
+		WorkType:      string(job.WorkType),
+		CareerStage:   string(job.CareerStage),
+		Salary:        job.Salary,
+		Prerequisites: prerequisites,
+		Categories:    categoryRequests,
+		Organization:  organization,
+		Province:      job.Province,
+		Country:       job.Country,
+		UpdateAt:      job.UpdatedAt.Format("2006-01-02 15:04:05"),
+	}
 }

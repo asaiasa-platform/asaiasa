@@ -14,7 +14,8 @@ import (
 func NewEventRouter(app *fiber.App, db *gorm.DB, enforcer casbin.IEnforcer, es *opensearch.Client, s3 *infrastructure.S3Uploader, jwtSecret string) {
 	// Dependencies Injections for Event
 	eventRepo := repository.NewEventRepository(db)
-	eventService := service.NewEventService(eventRepo, db, es, s3)
+	opensearchRepo := repository.NewOpenSearchRepository(es)
+	eventService := service.NewEventService(eventRepo, opensearchRepo, db, es, s3)
 	eventHandler := handler.NewEventHandler(eventService)
 	//rbac := middleware.NewRBACMiddleware(enforcer)
 	//enforceMiddlewareWithEvent := rbac.EnforceMiddlewareWithResources("Event")

@@ -22,20 +22,22 @@ const numberOfEvent uint = 12
 
 // EventService is a service that provides operations on events.
 type eventService struct {
-	eventRepo repository.EventRepository
-	DB        *gorm.DB
-	OS        *opensearch.Client
-	S3        *infrastructure.S3Uploader
+	eventRepo      repository.EventRepository
+	openSearchRepo repository.OpenSearchRepository
+	DB             *gorm.DB
+	OS             *opensearch.Client
+	S3             *infrastructure.S3Uploader
 }
 
 //--------------------------------------------//
 
-func NewEventService(eventRepo repository.EventRepository, db *gorm.DB, os *opensearch.Client, s3 *infrastructure.S3Uploader) EventService {
+func NewEventService(eventRepo repository.EventRepository, openSearchRepo repository.OpenSearchRepository, db *gorm.DB, os *opensearch.Client, s3 *infrastructure.S3Uploader) EventService {
 	return eventService{
-		eventRepo: eventRepo,
-		DB:        db,
-		OS:        os,
-		S3:        s3}
+		eventRepo:      eventRepo,
+		openSearchRepo: openSearchRepo,
+		DB:             db,
+		OS:             os,
+		S3:             s3}
 }
 
 func (s eventService) CountEventByOrgID(orgID uint) (int64, error) {
@@ -116,6 +118,16 @@ func (s eventService) NewEvent(orgID uint, req dto.NewEventRequest, ctx context.
 			logs.Error(err)
 			return errs.NewUnexpectedError()
 		}
+		event.PicUrl = picURL
+	}
+
+	// Convert to EventDocument and index in OpenSearch
+	eventDoc := convertToEventDocument(event)
+	err = s.openSearchRepo.CreateOrUpdateEvent(eventDoc)
+	if err != nil {
+		logs.Error(err)
+		// Continue even if OpenSearch update fails
+		logs.Error("Failed to update event in OpenSearch, but database operation was successful")
 	}
 
 	return nil
@@ -262,7 +274,6 @@ func (s eventService) CountEvent() (int64, error) {
 }
 
 func (s eventService) UpdateEvent(orgID uint, eventID uint, req dto.NewEventRequest, ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader) (*dto.EventResponses, error) {
-
 	existingEvent, err := s.eventRepo.GetByID(eventID)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -326,6 +337,15 @@ func (s eventService) UpdateEvent(orgID uint, eventID uint, req dto.NewEventRequ
 		return nil, errs.NewUnexpectedError()
 	}
 
+	// Convert to EventDocument and index in OpenSearch
+	eventDoc := convertToEventDocument(*updateEvent)
+	err = s.openSearchRepo.CreateOrUpdateEvent(eventDoc)
+	if err != nil {
+		logs.Error(err)
+		// Continue even if OpenSearch update fails
+		logs.Error("Failed to update event in OpenSearch, but database operation was successful")
+	}
+
 	eventResponse := ConvertToEventResponse(*updateEvent)
 
 	return &eventResponse, nil
@@ -343,8 +363,8 @@ func (s eventService) UploadEventPicture(ctx context.Context, file multipart.Fil
 }
 
 func (s eventService) DeleteEvent(orgID uint, eventID uint) error {
-	err := s.eventRepo.Delete(orgID, eventID)
-
+	// Get the event before deleting it (to have data for OpenSearch delete)
+	_, err := s.eventRepo.GetByIDwithOrgID(orgID, eventID)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return errs.NewNotFoundError("event not found")
@@ -354,5 +374,66 @@ func (s eventService) DeleteEvent(orgID uint, eventID uint) error {
 		return errs.NewUnexpectedError()
 	}
 
+	// Delete from database
+	err = s.eventRepo.Delete(orgID, eventID)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return errs.NewNotFoundError("event not found")
+		}
+
+		logs.Error(err)
+		return errs.NewUnexpectedError()
+	}
+
+	// Delete from OpenSearch
+	eventDoc := dto.EventDocument{
+		ID: eventID,
+	}
+	err = s.openSearchRepo.DeleteEvent(eventDoc)
+	if err != nil {
+		logs.Error(err)
+		// Continue even if OpenSearch delete fails
+		logs.Error("Failed to delete event from OpenSearch, but database operation was successful")
+	}
+
 	return nil
+}
+
+// convertToEventDocument converts a models.Event to dto.EventDocument
+func convertToEventDocument(event models.Event) *dto.EventDocument {
+	var categoryRequests []dto.CategoryRequest
+	for _, category := range event.Categories {
+		categoryRequests = append(categoryRequests, dto.CategoryRequest{
+			Value: category.ID,
+			Label: category.Name,
+		})
+	}
+
+	organization := dto.OrganizationShortDocument{
+		ID:     event.Organization.ID,
+		Name:   event.Organization.Name,
+		PicUrl: event.Organization.PicUrl,
+	}
+
+	return &dto.EventDocument{
+		ID:           event.ID,
+		Name:         event.Name,
+		PicUrl:       event.PicUrl,
+		Content:      event.Content,
+		Latitude:     event.Latitude,
+		Longitude:    event.Longitude,
+		StartDate:    event.StartDate.Format("2006-01-02"),
+		EndDate:      event.EndDate.Format("2006-01-02"),
+		StartTime:    event.StartTime.Format("15:04:05"),
+		EndTime:      event.EndTime.Format("15:04:05"),
+		LocationName: event.LocationName,
+		Province:     event.Province,
+		Country:      event.Country,
+		LocationType: event.LocationType,
+		Organization: organization,
+		Categories:   categoryRequests,
+		Audience:     event.Audience,
+		Price:        event.PriceType,
+		UpdateAt:     event.UpdatedAt.Format("2006-01-02 15:04:05"),
+	}
 }

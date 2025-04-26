@@ -34,6 +34,16 @@ const nextConfig = {
       {
         protocol: "https",
         pathname: "/**", // This allows any path under the bucket
+        hostname: "proptabucket.s3.us-east-1.amazonaws.com",
+      },
+      {
+        protocol: "https",
+        pathname: "/**", // This allows any path under the bucket
+        hostname: "anda-daf-bridge.s3.us-east-1.amazonaws.com",
+      },
+      {
+        protocol: "https",
+        pathname: "/**", // This allows any path under the bucket
         hostname: process.env.NEXT_PUBLIC_S3_BUCKET1,
       },
       {
