@@ -11,10 +11,10 @@ import { getTranslations } from "next-intl/server";
 export const dynamic = "force-dynamic";
 
 export default async function JobListingPage({
-  params,
+  // params,
   searchParams,
 }: Readonly<{
-  params: { page: string; locale: string };
+  // params: { page: string; locale: string };
   searchParams: Record<string, string>;
 }>) {
   const t = await getTranslations("Jobs");
