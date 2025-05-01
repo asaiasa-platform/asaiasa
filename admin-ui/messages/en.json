@@ -91,37 +91,149 @@
   },
   "EventManagement": {
     "title": "Event Management",
-    "search-placeholder": "Search Name",
-    "create-button": "Create",
-    "all": "All",
-    "live": "Live",
-    "draft": "Draft",
-    "past": "Past",
+    "search-placeholder": "Search events by name",
+    "create-button": "Create Event",
+    "all": "All Events",
+    "live": "Live Events",
+    "draft": "Draft Events",
+    "past": "Past Events",
     "page": "Page",
     "of": "of",
-    "no-events": "No events found"
+    "no-events": "No events found",
+    "filters": {
+      "status": "Status",
+      "date": "Date",
+      "category": "Category"
+    },
+    "status": {
+      "published": "Published",
+      "draft": "Draft",
+      "cancelled": "Cancelled"
+    }
   },
   "JobManagement": {
     "title": "Job Management",
     "search-placeholder": "Search job titles",
-    "create-button": "Create",
-    "all": "All",
-    "published": "Published", 
+    "create-button": "Create Job",
+    "all": "All Jobs",
+    "published": "Published",
     "draft": "Draft",
     "expired": "Expired",
     "page": "Page",
     "of": "of",
-    "no-jobs": "No jobs found"
+    "no-jobs": "No jobs found",
+    "filters": {
+      "status": "Status",
+      "type": "Job Type",
+      "category": "Category"
+    },
+    "status": {
+      "published": "Published",
+      "draft": "Draft",
+      "expired": "Expired"
+    }
   },
   "TeamManagement": {
     "title": "Team Management",
-    "invite-members": "Invite Members",
-    "search-placeholder": "Search members",
-    "no-members": "No team members found"
+    "invite": {
+      "title": "Invite Team Members",
+      "email": "Email Address",
+      "role": "Role",
+      "sendInvite": "Send Invitation"
+    },
+    "members": {
+      "title": "Team Members",
+      "search": "Search members",
+      "noMembers": "No team members found",
+      "status": {
+        "active": "Active",
+        "pending": "Pending",
+        "inactive": "Inactive"
+      }
+    },
+    "roles": {
+      "admin": "Administrator",
+      "editor": "Editor",
+      "viewer": "Viewer"
+    },
+    "actions": {
+      "remove": "Remove Member",
+      "changeRole": "Change Role",
+      "resendInvite": "Resend Invitation"
+    }
   },
   "OrgManagement": {
     "title": "Organization Management",
-    "profile": "Organization Profile",
-    "settings": "Organization Settings"
+    "profile": {
+      "title": "Organization Profile",
+      "edit": "Edit Profile",
+      "view": "View Profile"
+    },
+    "settings": {
+      "title": "Organization Settings",
+      "general": "General Settings",
+      "notifications": "Notifications",
+      "privacy": "Privacy Settings"
+    },
+    "members": {
+      "title": "Team Members",
+      "invite": "Invite Members",
+      "roles": "Manage Roles"
+    }
+  },
+  "OrgRegister": {
+    "title": "Register Your Organization",
+    "logo": {
+      "label": "Organization Logo",
+      "description": "Upload your organization logo"
+    },
+    "background": {
+      "label": "Background Image",
+      "description": "Upload a background image"
+    },
+    "basicInfo": {
+      "title": "Basic Information",
+      "name": "Organization Name",
+      "email": "Organization Email",
+      "headline": "Headline",
+      "specialty": "Specialty",
+      "description": "Description",
+      "industries": "Industries"
+    },
+    "location": {
+      "title": "Location",
+      "isRemote": "This is a remote organization",
+      "address": "Address",
+      "province": "Province",
+      "country": "Country",
+      "coordinates": {
+        "latitude": "Latitude",
+        "longitude": "Longitude"
+      }
+    },
+    "contact": {
+      "title": "Contact Information",
+      "phone": "Phone Number",
+      "channels": {
+        "title": "Contact Channels",
+        "media": "Platform",
+        "mediaLink": "Link",
+        "addMore": "Add More Channel",
+        "remove": "Remove Channel"
+      }
+    },
+    "submit": {
+      "title": "Submit Registration",
+      "description": "Please review your information before submitting",
+      "button": "Register Organization",
+      "success": "Organization registered successfully",
+      "error": "Failed to register organization"
+    },
+    "validation": {
+      "required": "This field is required",
+      "invalidEmail": "Invalid email address",
+      "invalidPhone": "Invalid phone number",
+      "invalidUrl": "Invalid URL format"
+    }
   }
 }
