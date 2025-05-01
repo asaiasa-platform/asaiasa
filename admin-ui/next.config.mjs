@@ -51,6 +51,14 @@ const nextConfig = {
         pathname: "/**", // This allows any path under the bucket
         hostname: process.env.NEXT_PUBLIC_S3_BUCKET2,
       },
+      {
+        protocol: "https",
+        hostname: "**", // Allow any external domain
+      },
+      {
+        protocol: "http",
+        hostname: "**", // Allow any external domain with http
+      },
     ],
   },
   // async rewrites() {

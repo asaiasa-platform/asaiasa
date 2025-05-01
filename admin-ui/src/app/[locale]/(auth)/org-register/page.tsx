@@ -101,7 +101,7 @@ export default function OrgRegisterPage() {
       const response = await fetch(apiUrl);
       const data = await response.json();
       const industries = data.industries;
-      console.log(industries);
+      
       if (value) {
         return industries
           .filter((industry: { name: string; id: number }) =>

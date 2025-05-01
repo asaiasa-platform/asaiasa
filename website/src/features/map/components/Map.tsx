@@ -84,7 +84,9 @@ const MapComponent: React.FC<MapProps> = ({
     document.head.appendChild(styleSheet);
 
     return () => {
-      document.head.removeChild(styleSheet);
+      if (document.head.contains(styleSheet)) {
+        document.head.removeChild(styleSheet);
+      }
     };
   }, []);
 

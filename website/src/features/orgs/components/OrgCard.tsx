@@ -56,7 +56,7 @@ export function OrganizationCard({
             {headline}
           </h2>
           <div className="flex flex-wrap gap-1.5">
-            {industries.map((industry) => (
+            {industries && industries.map((industry) => (
               <Badge
                 key={industry.id}
                 className="font-normal"

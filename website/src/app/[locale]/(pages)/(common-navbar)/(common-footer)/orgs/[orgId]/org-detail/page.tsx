@@ -43,7 +43,7 @@ export default async function OrgDescriptionPage({
               {t("businessType")} :
             </p>
             <div className="flex flex-wrap justify-start items-center gap-2">
-              {industries.map((industry) => (
+              {industries && industries.map((industry) => (
                 <Badge key={industry.id} label={industry.name} />
               ))}
             </div>
