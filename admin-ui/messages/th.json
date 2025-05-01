@@ -89,151 +89,39 @@
     "employee-growth": "การเติบโตของพนักงาน",
     "recent-activities": "กิจกรรมล่าสุด"
   },
-  "OrgRegister": {
-    "title": "ลงทะเบียนองค์กรของคุณ",
-    "logo": {
-      "label": "โลโก้องค์กร",
-      "description": "อัปโหลดโลโก้องค์กรของคุณ"
-    },
-    "background": {
-      "label": "ภาพพื้นหลัง",
-      "description": "อัปโหลดภาพพื้นหลัง"
-    },
-    "basicInfo": {
-      "title": "ข้อมูลพื้นฐาน",
-      "name": "ชื่อองค์กร",
-      "email": "อีเมลองค์กร",
-      "headline": "หัวข้อ",
-      "specialty": "ความเชี่ยวชาญ",
-      "description": "รายละเอียด",
-      "industries": "อุตสาหกรรม"
-    },
-    "location": {
-      "title": "ที่ตั้ง",
-      "isRemote": "เป็นองค์กรที่ทำงานระยะไกล",
-      "address": "ที่อยู่",
-      "province": "จังหวัด",
-      "country": "ประเทศ",
-      "coordinates": {
-        "latitude": "ละติจูด",
-        "longitude": "ลองจิจูด"
-      }
-    },
-    "contact": {
-      "title": "ข้อมูลการติดต่อ",
-      "phone": "เบอร์โทรศัพท์",
-      "channels": {
-        "title": "ช่องทางการติดต่อ",
-        "media": "แพลตฟอร์ม",
-        "mediaLink": "ลิงก์",
-        "addMore": "เพิ่มช่องทางการติดต่อ",
-        "remove": "ลบช่องทาง"
-      }
-    },
-    "submit": {
-      "title": "ส่งการลงทะเบียน",
-      "description": "กรุณาตรวจสอบข้อมูลของคุณก่อนส่ง",
-      "button": "ลงทะเบียนองค์กร",
-      "success": "ลงทะเบียนองค์กรสำเร็จ",
-      "error": "ไม่สามารถลงทะเบียนองค์กรได้"
-    },
-    "validation": {
-      "required": "กรุณากรอกข้อมูลในช่องนี้",
-      "invalidEmail": "อีเมลไม่ถูกต้อง",
-      "invalidPhone": "เบอร์โทรศัพท์ไม่ถูกต้อง",
-      "invalidUrl": "รูปแบบ URL ไม่ถูกต้อง"
-    }
-  },
   "EventManagement": {
     "title": "จัดการกิจกรรม",
-    "search-placeholder": "ค้นหากิจกรรมตามชื่อ",
-    "create-button": "สร้างกิจกรรม",
-    "all": "กิจกรรมทั้งหมด",
-    "live": "กิจกรรมที่กำลังดำเนินการ",
-    "draft": "กิจกรรมฉบับร่าง",
-    "past": "กิจกรรมที่ผ่านมา",
+    "search-placeholder": "ค้นหาชื่อ",
+    "create-button": "สร้าง",
+    "all": "ทั้งหมด",
+    "live": "ไลฟ์",
+    "draft": "ร่าง",
+    "past": "ที่ผ่านมา",
     "page": "หน้า",
     "of": "จาก",
-    "no-events": "ไม่พบกิจกรรม",
-    "filters": {
-      "status": "สถานะ",
-      "date": "วันที่",
-      "category": "หมวดหมู่"
-    },
-    "status": {
-      "published": "เผยแพร่แล้ว",
-      "draft": "ฉบับร่าง",
-      "cancelled": "ยกเลิก"
-    }
+    "no-events": "ไม่พบกิจกรรม"
   },
   "JobManagement": {
-    "title": "จัดการตำแหน่งงาน",
+    "title": "จัดการงาน",
     "search-placeholder": "ค้นหาตำแหน่งงาน",
-    "create-button": "สร้างตำแหน่งงาน",
-    "all": "ตำแหน่งงานทั้งหมด",
-    "published": "เผยแพร่แล้ว",
-    "draft": "ฉบับร่าง",
+    "create-button": "สร้าง",
+    "all": "ทั้งหมด",
+    "published": "เผยแพร่แล้ว", 
+    "draft": "ร่าง",
     "expired": "หมดอายุ",
     "page": "หน้า",
     "of": "จาก",
-    "no-jobs": "ไม่พบตำแหน่งงาน",
-    "filters": {
-      "status": "สถานะ",
-      "type": "ประเภทงาน",
-      "category": "หมวดหมู่"
-    },
-    "status": {
-      "published": "เผยแพร่แล้ว",
-      "draft": "ฉบับร่าง",
-      "expired": "หมดอายุ"
-    }
-  },
-  "OrgManagement": {
-    "title": "จัดการองค์กร",
-    "profile": {
-      "title": "โปรไฟล์องค์กร",
-      "edit": "แก้ไขโปรไฟล์",
-      "view": "ดูโปรไฟล์"
-    },
-    "settings": {
-      "title": "ตั้งค่าองค์กร",
-      "general": "ตั้งค่าทั่วไป",
-      "notifications": "การแจ้งเตือน",
-      "privacy": "ตั้งค่าความเป็นส่วนตัว"
-    },
-    "members": {
-      "title": "สมาชิกในทีม",
-      "invite": "เชิญสมาชิก",
-      "roles": "จัดการบทบาท"
-    }
+    "no-jobs": "ไม่พบตำแหน่งงาน"
   },
   "TeamManagement": {
     "title": "จัดการทีม",
-    "invite": {
-      "title": "เชิญสมาชิกทีม",
-      "email": "ที่อยู่อีเมล",
-      "role": "บทบาท",
-      "sendInvite": "ส่งคำเชิญ"
-    },
-    "members": {
-      "title": "สมาชิกในทีม",
-      "search": "ค้นหาสมาชิก",
-      "noMembers": "ไม่พบสมาชิกในทีม",
-      "status": {
-        "active": "ใช้งานอยู่",
-        "pending": "รอดำเนินการ",
-        "inactive": "ไม่ได้ใช้งาน"
-      }
-    },
-    "roles": {
-      "admin": "ผู้ดูแลระบบ",
-      "editor": "ผู้แก้ไข",
-      "viewer": "ผู้ดู"
-    },
-    "actions": {
-      "remove": "ลบสมาชิก",
-      "changeRole": "เปลี่ยนบทบาท",
-      "resendInvite": "ส่งคำเชิญอีกครั้ง"
-    }
+    "invite-members": "เชิญสมาชิก",
+    "search-placeholder": "ค้นหาสมาชิก",
+    "no-members": "ไม่พบสมาชิกในทีม"
+  },
+  "OrgManagement": {
+    "title": "จัดการองค์กร",
+    "profile": "โปรไฟล์องค์กร",
+    "settings": "ตั้งค่าองค์กร"
   }
 }
