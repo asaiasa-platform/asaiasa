@@ -7,14 +7,6 @@ import Image from "next/image";
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 
-// Add custom CSS to override Mapbox styles if needed
-const customMapStyle = `
-.mapboxgl-ctrl-bottom-left,
-.mapboxgl-ctrl-bottom-right {
-  display: none !important;
-}
-`;
-
 export default function StaticMap({
   lat,
   lng,
@@ -27,19 +19,6 @@ export default function StaticMap({
       "_blank"
     );
   };
-
-  // Add custom styles to the document head
-  useEffect(() => {
-    const styleSheet = document.createElement("style");
-    styleSheet.textContent = customMapStyle;
-    document.head.appendChild(styleSheet);
-
-    return () => {
-      if (document.head.contains(styleSheet)) {
-        document.head.removeChild(styleSheet);
-      }
-    };
-  }, []);
 
   useEffect(() => {
     if (!mapContainerRef.current) return;
