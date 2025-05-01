@@ -72,12 +72,35 @@
     },
     "signup": {
       "title": "Create Your Account",
-      "namePlaceholder": "Full Name",
+      "backToLogin": "Back to Login",
+      "firstNameLabel": "First Name",
+      "firstNamePlaceholder": "First Name",
+      "lastNameLabel": "Last Name",
+      "lastNamePlaceholder": "Last Name",
+      "emailLabel": "Email",
       "emailPlaceholder": "Email",
+      "phoneLabel": "Phone Number",
+      "phonePlaceholder": "Phone Number",
+      "passwordLabel": "Password",
       "passwordPlaceholder": "Password",
+      "confirmPasswordLabel": "Confirm Password",
       "confirmPasswordPlaceholder": "Confirm Password",
+      "acceptLabel": "I accept the",
+      "termsOfService": "Terms of Service",
+      "and": "and",
+      "privacyPolicy": "Privacy Policy",
+      "submit": "Submit",
       "haveAccount": "Already have an account?",
-      "loginHere": "Login here"
+      "loginHere": "Login here",
+      "passwordCriteria": {
+        "length": "At least 8 characters",
+        "uppercase": "At least one uppercase letter",
+        "lowercase": "At least one lowercase letter",
+        "number": "At least one number",
+        "special": "At least one special character"
+      },
+      "success": "Signup successful",
+      "error": "Failed to signup. Please try again."
     },
     "preferences": {
       "title": "Choose Your Preferences",

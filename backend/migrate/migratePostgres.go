@@ -57,6 +57,7 @@ func main() {
 	initializers.DB.AutoMigrate(&models.Category{})
 	initializers.DB.AutoMigrate(&models.Profile{})
 	initializers.DB.AutoMigrate(&models.Experience{})
+	initializers.DB.AutoMigrate(&models.InviteToken{})
 
 	industries := []models.Industry{
 		{Industry: "Environment"},

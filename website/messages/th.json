@@ -72,12 +72,35 @@
     },
     "signup": {
       "title": "สร้างบัญชีของคุณ",
-      "namePlaceholder": "ชื่อ-นามสกุล",
+      "backToLogin": "กลับไปหน้าเข้าสู่ระบบ",
+      "firstNameLabel": "ชื่อ",
+      "firstNamePlaceholder": "ชื่อ",
+      "lastNameLabel": "นามสกุล",
+      "lastNamePlaceholder": "นามสกุล",
+      "emailLabel": "อีเมล",
       "emailPlaceholder": "อีเมล",
+      "phoneLabel": "เบอร์โทรศัพท์",
+      "phonePlaceholder": "เบอร์โทรศัพท์",
+      "passwordLabel": "รหัสผ่าน",
       "passwordPlaceholder": "รหัสผ่าน",
+      "confirmPasswordLabel": "ยืนยันรหัสผ่าน",
       "confirmPasswordPlaceholder": "ยืนยันรหัสผ่าน",
+      "acceptLabel": "ฉันยอมรับ",
+      "termsOfService": "เงื่อนไขการใช้บริการ",
+      "and": "และ",
+      "privacyPolicy": "นโยบายความเป็นส่วนตัว",
+      "submit": "ยืนยัน",
       "haveAccount": "มีบัญชีอยู่แล้ว?",
-      "loginHere": "เข้าสู่ระบบที่นี่"
+      "loginHere": "เข้าสู่ระบบที่นี่",
+      "passwordCriteria": {
+        "length": "อย่างน้อย 8 ตัวอักษร",
+        "uppercase": "อย่างน้อย 1 ตัวพิมพ์ใหญ่",
+        "lowercase": "อย่างน้อย 1 ตัวพิมพ์เล็ก",
+        "number": "อย่างน้อย 1 ตัวเลข",
+        "special": "อย่างน้อย 1 อักขระพิเศษ"
+      },
+      "success": "สมัครสมาชิกสำเร็จ",
+      "error": "ไม่สามารถสมัครสมาชิกได้ กรุณาลองอีกครั้ง"
     },
     "preferences": {
       "title": "เลือกความสนใจของคุณ",
