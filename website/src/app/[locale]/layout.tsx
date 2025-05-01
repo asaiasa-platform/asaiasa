@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: APP_TITLE_TEMPLATE,
   },
   icons: {
-    // icon: "/icon/head.svg",
+    icon: "/logo.svg",
   },
   description: APP_DESCRIPTION,
   manifest: "/manifest.json",
