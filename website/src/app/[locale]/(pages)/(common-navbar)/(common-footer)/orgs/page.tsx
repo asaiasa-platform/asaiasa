@@ -8,7 +8,7 @@ export default async function OrgListingPage({
   params,
 }: Readonly<{ params: { locale: string } }>) {
   const t = await getTranslations("Organizations");
-  const orgs: OrganizationBrief[] = await getAllOrgs();
+  const orgs: OrganizationBrief[] = await getAllOrgs(1);
   return (
     <div className="flex flex-col min-h-screen">
       {/* <div className="font-prompt max-w-[1170px] mx-auto px-6 flex-grow mb-16"> */}

@@ -2,8 +2,8 @@
 
 import { formatExternalUrl } from "@/lib/utils";
 
-export async function getAllOrgs() {
-  const apiUrl = formatExternalUrl(`/orgs-paginate`);
+export async function getAllOrgs(page: number) {
+  const apiUrl = formatExternalUrl(`/orgs-paginate?page=${page}`);
   const res = await fetch(apiUrl, { cache: "no-store" });
   const data = await res.json();
 
