@@ -36,7 +36,7 @@ export default function OrgCarousel({
               <OrganizationCard
                 id={org.id}
                 name={org.name}
-                picUrl={org.picUrl}
+                picUrl={org.picUrl || "/logo.svg"}
                 province={org.province}
                 country={org.country}
                 industries={org.industries}

@@ -139,7 +139,7 @@
     "search": {
       "prefix": "ค้นหา",
       "highlight": "อีเว้นท์",
-      "suffix": "เพื่อความก้าวหน้าของคุณ"
+      "suffix": "ที่คุณสนใจ"
     },
     "searchPlaceholder": {
       "full": "ค้นหาอีเว้นท์",
@@ -175,7 +175,7 @@
   },
   "Organizations": {
     "title": "องค์กร",
-    "featured": "องค์กรชั้นนำ",
+    "featured": "องค์กร",
     "filters": {
       "category": "หมวดหมู่",
       "location": "สถานที่"
@@ -183,7 +183,7 @@
     "search": {
       "prefix": "ค้นหา",
       "highlight": "องค์กร",
-      "suffix": "เพื่อความก้าวหน้าของคุณ"
+      "suffix": "ที่คุณสนใจ"
     },
     "searchPlaceholder": "ค้นหาองค์กร",
     "notFound": "ไม่พบองค์กร"
