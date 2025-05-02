@@ -22,7 +22,7 @@ import (
 	"gorm.io/gorm"
 )
 
-const numberOfOrganization uint = 12
+const numberOfOrganization uint = 36
 const numberOfJob uint = 4
 
 type organizationService struct {

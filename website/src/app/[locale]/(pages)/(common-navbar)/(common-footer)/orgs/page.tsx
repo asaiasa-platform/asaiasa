@@ -4,7 +4,6 @@ import { Search } from "lucide-react";
 import { getAllOrgs } from "@/features/orgs/api/action";
 import { OrganizationBrief } from "@/lib/types";
 import { getTranslations } from "next-intl/server";
-
 export default async function OrgListingPage({
   params,
 }: Readonly<{ params: { locale: string } }>) {
@@ -12,7 +11,8 @@ export default async function OrgListingPage({
   const orgs: OrganizationBrief[] = await getAllOrgs();
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="font-prompt max-w-[1170px] mx-auto px-6 flex-grow mb-16">
+      {/* <div className="font-prompt max-w-[1170px] mx-auto px-6 flex-grow mb-16"> */}
+      <div className="font-prompt mx-auto px-6 flex-grow mb-16">
         <div className="text-center font-semibold text-2xl border-b-2 pb-[11px] mt-[100px]">
           <span className="text-black">{t("search.prefix")}</span>
           <span className="text-orange-normal"> &quot;{t("search.highlight")}&quot; </span>
@@ -44,7 +44,7 @@ export default async function OrgListingPage({
 
         <div className="flex flex-col mt-8">
           {orgs && orgs.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6">
               {orgs.map((org) => (
                 <OrganizationCard
                   id={org.id}
@@ -68,7 +68,7 @@ export default async function OrgListingPage({
           )}
         </div>
         {/* <div className="flex justify-center mt-3">
-          <Pagination count={10} variant="outlined" shape="rounded" />
+          <Pagination count={36} variant="outlined" shape="rounded" />
         </div> */}
       </div>
     </div>
