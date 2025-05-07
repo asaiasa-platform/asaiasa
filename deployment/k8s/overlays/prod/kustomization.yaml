@@ -13,6 +13,12 @@ configMapGenerator:
   - GOAPP_PORT=8000
   envs:
   - prod-config.properties
+- name: asaiasa-cms-configmap
+  literals:
+  - GOAPP_HOST=0.0.0.0
+  - GOAPP_PORT=1337
+  envs:
+  - prod-cms-config.properties
 
 patches:
 - path: deployment.yaml

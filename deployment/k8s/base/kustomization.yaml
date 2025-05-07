@@ -6,3 +6,6 @@ images:
 - name: asaiasa-api
   newName: registry.gitlab.com/asaiasa/asaiasa
   newTag: ${VERSION}
+- name: asaiasa-cms
+  newName: registry.gitlab.com/asaiasa/asaiasa
+  newTag: cms-${VERSION}

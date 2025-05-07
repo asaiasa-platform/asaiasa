@@ -1,40 +1,48 @@
 #!/bin/bash
 
-# Function to check if kustomize is installed
-check_kustomize() {
-    if ! [ -x "$(command -v kustomize)" ]; then
-        echo "Error: kustomize is not installed. Please install it first."
-        exit 1
-    fi
-}
+# Exit on error
+set -e
 
-# Function to check if kubectl is installed and configured
-check_kubectl() {
-    if ! kubectl version &>/dev/null; then
-        echo "Error: kubectl is not installed or not properly configured. Please install it and set up your Kubernetes configuration."
-        exit 1
-    fi
-}
+# Set default environment
+ENV=${1:-dev}
+VERSION=${2:-latest}
 
-# Function to deploy resources using kustomize
-deploy_resources() {
-    local target_environment="overlays/$1"
-    local VERSION=$2
-    echo "Deploying Kubernetes resources in $target_environment..."
-    cd "$target_environment" || exit
-    echo | kustomize build | sed 's/${VERSION}/'$VERSION'/g' | kubectl apply -f -
-}
+# Validate environment
+if [[ "$ENV" != "dev" && "$ENV" != "staging" && "$ENV" != "prod" ]]; then
+    echo "Environment must be one of: dev, staging, prod"
+    exit 1
+fi
 
-# Main function
-main() {
-    check_kustomize
-    check_kubectl
-    if [ $# -ne 2 ]; then
-        echo "Usage: $0 <target_environment> <version>"
-        exit 1
-    fi
-    deploy_resources "$1" "$2"
-}
+# Validate version
+if [[ -z "$VERSION" ]]; then
+    echo "Version is required"
+    exit 1
+fi
 
-# Run the script with the overlays folder and target environment as arguments
-main "$@"
+# Set up kustomize
+KUSTOMIZE_DIR="overlays/$ENV"
+
+# Log information
+echo "Deploying to $ENV environment with version $VERSION"
+
+# Update version in kustomization.yaml
+sed -i'.bak' -e "s/\${VERSION}/$VERSION/g" base/kustomization.yaml
+rm -f base/kustomization.yaml.bak
+
+# Apply kustomization
+kubectl apply -k $KUSTOMIZE_DIR
+
+# Reset version in kustomization.yaml
+sed -i'.bak' -e "s/$VERSION/\${VERSION}/g" base/kustomization.yaml
+rm -f base/kustomization.yaml.bak
+
+# Build and push CMS Docker image
+if [[ "$3" == "--build-cms" ]]; then
+    echo "Building and pushing CMS Docker image..."
+    cd ../../cms
+    docker build -t registry.gitlab.com/asaiasa/asaiasa-cms:$VERSION .
+    docker push registry.gitlab.com/asaiasa/asaiasa-cms:$VERSION
+    cd -
+fi
+
+echo "Deployment to $ENV environment completed successfully!"

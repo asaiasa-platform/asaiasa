@@ -32,6 +32,7 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'khum38-gitlab', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh "docker login -u gitlab+deploy-token -p ${PASSWORD} registry.gitlab.com"
+                        sh "docker build --build-arg GITHUB_TOKEN=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 --no-cache -f cms/Dockerfile -t ${GITLAB_REP}:cms-${IMAGE_TAG} ./cms"
                         sh "docker build --build-arg GITHUB_TOKEN=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 --no-cache -f backend/Dockerfile -t ${GITLAB_REP}:${IMAGE_TAG} ./backend"
                     }
                 }
@@ -53,6 +54,7 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'khum38-gitlab', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh "docker push ${GITLAB_REP}:${IMAGE_TAG}"
+                        sh "docker push ${GITLAB_REP}:cms-${IMAGE_TAG}"
                     }
                 }
             }

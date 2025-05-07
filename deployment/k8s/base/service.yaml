@@ -9,3 +9,15 @@ spec:
   - port: 8000
     targetPort: 8080
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: asaiasa-cms-service
+spec:
+  selector:
+    app: asaiasa-cms
+  ports:
+  - port: 1337
+    targetPort: 1337
+  type: ClusterIP 

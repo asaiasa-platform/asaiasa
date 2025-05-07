@@ -49,3 +49,54 @@ spec:
         #   periodSeconds: 10
       imagePullSecrets:
       - name: gitlab-registry-credentials
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: asaiasa-cms
+  labels:
+    app: asaiasa-cms
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: asaiasa-cms
+  template:
+    metadata:
+      labels:
+        app: asaiasa-cms
+    spec:
+      containers:
+      - name: asaiasa-cms
+        image: asaiasa-cms
+        ports:
+        - containerPort: 1337
+        envFrom:
+        - configMapRef:
+            name: asaiasa-cms-configmap
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+        livenessProbe:
+          httpGet:
+            path: /admin/ping
+            port: 1337
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /admin/ping
+            port: 1337
+          initialDelaySeconds: 30
+          periodSeconds: 10
+      imagePullSecrets:
+      - name: gitlab-registry-credentials 
