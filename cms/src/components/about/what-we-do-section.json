@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_about_what_we_do_sections",
+  "info": {
+    "displayName": "What We Do Section",
+    "icon": "list",
+    "description": "Section describing what we do for different audiences"
+  },
+  "options": {
+    "repeatable": true
+  },
+  "attributes": {
+    "audience_type": {
+      "type": "enumeration",
+      "enum": [
+        "Volunteers",
+        "Organizations",
+        "Partners"
+      ],
+      "required": true
+    },
+    "description": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+} 

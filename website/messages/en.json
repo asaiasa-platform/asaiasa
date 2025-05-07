@@ -23,6 +23,24 @@
     },
     "viewMoreJobs": "View More Jobs"
   },
+  "About": {
+    "title": "About Us",
+    "sections": {
+      "whoWeAre": "Who We Are",
+      "vision": "Our Vision",
+      "mission": "Our Mission",
+      "whyWeDo": "Why We Do What We Do",
+      "whatWeDo": "What We Do"
+    },
+    "audiences": {
+      "volunteers": "For Volunteers",
+      "organizations": "For Organizations",
+      "partners": "For Partners"
+    },
+    "team": "Our Team",
+    "loading": "Loading...",
+    "noContent": "Content is being updated. Please check back later."
+  },
   "Common": {
     "buttons": {
       "login": "Login",
@@ -41,7 +59,8 @@
       "organizations": "Organizations",
       "map": "Map",
       "statistics": "Statistics",
-      "profile": "Profile"
+      "profile": "Profile",
+      "about": "About Us"
     },
     "general": {
       "or": "or",

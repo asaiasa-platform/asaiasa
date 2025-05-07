@@ -24,6 +24,7 @@ export default function NavigationBar() {
     },
     { label: t("organizations"), href: "/orgs" },
     { label: t("map"), href: "/map" },
+    { label: t("about"), href: "/about" },
   ];
   
   const [isMiniMenuOpen, setIsMiniMenuOpen] = useState(false);

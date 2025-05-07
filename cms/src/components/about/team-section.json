@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_about_team_sections",
+  "info": {
+    "displayName": "Team Section",
+    "icon": "users",
+    "description": "Section displaying team members"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "team_members": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::team.team"
+    }
+  }
+} 

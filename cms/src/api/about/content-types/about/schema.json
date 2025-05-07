@@ -1,0 +1,27 @@
+{
+  "kind": "singleType",
+  "collectionName": "abouts",
+  "info": {
+    "singularName": "about",
+    "pluralName": "abouts",
+    "displayName": "About",
+    "description": "About Us page content"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "dynamic_zone": {
+      "type": "dynamiczone",
+      "components": [
+        "about.rich-text-section",
+        "about.what-we-do-section",
+        "about.team-section"
+      ]
+    }
+  }
+}
