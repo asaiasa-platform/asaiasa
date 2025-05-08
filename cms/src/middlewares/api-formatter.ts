@@ -3,7 +3,7 @@
  * Formats all API responses to a standard structure
  */
 
-export default () => {
+module.exports = (config, { strapi }) => {
   return async (ctx, next) => {
     // Call the next middleware and wait for it to finish
     await next();

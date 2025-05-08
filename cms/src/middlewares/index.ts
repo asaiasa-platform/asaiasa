@@ -2,8 +2,6 @@
  * Export all custom middlewares
  */
 
-import apiFormatter from './api-formatter';
-
-export default {
-  'api-formatter': apiFormatter,
+module.exports = {
+  'api-formatter': require('./api-formatter'),
 }; 
