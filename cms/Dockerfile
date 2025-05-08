@@ -1,4 +1,4 @@
-FROM node:18-alpine as build
+FROM --platform=linux/amd64 node:18 AS build
 
 # Set working directory
 WORKDIR /app
@@ -16,7 +16,7 @@ COPY . .
 RUN npm run build
 
 # Production stage
-FROM node:18-alpine
+FROM --platform=linux/amd64 node:18-slim
 
 # Set environment variables
 ENV NODE_ENV=production
@@ -32,7 +32,7 @@ COPY --from=build /app/favicon.png ./favicon.png
 COPY --from=build /app/database ./database
 COPY --from=build /app/public ./public
 COPY --from=build /app/src ./src
-COPY --from=build /app/config ./config
+COPY --from=build /app/dist/config ./config
 COPY --from=build /app/.strapi ./.strapi
 
 # Expose the port Strapi runs on

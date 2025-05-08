@@ -27,13 +27,43 @@ pipeline {
             }
         }
 
-        stage('Building image') {
+        stage('Building image Strapi CMS') {
             steps{
                 script {
                     withCredentials([usernamePassword(credentialsId: 'khum38-gitlab', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh "docker login -u gitlab+deploy-token -p ${PASSWORD} registry.gitlab.com"
                         sh "docker build --build-arg GITHUB_TOKEN=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 --no-cache -f cms/Dockerfile -t ${GITLAB_REP}:cms-${IMAGE_TAG} ./cms"
+                    }
+                }
+            }
+        }
+
+        stage('Push image Strapi CMS') {
+            steps{
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'khum38-gitlab', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        sh "docker push ${GITLAB_REP}:cms-${IMAGE_TAG}"
+                    }
+                }
+            }
+        }
+
+        stage('Building image Backend') {
+            steps{
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'khum38-gitlab', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        sh "docker login -u gitlab+deploy-token -p ${PASSWORD} registry.gitlab.com"
                         sh "docker build --build-arg GITHUB_TOKEN=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 --no-cache -f backend/Dockerfile -t ${GITLAB_REP}:${IMAGE_TAG} ./backend"
+                    }
+                }
+            }
+        }
+
+        stage('Push image Backend') {
+            steps{
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'khum38-gitlab', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        sh "docker push ${GITLAB_REP}:${IMAGE_TAG}"
                     }
                 }
             }
@@ -48,17 +78,6 @@ pipeline {
         //         }
         //     }
         // }
-
-        stage('Push image') {
-            steps{
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'khum38-gitlab', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        sh "docker push ${GITLAB_REP}:${IMAGE_TAG}"
-                        sh "docker push ${GITLAB_REP}:cms-${IMAGE_TAG}"
-                    }
-                }
-            }
-        }
         // stage('Deploy - Development') {
         //     when {
         //         expression {
