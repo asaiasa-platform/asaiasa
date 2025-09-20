@@ -8,6 +8,7 @@ import { LanguageCode } from "@/lib/types";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/context/AuthContext";
 import GoogleAuthProvider from "@/context/GoogleOAuthProvider";
+import { LoadingProvider } from "@/context/LoadingContext";
 
 export const metadata: Metadata = {
   title: "ASAiASA Admin",
@@ -36,10 +37,12 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className="bg-cream-bg font-prompt">
         <NextIntlClientProvider messages={messages}>
-          <Toaster />
-          <GoogleAuthProvider>
-            <AuthProvider>{children}</AuthProvider>
-          </GoogleAuthProvider>
+          <LoadingProvider>
+            <Toaster />
+            <GoogleAuthProvider>
+              <AuthProvider>{children}</AuthProvider>
+            </GoogleAuthProvider>
+          </LoadingProvider>
         </NextIntlClientProvider>
       </body>
     </html>
