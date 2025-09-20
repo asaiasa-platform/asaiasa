@@ -8,6 +8,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "react-hot-toast";
 import { LanguageCode } from "@/lib/types";
 import GoogleAuthProvider from "@/context/GoogleOAuthProvider";
+import { LoadingProvider } from "@/context/LoadingContext";
 
 const APP_NAME = "ASAiASA";
 const APP_DEFAULT_TITLE = "ASAiASA";
@@ -77,10 +78,12 @@ export default async function RootLayout({
     <html lang={locale} className="font-prompt">
       <body className="bg-cream-bg">
         <NextIntlClientProvider messages={messages}>
-          <Toaster />
-          <GoogleAuthProvider>
-            <AuthProvider>{children}</AuthProvider>
-          </GoogleAuthProvider>
+          <LoadingProvider>
+            <Toaster />
+            <GoogleAuthProvider>
+              <AuthProvider>{children}</AuthProvider>
+            </GoogleAuthProvider>
+          </LoadingProvider>
         </NextIntlClientProvider>
       </body>
     </html>
