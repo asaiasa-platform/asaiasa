@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: asaiasa-api
-  labels:
-    app: asaiasa-api
 spec:
   replicas: 2
 ---
@@ -11,8 +9,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: asaiasa-cms
-  labels:
-    app: asaiasa-cms
 spec:
   replicas: 2
 ---

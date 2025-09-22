@@ -3,106 +3,26 @@ frontend:
   phases:
     preBuild:
       commands:
-        - echo "=== Repository Analysis ==="
-        - echo "Repository structure:"
-        - ls -la
-        - echo "=== Checking for Next.js project location ==="
-        - |
-          if [ -f "package.json" ] && [ -f "next.config.mjs" ]; then
-            echo "✅ Next.js project found at repository root"
-            echo "ROOT_PROJECT=true" >> $CODEBUILD_SRC_DIR/.env
-          elif [ -d "website" ] && [ -f "website/package.json" ] && [ -f "website/next.config.mjs" ]; then
-            echo "✅ Next.js project found in website/ directory"  
-            echo "ROOT_PROJECT=false" >> $CODEBUILD_SRC_DIR/.env
-          else
-            echo "❌ Next.js project not found in expected locations"
-            echo "Looking for package.json files:"
-            find . -name "package.json" -type f | head -10
-            exit 1
-          fi
-        - echo "Node.js version:" && node --version
-        - echo "NPM version:" && npm --version
-        - echo "=== Installing Dependencies ==="
-        - |
-          if [ -f "package.json" ] && [ -f "next.config.mjs" ]; then
-            echo "Installing dependencies at root..."
-            npm ci
-          else
-            echo "Installing dependencies in website/ directory..."
-            cd website && npm ci
-          fi
+        - echo "Installing dependencies in website directory"
+        - cd website
+        - npm ci
     build:
       commands:
-        - echo "=== Building Next.js Application ==="
-        - export NODE_ENV=production
-        - |
-          if [ -f "package.json" ] && [ -f "next.config.mjs" ]; then
-            echo "Building from repository root..."
-            echo "Using production config if available..."
-            cp next.config.production.mjs next.config.mjs 2>/dev/null || echo "Using default config"
-            echo "Running build..."
-            npm run build
-            echo "Build artifacts:"
-            ls -la .next/
-          else
-            echo "Building from website/ directory..."
-            cd website
-            echo "Current directory: $(pwd)"
-            echo "Using production config if available..."
-            cp next.config.production.mjs next.config.mjs 2>/dev/null || echo "Using default config"  
-            echo "Running build..."
-            npm run build
-            echo "Build artifacts:"
-            ls -la .next/
-          fi
-        - echo "✅ Build completed successfully!"
-        - echo "=== Preparing Artifacts ==="
-        - |
-          if [ -d ".next" ]; then
-            echo "Artifacts already at root (.next/)"
-            ls -la .next/
-          elif [ -d "website/.next" ]; then
-            echo "Moving artifacts from website/.next/ to root"
-            cp -r website/.next ./
-            echo "Artifacts moved to root:"
-            ls -la .next/
-          else
-            echo "❌ No build artifacts found in either location!"
-            echo "Checking for build output:"
-            find . -name ".next" -type d 2>/dev/null || echo "No .next directory found"
-            exit 1
-          fi
-        - echo "=== Setting up redirects ==="
-        - |
-          if [ -f "website/public/_redirects" ]; then
-            echo "Copying _redirects file to root"
-            cp website/public/_redirects ./_redirects
-          elif [ -f "_redirects" ]; then
-            echo "_redirects already at root"
-          else
-            echo "No _redirects file found, creating basic redirect"
-            echo "/ /en/home 302" > _redirects
-            echo "/* /index.html 200" >> _redirects
-          fi
-        - echo "Final _redirects content:"
-        - cat _redirects
-        - echo "Copying _redirects to build directory"
-        - |
-          if [ -d ".next" ]; then
-            cp _redirects .next/_redirects
-            echo "_redirects copied to .next/"
-          else
-            echo "❌ .next directory not found, cannot copy _redirects"
-            ls -la
-          fi
+        - echo "Building Next.js app"
+        - cd website
+        - npm run build
+        - echo "Moving build artifacts to root"
+        - cp -r .next ../
+        - echo "Creating redirects file"
+        - echo "/ /en/home 302" > ../_redirects
+        - echo "/* /index.html 200" >> ../_redirects
+        - cp ../_redirects ../.next/
   artifacts:
     baseDirectory: .next
     files:
       - '**/*'
   cache:
     paths:
-      - node_modules/**/*
-      - .next/cache/**/*
       - website/node_modules/**/*
       - website/.next/cache/**/*
   # Environment variables (configure these in Amplify Console)
