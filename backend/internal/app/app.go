@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"time"
 
 	"github.com/DAF-Bridge/Talent-Atmos-Backend/errs"
 
@@ -90,6 +91,9 @@ func Start() {
 
 	// Instantiate Goth
 	app := fiber.New(fiber.Config{
+		BodyLimit:    10 * 1024 * 1024, // 10MB body limit
+		ReadTimeout:  time.Second * 30,
+		WriteTimeout: time.Second * 30,
 		ErrorHandler: func(c *fiber.Ctx, err error) error {
 			var statusCode int
 			var message string
@@ -116,7 +120,7 @@ func Start() {
 	// Apply the CORS middleware
 	// Get CORS origin from environment variable
 	corsOrigin := os.Getenv("CORS_ORIGIN_URL")
-	
+
 	// Check if CORS origin is empty or wildcard
 	if corsOrigin == "" || corsOrigin == "*" {
 		// When origin is empty or wildcard, use specific origins

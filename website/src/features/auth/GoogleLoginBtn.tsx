@@ -14,6 +14,7 @@ export default function GoogleLoginBtn() {
   
   const login = useGoogleLogin({
     flow: "auth-code",
+    ux_mode: "popup",
     onSuccess: async (tokenResponse) => {
       const result = await googleOauthCallback(tokenResponse.code);
       if (result.success) {

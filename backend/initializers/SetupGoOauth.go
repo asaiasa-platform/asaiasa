@@ -13,7 +13,8 @@ var OauthConfigAdmin *oauth2.Config
 func InitOAuth() {
 	ClientID := os.Getenv("GOOGLE_CLIENT_ID")
 	ClientSecret := os.Getenv("GOOGLE_CLIENT_SECRET")
-	RedirectURL := os.Getenv("BASE_EXTERNAL_URL")
+	RedirectURL := os.Getenv("BASE_EXTERNAL_URL") + "/auth/google/callback"
+
 	OauthConfig = &oauth2.Config{
 		ClientID:     ClientID,
 		ClientSecret: ClientSecret,
@@ -26,7 +27,8 @@ func InitOAuth() {
 func InitAdminOAuth() {
 	ClientID := os.Getenv("GOOGLE_CLIENT_ID")
 	ClientSecret := os.Getenv("GOOGLE_CLIENT_SECRET")
-	RedirectURL := os.Getenv("ADMIN_EXTERNAL_URL")
+	RedirectURL := os.Getenv("ADMIN_EXTERNAL_URL") + "/admin/auth/google/callback"
+
 	OauthConfigAdmin = &oauth2.Config{
 		ClientID:     ClientID,
 		ClientSecret: ClientSecret,

@@ -58,7 +58,11 @@ func (h *OauthHandler) GoogleCallback(c *fiber.Ctx) error {
 	token, err := initializers.OauthConfig.Exchange(context.Background(), code)
 	if err != nil {
 		logs.Error(fmt.Sprintf("Failed to exchange token: %v", err))
-		return c.Status(fiber.StatusBadRequest).SendString(fmt.Sprintf("Failed to exchange token: %v", err))
+		logs.Error(fmt.Sprintf("OAuth Config RedirectURL during exchange: %s", initializers.OauthConfig.RedirectURL))
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"success": false,
+			"message": fmt.Sprintf("Failed to exchange token: %v", err),
+		})
 	}
 
 	// Use the token to fetch user info
@@ -66,7 +70,10 @@ func (h *OauthHandler) GoogleCallback(c *fiber.Ctx) error {
 	resp, err := client.Get("https://www.googleapis.com/oauth2/v2/userinfo")
 	if err != nil {
 		logs.Error(fmt.Sprintf("Failed to fetch user info: %v", err))
-		return c.Status(fiber.StatusBadRequest).SendString("Failed to fetch user info: " + err.Error())
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"success": false,
+			"message": "Failed to fetch user info: " + err.Error(),
+		})
 	}
 	defer resp.Body.Close()
 
@@ -80,7 +87,10 @@ func (h *OauthHandler) GoogleCallback(c *fiber.Ctx) error {
 	}
 	if err := json.NewDecoder(resp.Body).Decode(&userInfo); err != nil {
 		logs.Error(fmt.Sprintf("Failed to parse user info: %v", err))
-		return c.Status(fiber.StatusBadRequest).SendString("Failed to parse user info: " + err.Error())
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"success": false,
+			"message": "Failed to parse user info: " + err.Error(),
+		})
 	}
 
 	// create or update a user record in your DB and Generate token
@@ -118,7 +128,10 @@ func (h *OauthHandler) AdminGoogleCallback(c *fiber.Ctx) error {
 	token, err := initializers.OauthConfigAdmin.Exchange(context.Background(), code)
 	if err != nil {
 		logs.Error(fmt.Sprintf("Failed to exchange token: %v", err))
-		return c.Status(fiber.StatusBadRequest).SendString(fmt.Sprintf("Failed to exchange token: %v", err))
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"success": false,
+			"message": fmt.Sprintf("Failed to exchange token: %v", err),
+		})
 	}
 
 	// Use the token to fetch user info
@@ -126,7 +139,10 @@ func (h *OauthHandler) AdminGoogleCallback(c *fiber.Ctx) error {
 	resp, err := client.Get("https://www.googleapis.com/oauth2/v2/userinfo")
 	if err != nil {
 		logs.Error(fmt.Sprintf("Failed to fetch user info: %v", err))
-		return c.Status(fiber.StatusBadRequest).SendString("Failed to fetch user info: " + err.Error())
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"success": false,
+			"message": "Failed to fetch user info: " + err.Error(),
+		})
 	}
 	defer resp.Body.Close()
 
@@ -140,7 +156,10 @@ func (h *OauthHandler) AdminGoogleCallback(c *fiber.Ctx) error {
 	}
 	if err := json.NewDecoder(resp.Body).Decode(&userInfo); err != nil {
 		logs.Error(fmt.Sprintf("Failed to parse user info: %v", err))
-		return c.Status(fiber.StatusBadRequest).SendString("Failed to parse user info: " + err.Error())
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"success": false,
+			"message": "Failed to parse user info: " + err.Error(),
+		})
 	}
 
 	// create or update a user record in your DB and Generate token
