@@ -22,9 +22,10 @@ export async function safeFetch(url: string, options: RequestInit = {}): Promise
     }
     
     return response;
-  } catch (error: any) {
+  } catch (error) {
     // Check if error message indicates header size issues
-    if (error.message && error.message.includes('header')) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    if (errorMessage.includes('header')) {
       console.warn("Potential header size issue detected, clearing cookies...");
       clearAllCookies();
       throw new Error("Request failed due to header size. Cookies cleared. Please try again.");
