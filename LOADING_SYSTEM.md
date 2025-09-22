@@ -6,9 +6,10 @@ This document describes the comprehensive loading system implemented across both
 
 The loading system consists of:
 1. **Global Loading Page** - Shows when the application first loads
-2. **Page Navigation Loading** - Shows when navigating between pages
-3. **Route-specific Loading** - Shows for specific routes using Next.js loading.tsx files
-4. **Component-level Loading** - For forms, API calls, and other async operations
+2. **Instant Navigation Loading** - Shows IMMEDIATELY when clicking any link
+3. **Universal Link Interceptor** - Catches ALL link clicks automatically
+4. **Route-specific Loading** - Shows for specific routes using Next.js loading.tsx files
+5. **Component-level Loading** - For forms, API calls, and other async operations
 
 ## Components
 
@@ -79,7 +80,41 @@ import LoadingLink from '@/components/LoadingLink';
 </LoadingLink>
 ```
 
-### 5. useLoadingState Hook
+### 5. NavigationLoader Component
+Universal link interceptor that catches ALL link clicks and shows loading immediately.
+
+**Location:**
+- `website/src/components/NavigationLoader.tsx`
+- `admin-ui/src/components/NavigationLoader.tsx`
+
+**Features:**
+- Automatically intercepts ALL link clicks on the page
+- Shows loading INSTANTLY when any link is clicked
+- Smart filtering (skips external links, hash links, downloads)
+- Works with any link component (Next.js Link, regular <a> tags, etc.)
+
+### 6. LoadingButton Component
+Button component with built-in loading states.
+
+**Location:**
+- `website/src/components/LoadingButton.tsx`
+- `admin-ui/src/components/LoadingButton.tsx`
+
+**Usage:**
+```tsx
+import LoadingButton from '@/components/LoadingButton';
+
+<LoadingButton 
+  isLoading={isSubmitting}
+  showGlobalLoading={true}
+  loadingText="Submitting..."
+  onClick={handleSubmit}
+>
+  Submit Form
+</LoadingButton>
+```
+
+### 7. useLoadingState Hook
 Custom hook for managing loading states in components.
 
 **Location:**
@@ -109,6 +144,7 @@ Both applications have the LoadingProvider wrapped around the entire app in thei
 // layout.tsx
 <NextIntlClientProvider messages={messages}>
   <LoadingProvider>
+    <NavigationLoader /> {/* This catches ALL link clicks */}
     <Toaster />
     <GoogleAuthProvider>
       <AuthProvider>{children}</AuthProvider>
@@ -131,8 +167,34 @@ Route-specific loading states using Next.js App Router:
 
 ### 3. Loading Timing
 - **Initial Load**: 1.5 seconds (configurable in LoadingProvider)
-- **Page Navigation**: 0.8 seconds (configurable in LoadingProvider)
+- **Link Click Loading**: INSTANT (0ms delay) - shows immediately when any link is clicked
+- **Page Load Complete**: 0.5 seconds after page loads (configurable in LoadingProvider)
 - **Route Loading**: Automatic based on Next.js Suspense boundaries
+
+### 4. Universal Link Interception
+The `NavigationLoader` component automatically intercepts ALL link clicks:
+
+```tsx
+// Automatically added to LoadingProvider - no setup needed!
+<LoadingProvider>
+  <NavigationLoader /> {/* This catches ALL link clicks */}
+  {/* Your app content */}
+</LoadingProvider>
+```
+
+**What gets intercepted:**
+- Next.js `<Link>` components
+- Regular `<a>` tags
+- Any clickable element that contains a link
+- Programmatic navigation calls
+
+**What gets skipped:**
+- External links (http/https)
+- Email links (mailto:)
+- Phone links (tel:)
+- Hash links (#section)
+- Links with target="_blank"
+- Download links
 
 ## Customization
 
@@ -145,10 +207,10 @@ setTimeout(() => {
   setIsLoading(false);
 }, 1500); // Change this value
 
-// Page navigation duration
+// Page load complete duration (after navigation)
 setTimeout(() => {
   setIsPageLoading(false);
-}, 800); // Change this value
+}, 500); // Change this value
 ```
 
 ### Styling
@@ -172,15 +234,16 @@ Update the logo in `GlobalLoadingPage.tsx`:
 
 ## Best Practices
 
-### 1. Use LoadingLink for Navigation
-Replace regular Next.js Link components with LoadingLink for better UX:
+### 1. No Need to Replace Links! 
+**The system now automatically handles ALL links!** You don't need to replace your existing Link components:
 
 ```tsx
-// Instead of
+// These ALL work automatically and show instant loading:
 <Link href="/dashboard">Dashboard</Link>
+<a href="/about">About</a>
+<LoadingLink href="/profile">Profile</LoadingLink> // Still works too!
 
-// Use
-<LoadingLink href="/dashboard">Dashboard</LoadingLink>
+// Loading shows INSTANTLY when any of these are clicked!
 ```
 
 ### 2. Wrap Async Operations

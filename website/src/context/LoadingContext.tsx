@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import GlobalLoadingPage from '@/components/GlobalLoadingPage';
+import NavigationLoader from '@/components/NavigationLoader';
 
 interface LoadingContextType {
   isLoading: boolean;
@@ -41,10 +42,11 @@ export const LoadingProvider: React.FC<LoadingProviderProps> = ({ children }) =>
 
   // Handle page navigation loading
   useEffect(() => {
-    setIsPageLoading(true);
+    // Only hide loading after pathname changes, don't auto-show it
+    // Loading will be triggered by link clicks instead
     const timer = setTimeout(() => {
       setIsPageLoading(false);
-    }, 800); // Show loading for 0.8 seconds on page navigation
+    }, 500); // Hide loading after 0.5 seconds once page loads
 
     return () => clearTimeout(timer);
   }, [pathname]);
@@ -61,6 +63,7 @@ export const LoadingProvider: React.FC<LoadingProviderProps> = ({ children }) =>
 
   return (
     <LoadingContext.Provider value={contextValue}>
+      <NavigationLoader />
       {(isLoading || isPageLoading) && <GlobalLoadingPage />}
       {children}
     </LoadingContext.Provider>
