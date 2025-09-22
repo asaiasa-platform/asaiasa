@@ -1,33 +1,15 @@
-import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "@/i18n/routing";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
-import toast from "react-hot-toast";
-import { googleOauthCallback } from "./api/action";
 
 export default function GoogleLoginBtn() {
-  const { setAuthState } = useAuth();
-  const router = useRouter();
   const t = useTranslations("Auth");
   
   const login = useGoogleLogin({
     flow: "auth-code",
-    ux_mode: "popup",
-    onSuccess: async (tokenResponse) => {
-      const result = await googleOauthCallback(tokenResponse.code);
-      if (result.success) {
-        setAuthState();
-        const toastId = toast.success(t("login.success"));
-        setTimeout(() => {
-          toast.dismiss(toastId); // Clear the success toast
-          router.push("/home"); // Redirect to home
-        }, 1000);
-      } else {
-        console.log("Golang Callback Failed");
-      }
-    },
+    ux_mode: "redirect",
+    redirect_uri: `${window.location.origin}/auth/google/callback`,
     onError: (error) => {
       console.log("Login Flow Failed");
       console.log(error);

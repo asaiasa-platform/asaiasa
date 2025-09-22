@@ -1,62 +1,18 @@
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
-import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "react-hot-toast";
 import { LanguageCode } from "@/lib/types";
 import GoogleAuthProvider from "@/context/GoogleOAuthProvider";
 import { LoadingProvider } from "@/context/LoadingContext";
+import { notFound } from "next/navigation";
+import ClientLayoutWrapper from "./ClientLayoutWrapper";
 
-const APP_NAME = "ASAiASA";
-const APP_DEFAULT_TITLE = "ASAiASA";
-const APP_TITLE_TEMPLATE = "%s - PWA App";
-const APP_DESCRIPTION = "Find ESG Events and Jobs";
-
-export const metadata: Metadata = {
-  applicationName: APP_NAME,
-  title: {
-    default: APP_DEFAULT_TITLE,
-    template: APP_TITLE_TEMPLATE,
-  },
-  icons: {
-    icon: "/logo.svg",
-  },
-  description: APP_DESCRIPTION,
-  manifest: "/manifest.json",
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "default",
-    title: APP_DEFAULT_TITLE,
-    // startUpImage: [],
-  },
-  formatDetection: {
-    telephone: false,
-  },
-  openGraph: {
-    type: "website",
-    siteName: APP_NAME,
-    title: {
-      default: APP_DEFAULT_TITLE,
-      template: APP_TITLE_TEMPLATE,
-    },
-    description: APP_DESCRIPTION,
-  },
-  twitter: {
-    card: "summary",
-    title: {
-      default: APP_DEFAULT_TITLE,
-      template: APP_TITLE_TEMPLATE,
-    },
-    description: APP_DESCRIPTION,
-  },
-};
-
-export const viewport: Viewport = {
-  themeColor: "#FFFFFF",
-};
+// Generate static params for all supported locales
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 export default async function RootLayout({
   children,
@@ -70,18 +26,40 @@ export default async function RootLayout({
     notFound();
   }
 
-  // Providing all messages to the client
-  // side is the easiest way to get started
-  const messages = await getMessages();
+  // Load messages on the server
+  let messages;
+  try {
+    messages = (await import(`../../../messages/${locale}.json`)).default;
+  } catch (error) {
+    console.error('Failed to load messages:', error);
+    // Fallback to English
+    try {
+      messages = (await import(`../../../messages/en.json`)).default;
+    } catch (fallbackError) {
+      console.error('Failed to load fallback messages:', fallbackError);
+      messages = {};
+    }
+  }
 
   return (
     <html lang={locale} className="font-prompt">
+      <head>
+        <title>ASAiASA</title>
+        <meta name="description" content="Find ESG Events and Jobs" />
+        <meta name="theme-color" content="#FFFFFF" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" href="/logo.svg" />
+      </head>
       <body className="bg-cream-bg">
         <NextIntlClientProvider messages={messages}>
           <LoadingProvider>
             <Toaster />
             <GoogleAuthProvider>
-              <AuthProvider>{children}</AuthProvider>
+              <AuthProvider>
+                <ClientLayoutWrapper>
+                  {children}
+                </ClientLayoutWrapper>
+              </AuthProvider>
             </GoogleAuthProvider>
           </LoadingProvider>
         </NextIntlClientProvider>

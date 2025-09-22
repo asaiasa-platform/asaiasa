@@ -18,10 +18,10 @@ export default function NavigationBar() {
       label: t("events"),
       href: "/events/page/1?category=all",
     },
-    {
-      label: t("jobs"),
-      href: "/jobs/page/1",
-    },
+    // {
+    //   label: t("jobs"),
+    //   href: "/jobs/page/1",
+    // },
     { label: t("organizations"), href: "/orgs" },
     { label: t("map"), href: "/map" },
     { label: t("about"), href: "/about" },

@@ -1,20 +1,50 @@
+"use client";
+
 import JobCard from "@/components/common/JobCard";
 import Spinner from "@/components/ui/spinner";
 import { getAllOrgsJobs } from "@/features/orgs/api/action";
 import { JobCardProps } from "@/lib/types";
-import React, { Suspense } from "react";
-import { getTranslations } from "next-intl/server";
+import React, { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
+import { useRouteProtection } from "@/hooks/useRouteProtection";
 
-export default async function OrgJobsPage({
+// Note: For CSR with static export, dynamic routes will be handled client-side
+
+export default function OrgJobsPage({
   params,
 }: Readonly<{ params: { orgId: string } }>) {
-  const t = await getTranslations("OrgDetail");
-  const jobs: JobCardProps[] = await getAllOrgsJobs(params.orgId);
-  console.log(jobs);
+  const pathname = usePathname();
+  useRouteProtection(pathname);
+  
+  const [jobs, setJobs] = useState<JobCardProps[]>([]);
+  const [loading, setLoading] = useState(true);
+  const t = useTranslations("Organizations.orgDetail");
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        setLoading(true);
+        const jobsData: JobCardProps[] = await getAllOrgsJobs(params.orgId);
+        setJobs(jobsData);
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+        setJobs([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchJobs();
+  }, [params.orgId]);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
-    <Suspense fallback={<Spinner />}>
-      {jobs.length > 0 && jobs ? (
+    <>
+      {jobs.length > 0 ? (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {jobs.map((job) => (
             <JobCard
@@ -44,6 +74,6 @@ export default async function OrgJobsPage({
           </p>
         </div>
       )}
-    </Suspense>
+    </>
   );
 }

@@ -11,23 +11,10 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: [
-          {
-            key: "Cross-Origin-Opener-Policy",
-            value: "unsafe-none",
-          },
-          {
-            key: "Cross-Origin-Embedder-Policy",
-            value: "credentialless",
-          },
-        ],
-      },
-    ];
-  },
+  // Remove output: "export" temporarily to test CSR without static export
+  trailingSlash: true,
+  // Note: For true CSR, we may not need static export
+  // We can serve this as a SPA
   images: {
     remotePatterns: [
       {

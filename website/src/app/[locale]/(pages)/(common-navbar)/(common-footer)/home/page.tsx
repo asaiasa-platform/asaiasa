@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/routing";
@@ -11,7 +13,11 @@ import {
   getRecentOrgs,
   getRecommendedEvents,
 } from "@/features/home/api/action";
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
+import { useRouteProtection } from "@/hooks/useRouteProtection";
+import { useState, useEffect } from "react";
+import { Event, JobCardProps, OrganizationBrief } from "@/lib/types";
 
 interface HomeProps {
   params: {
@@ -19,31 +25,84 @@ interface HomeProps {
   };
 }
 
-export default async function Home({ params }: Readonly<HomeProps>) {
-  try {
-    // Get translations
-    const t = await getTranslations("HomePage");
-    const eventsT = await getTranslations("Events");
-    const orgsT = await getTranslations("Organizations");
-    const commonT = await getTranslations("Common.buttons");
+export default function Home({ params }: Readonly<HomeProps>) {
+  const pathname = usePathname();
+  useRouteProtection(pathname);
 
-    // Fetch all data concurrently
-    const [recentJobs, recentOrgs, featuredEvents, recommendedEvents] =
-      await Promise.all([
-        getRecentJobs(),
-        getRecentOrgs(),
-        getFeaturedEvents(),
-        getRecommendedEvents(),
-      ]);
+  const [data, setData] = useState<{
+    recentJobs: JobCardProps[] | null;
+    recentOrgs: OrganizationBrief[] | null;
+    featuredEvents: Event[] | null;
+    recommendedEvents: Event[] | null;
+  }>({
+    recentJobs: null,
+    recentOrgs: null,
+    featuredEvents: null,
+    recommendedEvents: null,
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
+  // Get translations
+  const t = useTranslations("HomePage");
+  const eventsT = useTranslations("Events");
+  const orgsT = useTranslations("Organizations");
+  const commonT = useTranslations("Common.buttons");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        // Fetch all data concurrently
+        const [recentJobs, recentOrgs, featuredEvents, recommendedEvents] =
+          await Promise.all([
+            getRecentJobs(),
+            getRecentOrgs(),
+            getFeaturedEvents(),
+            getRecommendedEvents(),
+          ]);
+
+        setData({
+          recentJobs,
+          recentOrgs,
+          featuredEvents,
+          recommendedEvents,
+        });
+      } catch (err) {
+        console.error("Error fetching home page data:", err);
+        setError("Error loading data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
     return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-orange-500"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center text-red-500 py-10">{error}</div>
+    );
+  }
+
+  const { recentJobs, recentOrgs, featuredEvents, recommendedEvents } = data;
+
+  return (
       <div className="flex flex-col min-h-screen bg-white">
         {/* Hero Section */}
         <HeroSection />
 
         <main className="font-prompt flex-grow">
           {/* Recommended Events Section */}
-          {recommendedEvents?.length > 0 && (
+          {recommendedEvents && recommendedEvents.length > 0 && (
             <section className="pt-16 bg-white">
               <div className="max-w-[1170px] mx-auto px-6">
                 <div className="flex justify-between items-center mb-8 gap-4">
@@ -62,7 +121,7 @@ export default async function Home({ params }: Readonly<HomeProps>) {
           )}
 
           {/* Featured Events Section */}
-          {featuredEvents?.length > 0 && (
+          {featuredEvents && featuredEvents.length > 0 && (
             <section className="py-16 bg-white">
               <div className="max-w-[1170px] mx-auto px-6">
                 <div className="flex justify-between items-center mb-8 gap-4">
@@ -88,7 +147,7 @@ export default async function Home({ params }: Readonly<HomeProps>) {
           )}
 
           {/* Jobs Section */}
-          {recentJobs?.length > 0 && (
+          {recentJobs && recentJobs.length > 0 && (
             <section className="py-16 bg-gray-50">
               <div className="max-w-[1170px] mx-auto px-6">
                 <div className="flex justify-between items-center mb-8 gap-4">
@@ -115,7 +174,7 @@ export default async function Home({ params }: Readonly<HomeProps>) {
           )}
 
           {/* Organizations Section */}
-          {recentOrgs?.length > 0 && (
+          {recentOrgs && recentOrgs.length > 0 && (
             <section className="py-16 bg-white">
               <div className="max-w-[1170px] mx-auto px-6">
                 <div className="flex justify-between items-center mb-8 gap-4">
@@ -142,10 +201,4 @@ export default async function Home({ params }: Readonly<HomeProps>) {
         </main>
       </div>
     );
-  } catch (error) {
-    console.error("Error fetching home page data:", error);
-    return (
-      <div className="text-center text-red-500 py-10">Error loading data</div>
-    );
-  }
 }

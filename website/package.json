@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "export": "next build && next export",
+    "serve": "npx serve@latest out",
     "lint": "next lint",
     "api": "nodemon --exec ts-node src/api/app.ts",
     "test": "jest --coverage"

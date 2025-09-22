@@ -12,6 +12,7 @@ import {
 import type { AuthContextType, UserProfile } from "@/lib/types";
 import toast from "react-hot-toast";
 import { getCurrentUser, logOut } from "@/features/auth/api/action";
+import { autoCleanupCookies, logCookieInfo } from "@/lib/cookieUtils";
 
 const AuthContext = createContext<AuthContextType>({
   isAuth: null,
@@ -48,6 +49,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const initializeAuth = async () => {
       setIsHydrated(true);
+
+      // Clean up cookies if they're getting too large
+      try {
+        autoCleanupCookies();
+        // Log cookie info in development
+        if (process.env.NODE_ENV === 'development') {
+          logCookieInfo();
+        }
+      } catch (error) {
+        console.warn('Cookie cleanup failed:', error);
+      }
 
       try {
         await fetchUserProfile();
