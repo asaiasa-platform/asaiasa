@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"strings"
 	"time"
 
 	"github.com/DAF-Bridge/Talent-Atmos-Backend/errs"
@@ -94,6 +95,9 @@ func Start() {
 		BodyLimit:    10 * 1024 * 1024, // 10MB body limit
 		ReadTimeout:  time.Second * 30,
 		WriteTimeout: time.Second * 30,
+		// Increase header size limits to handle large cookies/JWT tokens
+		ReadBufferSize:  16 * 1024, // 16KB read buffer (default is 4KB)
+		WriteBufferSize: 16 * 1024, // 16KB write buffer (default is 4KB)
 		ErrorHandler: func(c *fiber.Ctx, err error) error {
 			var statusCode int
 			var message string
@@ -104,10 +108,18 @@ func Start() {
 				statusCode = appErr.Code
 				message = appErr.Message
 			} else {
-				// If not, return a generic 500 status code
-				logs.Error(fmt.Sprintf("Unexpected error: %v", err))
-				statusCode = fiber.StatusInternalServerError
-				message = "Internal Server Error"
+				// Check for specific HTTP errors
+				errStr := err.Error()
+				if strings.Contains(errStr, "Request Header Fields Too Large") {
+					logs.Error(fmt.Sprintf("Request headers too large - URL: %s, Headers size might exceed limit", c.Path()))
+					statusCode = fiber.StatusRequestHeaderFieldsTooLarge
+					message = "Request headers too large. Please clear cookies and try again."
+				} else {
+					// If not, return a generic 500 status code
+					logs.Error(fmt.Sprintf("Unexpected error: %v", err))
+					statusCode = fiber.StatusInternalServerError
+					message = "Internal Server Error"
+				}
 			}
 
 			return c.Status(statusCode).JSON(types.GlobalErrorHandlerResp{
