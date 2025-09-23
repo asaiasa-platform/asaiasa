@@ -1,0 +1,10 @@
+{
+  "buildCommand": "rm -rf node_modules package-lock.json && npm install && npm run build",
+  "framework": "vite",
+  "outputDirectory": "dist",
+  "build": {
+    "env": {
+      "NODE_OPTIONS": "--max-old-space-size=4096"
+    }
+  }
+}

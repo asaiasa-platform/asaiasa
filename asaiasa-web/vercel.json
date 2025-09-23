@@ -1,0 +1,13 @@
+{
+  "buildCommand": "./build-vercel.sh",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install --include=optional",
+  "framework": "vite",
+  "outputDirectory": "dist",
+  "build": {
+    "env": {
+      "NODE_OPTIONS": "--max-old-space-size=4096",
+      "NPM_CONFIG_INCLUDE": "optional"
+    }
+  }
+}

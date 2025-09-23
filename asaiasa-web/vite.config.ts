@@ -14,4 +14,22 @@ export default defineConfig({
         port: 3000,
         host: true, // Allow external connections
     },
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    // Split vendor libraries into separate chunks
+                    react: ['react', 'react-dom'],
+                    router: ['react-router', 'react-router-dom'],
+                    ui: ['@untitledui/icons', 'lucide-react', 'react-icons'],
+                    forms: ['react-hook-form', '@hookform/resolvers', 'zod'],
+                    charts: ['recharts'],
+                    carousel: ['embla-carousel-react', 'embla-carousel-autoplay'],
+                    intl: ['next-intl'],
+                    oauth: ['@react-oauth/google']
+                }
+            }
+        },
+        chunkSizeWarningLimit: 1000 // Increase limit to 1000kb
+    }
 });
