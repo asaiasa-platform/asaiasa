@@ -13,7 +13,13 @@ var OauthConfigAdmin *oauth2.Config
 func InitOAuth() {
 	ClientID := os.Getenv("GOOGLE_CLIENT_ID")
 	ClientSecret := os.Getenv("GOOGLE_CLIENT_SECRET")
-	RedirectURL := os.Getenv("BASE_EXTERNAL_URL") + "/auth/google/callback"
+
+	// Use FRONTEND_URL for OAuth redirect (where the React app handles the callback)
+	FrontendURL := os.Getenv("FRONTEND_URL")
+	if FrontendURL == "" {
+		FrontendURL = os.Getenv("BASE_EXTERNAL_URL") // Fallback to BASE_EXTERNAL_URL
+	}
+	RedirectURL := FrontendURL + "/auth/google/callback"
 
 	OauthConfig = &oauth2.Config{
 		ClientID:     ClientID,

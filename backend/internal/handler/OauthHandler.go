@@ -53,6 +53,30 @@ func NewOauthHandler(oauthService *service.OauthService) *OauthHandler {
 func (h *OauthHandler) GoogleCallback(c *fiber.Ctx) error {
 	// Get and validate required parameters
 	code := c.Query("code")
+	state := c.Query("state")
+	errorParam := c.Query("error")
+
+	// Debug logging
+	logs.Info(fmt.Sprintf("OAuth Callback received - Code: %s, State: %s, Error: %s", code, state, errorParam))
+	logs.Info(fmt.Sprintf("OAuth Config RedirectURL: %s", initializers.OauthConfig.RedirectURL))
+	logs.Info(fmt.Sprintf("OAuth Config ClientID: %s", initializers.OauthConfig.ClientID))
+
+	// Check for OAuth errors from Google
+	if errorParam != "" {
+		logs.Error(fmt.Sprintf("OAuth error from Google: %s", errorParam))
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"success": false,
+			"message": fmt.Sprintf("OAuth error: %s", errorParam),
+		})
+	}
+
+	if code == "" {
+		logs.Error("No authorization code received")
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"success": false,
+			"message": "No authorization code received",
+		})
+	}
 
 	// Exchange the authorization code for an access token
 	token, err := initializers.OauthConfig.Exchange(context.Background(), code)
