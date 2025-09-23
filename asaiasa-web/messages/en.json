@@ -1,0 +1,321 @@
+{
+  "HomePage": {
+    "title": "ASAiASA",
+    "about": "Go to the about page",
+    "hero": {
+      "headline1": "Empowering Change,",
+      "headline2": "One Volunteer at a Time",
+      "description": "We believe in connecting volunteers to work for the betterment of the places they live. Join us in transforming volunteerism!"
+    },
+    "recommendedEvents": {
+      "title": "Events for You",
+      "description": "Discover events that are suitable to showcase your strengths",
+      "noData": "No recommended events available at the moment"
+    },
+    "featuredEvents": {
+      "description": "Popular events following current trends",
+      "noData": "No featured events available at the moment"
+    },
+    "latestJobs": {
+      "title": "Latest Jobs",
+      "description": "Opportunities to develop organizations and contribute to society",
+      "noData": "No job opportunities available at the moment"
+    },
+    "organizations": {
+      "description": "Discover youth organizations, driven by youth, for society",
+      "noData": "No organizations available at the moment"
+    },
+    "viewMoreJobs": "View More Jobs"
+  },
+  "About": {
+    "title": "About Us",
+    "hero": {
+      "title": "Empowering Change Through Volunteerism",
+      "subtitle": "We connect passionate volunteers with meaningful opportunities to create positive impact in communities across Thailand and beyond.",
+      "joinEvents": "Join Events",
+      "findOrganizations": "Find Organizations"
+    },
+    "mission": {
+      "title": "Our Purpose",
+      "subtitle": "Discover what drives us to create meaningful connections between volunteers and organizations.",
+      "ourMission": "Our Mission",
+      "missionText": "To bridge the gap between passionate volunteers and impactful organizations, creating a sustainable ecosystem where everyone can contribute to positive social change and community development.",
+      "ourVision": "Our Vision",
+      "visionText": "A world where volunteerism is accessible, impactful, and celebrated - where every person has the opportunity to contribute their unique skills and passion to building stronger communities."
+    },
+    "values": {
+      "title": "Our Core Values",
+      "subtitle": "The principles that guide everything we do",
+      "compassion": {
+        "title": "Compassion",
+        "description": "We believe in the power of empathy and understanding to drive meaningful change in our communities."
+      },
+      "collaboration": {
+        "title": "Collaboration",
+        "description": "Together we achieve more. We foster partnerships between volunteers, organizations, and communities."
+      },
+      "impact": {
+        "title": "Impact",
+        "description": "Every action matters. We focus on creating measurable, positive change in the world around us."
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "We embrace new ideas and technologies to make volunteerism more accessible and effective."
+      }
+    },
+    "achievements": {
+      "title": "Our Impact So Far",
+      "subtitle": "Numbers that tell our story of positive change",
+      "volunteers": "Active Volunteers",
+      "organizations": "Partner Organizations",
+      "events": "Events Organized",
+      "cities": "Cities Reached"
+    },
+    "features": {
+      "title": "What We Offer",
+      "subtitle": "Comprehensive support for volunteers and organizations",
+      "networking": "Professional networking opportunities",
+      "skillDevelopment": "Skill development workshops",
+      "communityImpact": "Direct community impact projects",
+      "culturalExchange": "Cultural exchange programs",
+      "careerGrowth": "Career growth through volunteering",
+      "socialChange": "Social change initiatives"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "Simple steps to start making a difference",
+      "step1": {
+        "title": "Discover Opportunities",
+        "description": "Browse through hundreds of volunteer opportunities from verified organizations across different causes and locations."
+      },
+      "step2": {
+        "title": "Connect & Engage",
+        "description": "Join events, connect with like-minded volunteers, and start building meaningful relationships within the community."
+      },
+      "step3": {
+        "title": "Create Impact",
+        "description": "Make a real difference through your volunteer work and track your impact through our platform."
+      }
+    },
+    "team": {
+      "title": "Meet Our Team",
+      "subtitle": "The passionate individuals behind ASAiASA",
+      "founder": {
+        "name": "ASAiASA Founder",
+        "role": "Founder & CEO",
+        "description": "Passionate about connecting people with meaningful volunteer opportunities and building stronger communities."
+      },
+      "communityManager": {
+        "name": "Community Manager",
+        "role": "Community Relations",
+        "description": "Dedicated to fostering relationships between volunteers and organizations, ensuring positive experiences for all."
+      },
+      "techLead": {
+        "name": "Technology Director",
+        "role": "Platform Development",
+        "description": "Leading the technical innovation to make our platform more accessible, user-friendly, and impactful."
+      }
+    },
+    "cta": {
+      "title": "Ready to Make a Difference?",
+      "subtitle": "Join thousands of volunteers who are already creating positive change in their communities.",
+      "browseEvents": "Browse Events",
+      "joinOrganization": "Partner With Us"
+    },
+    "sections": {
+      "whoWeAre": "Who We Are",
+      "vision": "Our Vision",
+      "mission": "Our Mission",
+      "whyWeDo": "Why We Do What We Do",
+      "whatWeDo": "What We Do"
+    },
+    "audiences": {
+      "volunteers": "For Volunteers",
+      "organizations": "For Organizations",
+      "partners": "For Partners"
+    },
+    "loading": "Loading...",
+    "noContent": "Content is being updated. Please check back later."
+  },
+  "Common": {
+    "buttons": {
+      "login": "Login",
+      "signup": "Sign Up",
+      "submit": "Submit",
+      "cancel": "Cancel",
+      "save": "Save",
+      "search": "Search",
+      "apply": "Apply",
+      "viewAll": "View All"
+    },
+    "navigation": {
+      "home": "Home",
+      "events": "Events",
+      "jobs": "Jobs",
+      "organizations": "Organizations",
+      "map": "Map",
+      "statistics": "Statistics",
+      "profile": "Profile",
+      "about": "About Us"
+    },
+    "general": {
+      "or": "or",
+      "loading": "Loading..."
+    },
+    "filters": {
+      "filter": "Filter"
+    },
+    "social": {
+      "website": "website"
+    },
+    "userMenu": {
+      "statistics": "Activity Statistics",
+      "preferences": "Preferences",
+      "logout": "Logout"
+    }
+  },
+  "Auth": {
+    "login": {
+      "title": "Login to Your Account",
+      "emailPlaceholder": "Email",
+      "passwordPlaceholder": "Password",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "signupHere": "Sign up here",
+      "googleButton": "Login with Google",
+      "success": "Login successful"
+    },
+    "signup": {
+      "title": "Create Your Account",
+      "backToLogin": "Back to Login",
+      "firstNameLabel": "First Name",
+      "firstNamePlaceholder": "First Name",
+      "lastNameLabel": "Last Name",
+      "lastNamePlaceholder": "Last Name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Email",
+      "phoneLabel": "Phone Number",
+      "phonePlaceholder": "Phone Number",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Password",
+      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm Password",
+      "acceptLabel": "I accept the",
+      "termsOfService": "Terms of Service",
+      "and": "and",
+      "privacyPolicy": "Privacy Policy",
+      "submit": "Submit",
+      "haveAccount": "Already have an account?",
+      "loginHere": "Login here",
+      "passwordCriteria": {
+        "length": "At least 8 characters",
+        "uppercase": "At least one uppercase letter",
+        "lowercase": "At least one lowercase letter",
+        "number": "At least one number",
+        "special": "At least one special character"
+      },
+      "success": "Signup successful",
+      "error": "Failed to signup. Please try again."
+    },
+    "preferences": {
+      "title": "Choose Your Preferences",
+      "subtitle": "Select categories that interest you"
+    }
+  },
+  "Events": {
+    "title": "Events",
+    "upcoming": "Upcoming Events",
+    "featured": "Featured Events",
+    "register": "Register",
+    "filters": {
+      "category": "Category",
+      "date": "Date",
+      "location": "Location"
+    },
+    "detail": {
+      "notSpecified": "Not specified",
+      "details": "Details",
+      "description": "Event Description",
+      "location": "Location",
+      "contactChannels": "Contact Channels",
+      "register": "Register",
+      "category": "Category",
+      "online": "Online"
+    },
+    "search": {
+      "prefix": "Find new",
+      "highlight": "Events",
+      "suffix": "for your advancement"
+    },
+    "searchPlaceholder": {
+      "full": "Search for events",
+      "brief": "Search"
+    },
+    "notFound": "No events found",
+    "tryAnotherSearch": "Please try another search term or change filters"
+  },
+  "Jobs": {
+    "title": "Jobs",
+    "featured": "Featured Jobs",
+    "apply": "Apply Now",
+    "filters": {
+      "category": "Category",
+      "type": "Job Type",
+      "location": "Location"
+    },
+    "searchTitle": "Find jobs that suit you",
+    "searchSubtitle": "Want to make a difference? Find jobs with positive impact here!",
+    "businessType": "Business Type",
+    "perMonth": "per month",
+    "search": {
+      "prefix": "Find new",
+      "highlight": "Jobs",
+      "suffix": "for your career"
+    },
+    "searchPlaceholder": {
+      "full": "Search for job titles, companies, or keywords",
+      "brief": "Search for job keywords"
+    },
+    "notFound": "No jobs found",
+    "tryAnotherSearch": "Please try another search term or change filters"
+  },
+  "Organizations": {
+    "title": "Organizations",
+    "featured": "Featured Organizations",
+    "filters": {
+      "category": "Category",
+      "location": "Location"
+    },
+    "search": {
+      "prefix": "Find new",
+      "highlight": "Organizations",
+      "suffix": "for your advancement"
+    },
+    "searchPlaceholder": "Search for organizations",
+    "searchResults": "Found {count} organizations for \"{query}\"",
+    "totalOrganizations": "Showing {count} organizations",
+    "searchNotFound": "No organizations found for your search",
+    "searchSuggestion": "Try different keywords or browse all organizations",
+    "notFound": "No organizations found",
+    "tryAgain": "Try Again",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "OrgDetail": {
+    "detail": "Organization Details",
+    "about": "About Organization",
+    "jobs": "Job Listings",
+    "events": "Events",
+    "businessType": "Business Type",
+    "specialty": "Specialty",
+    "contactInfo": "Contact Information",
+    "address": "Address",
+    "email": "Email",
+    "phone": "Phone",
+    "otherChannels": "Other Channels",
+    "jobListings": "Job Listings",
+    "eventListings": "Event Listings",
+    "noJobs": "No job listings available",
+    "noEvents": "No events available"
+  }
+}

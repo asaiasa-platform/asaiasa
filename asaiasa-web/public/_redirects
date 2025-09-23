@@ -1,0 +1,21 @@
+# Redirect root to default locale (English)
+/  /en/home  302
+
+# Handle locale-specific routes
+/home  /en/home  302
+/login  /en/login  302
+/events  /en/events  302
+/jobs  /en/jobs  302
+/orgs  /en/orgs  302
+/map  /en/map  302
+/about  /en/about  302
+
+# Google OAuth callback redirect
+/auth/google/callback  /en/auth/google/callback  302
+
+# Handle Next.js dynamic routes
+/en/*  /en/index.html  200
+/th/*  /th/index.html  200
+
+# Fallback for client-side routing
+/*  /index.html  200
