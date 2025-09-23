@@ -59,20 +59,36 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Remove authentication state (logout)
   const removeAuthState = useCallback(async () => {
     try {
+      // Immediately clear local state to prevent UI inconsistencies
+      setIsAuth(false);
+      setUserProfile(null);
+      setLoading(false);
+
+      // Call the logout service (which clears all storage)
       const result = await authService.logout();
-      if (result.success) {
-        setIsAuth(false);
-        setUserProfile(null);
-        toast.success('Logged out successfully');
-        // Redirect to home page
-        window.location.href = '/';
-      } else {
-        console.error('Logout failed:', result.error);
-        toast.error(result.error || 'Logout failed');
-      }
+      
+      // Always show success message since client-side logout is guaranteed
+      toast.success(result.message || 'Logged out successfully');
+      
+      // Force a complete page reload to ensure all state is cleared
+      // This is more reliable than just redirecting in production environments
+      setTimeout(() => {
+        window.location.replace('/');
+      }, 100);
+      
     } catch (error) {
+      // Even if there's an error, ensure logout is completed
       console.error('Logout error:', error);
-      toast.error('Logout failed');
+      setIsAuth(false);
+      setUserProfile(null);
+      setLoading(false);
+      
+      toast.success('Logged out successfully');
+      
+      // Force reload even on error
+      setTimeout(() => {
+        window.location.replace('/');
+      }, 100);
     }
   }, []);
 

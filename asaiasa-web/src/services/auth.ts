@@ -134,6 +134,9 @@ class AuthService {
   // Logout user
   async logout(): Promise<AuthResponse> {
     try {
+      // First, clear all client-side storage
+      this.clearClientStorage();
+
       const url = `${this.baseURL}/logout`;
       
       const response = await fetch(url, {
@@ -144,21 +147,79 @@ class AuthService {
         credentials: 'include', // Important: This sends cookies with the request
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || data.message || `HTTP ${response.status}`);
+      // Even if the server request fails, we still clear client-side data
+      let serverResult = { success: true, message: 'Logout successful' };
+      
+      if (response.ok) {
+        const data = await response.json();
+        serverResult = {
+          success: true,
+          message: data.message || 'Logout successful',
+        };
+      } else {
+        console.warn('Server logout failed, but client-side logout completed');
       }
 
-      return {
-        success: true,
-        message: data.message || 'Logout successful',
-      };
+      return serverResult;
     } catch (error) {
+      // Even if there's an error, ensure client-side logout
+      this.clearClientStorage();
+      
       return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Logout failed',
+        success: true, // Return success since client-side logout is complete
+        message: 'Logged out locally',
       };
+    }
+  }
+
+  // Clear all client-side authentication storage
+  private clearClientStorage(): void {
+    try {
+      // Clear localStorage
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userProfile');
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+
+      // Clear sessionStorage
+      sessionStorage.removeItem('authToken');
+      sessionStorage.removeItem('userProfile');
+      sessionStorage.removeItem('user');
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('accessToken');
+      sessionStorage.removeItem('refreshToken');
+
+      // Clear all cookies by setting them to expire
+      const cookies = [
+        'authToken',
+        'token',
+        'accessToken',
+        'refreshToken',
+        'user',
+        'userProfile',
+        'session',
+        'auth',
+        'jwt'
+      ];
+
+      cookies.forEach(cookieName => {
+        // Clear for current domain
+        document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;`;
+        // Clear for current domain with subdomain
+        document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=${window.location.hostname};`;
+        // Clear for parent domain
+        const parts = window.location.hostname.split('.');
+        if (parts.length > 2) {
+          const parentDomain = '.' + parts.slice(-2).join('.');
+          document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=${parentDomain};`;
+        }
+      });
+
+      console.log('Client-side storage cleared');
+    } catch (error) {
+      console.error('Error clearing client storage:', error);
     }
   }
 

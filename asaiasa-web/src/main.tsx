@@ -20,6 +20,9 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { IntlProviderWrapper } from "@/providers/intl-provider";
 import "@/styles/globals.css";
 
+// Import auth debug utilities for production debugging
+import "@/utils/auth-debug";
+
 createRoot(document.getElementById("root")!).render(
       <StrictMode>
           <IntlProviderWrapper>
