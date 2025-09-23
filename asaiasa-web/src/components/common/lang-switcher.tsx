@@ -14,7 +14,7 @@ const LangSwitcher: React.FC = () => {
   return (
     <Button
       onClick={toggleLanguage}
-      variant="ghost"
+      color="tertiary"
       size="sm"
       className="flex items-center gap-2 px-3 py-2 rounded-md border hover:bg-gray-50"
     >

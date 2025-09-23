@@ -16,6 +16,7 @@ export interface ApiSingleResponse<T> {
   code: number;
   data: T;
   message: string;
+  data_schema?: any;
 }
 
 // API Client class
@@ -105,7 +106,7 @@ class ApiClient {
         total_page: 1,
         total_data: response.length,
         message: '',
-        data_schema: null
+        data_schema: null as any
       };
     } else if (response && typeof response === 'object') {
       // Check if it's already in the expected format
@@ -121,7 +122,7 @@ class ApiClient {
           total_page: 1,
           total_data: 1,
           message: '',
-          data_schema: null
+          data_schema: null as any
         };
       }
     }
@@ -140,7 +141,7 @@ class ApiClient {
         code: 0,
         data: response,
         message: '',
-        data_schema: null
+        data_schema: null as any
       };
     }
     

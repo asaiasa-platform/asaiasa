@@ -38,7 +38,7 @@ export const HeroSection: React.FC = () => {
                 </Button>
               </Link>
               <Link to="/jobs">
-                <Button variant="outline" size="lg">
+                <Button color="secondary" size="lg">
                   Find Jobs
                 </Button>
               </Link>

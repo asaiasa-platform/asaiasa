@@ -72,7 +72,7 @@ const Navbar: React.FC = () => {
               ) : isAuth && userProfile ? (
                 <div className="relative">
                   <Button
-                    variant="ghost"
+                    color="tertiary"
                     size="sm"
                     onClick={toggleUserMenu}
                     className="flex items-center gap-2 hover:bg-gray-100"
@@ -125,7 +125,7 @@ const Navbar: React.FC = () => {
               ) : (
                 <>
                   <Link to="/login">
-                    <Button variant="ghost" size="sm">
+                    <Button color="tertiary" size="sm">
                       {authT('login')}
                     </Button>
                   </Link>
@@ -141,7 +141,7 @@ const Navbar: React.FC = () => {
             {/* Mobile Menu Button */}
             <div className="md:hidden flex items-center">
               <Button
-                variant="ghost"
+                color="tertiary"
                 size="sm"
                 onClick={toggleMobileMenu}
                 className="text-gray-700"
@@ -200,17 +200,17 @@ const Navbar: React.FC = () => {
                     </div>
                   </div>
                   <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button variant="ghost" size="sm" className="w-full justify-start">
+                    <Button color="tertiary" size="sm" className="w-full justify-start">
                       Profile
                     </Button>
                   </Link>
                   <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button variant="ghost" size="sm" className="w-full justify-start">
+                    <Button color="tertiary" size="sm" className="w-full justify-start">
                       Dashboard
                     </Button>
                   </Link>
                   <Button
-                    variant="ghost"
+                    color="tertiary"
                     size="sm"
                     onClick={() => {
                       handleLogout();
@@ -225,7 +225,7 @@ const Navbar: React.FC = () => {
               ) : (
                 <>
                   <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button variant="ghost" size="sm" className="w-full justify-start">
+                    <Button color="tertiary" size="sm" className="w-full justify-start">
                       {authT('login')}
                     </Button>
                   </Link>

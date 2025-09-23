@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
+// import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'react-router-dom';
 import Layout from '@/components/layout/layout';
 import EventCard from '@/components/common/event-card';
@@ -21,8 +21,8 @@ const EventsPage: React.FC = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const t = useTranslations('Events');
-  const commonT = useTranslations('Common');
+  // const t = useTranslations('Events');
+  // const commonT = useTranslations('Common');
 
   // Get filters from URL params
   const [filters, setFilters] = useState<EventFilters>({
@@ -200,7 +200,7 @@ const EventsPage: React.FC = () => {
           {/* Clear Filters */}
           <div className="flex justify-end">
             <Button
-              variant="outline"
+              color="secondary"
               onClick={clearFilters}
               className="text-orange-600 border-orange-600 hover:bg-orange-50"
             >
@@ -237,7 +237,7 @@ const EventsPage: React.FC = () => {
             {totalPages > 1 && (
               <div className="flex justify-center items-center gap-2 py-8">
                 <Button
-                  variant="outline"
+                  color="secondary"
                   onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
                 >
@@ -249,7 +249,7 @@ const EventsPage: React.FC = () => {
                 </span>
                 
                 <Button
-                  variant="outline"
+                  color="secondary"
                   onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                   disabled={currentPage === totalPages}
                 >

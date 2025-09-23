@@ -176,7 +176,7 @@ const OrganizationsPage: React.FC = () => {
                 {totalPages > 1 && (
                   <div className="flex justify-center items-center mt-8 gap-2">
                     <Button
-                      variant="outline"
+                      color="secondary"
                       onClick={() => handlePageChange(currentPage - 1)}
                       disabled={currentPage === 1}
                       className="px-3 py-2"
@@ -200,7 +200,7 @@ const OrganizationsPage: React.FC = () => {
                         return (
                           <Button
                             key={pageNum}
-                            variant={currentPage === pageNum ? "default" : "outline"}
+                            color={currentPage === pageNum ? "primary" : "secondary"}
                             onClick={() => handlePageChange(pageNum)}
                             className="px-3 py-2 min-w-[40px]"
                           >
@@ -211,7 +211,7 @@ const OrganizationsPage: React.FC = () => {
                     </div>
                     
                     <Button
-                      variant="outline"
+                      color="secondary"
                       onClick={() => handlePageChange(currentPage + 1)}
                       disabled={currentPage === totalPages}
                       className="px-3 py-2"

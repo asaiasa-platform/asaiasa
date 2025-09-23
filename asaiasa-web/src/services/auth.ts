@@ -1,37 +1,38 @@
 import { env } from '@/config/env';
-import { LoginRequest, SignupRequest, AuthResponse, UserProfile } from '@/lib/validation';
+import { LoginRequest, SignupRequest, AuthResponse } from '@/lib/validation';
 
 class AuthService {
   private baseURL = env.API_BASE_URL;
 
-  private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-    const url = `${this.baseURL}${endpoint}`;
-    
-    const config: RequestInit = {
-      headers: {
-        'Content-Type': 'application/json',
-        ...options.headers,
-      },
-      credentials: 'include', // Include cookies for session management
-      ...options,
-    };
+  // Note: This method is not used in the current implementation as we use direct fetch calls
+  // private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+  //   const url = `${this.baseURL}${endpoint}`;
+  //   
+  //   const config: RequestInit = {
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       ...options.headers,
+  //     },
+  //     credentials: 'include', // Include cookies for session management
+  //     ...options,
+  //   };
 
-    try {
-      const response = await fetch(url, config);
-      const data = await response.json();
+  //   try {
+  //     const response = await fetch(url, config);
+  //     const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || data.message || `HTTP ${response.status}`);
-      }
+  //     if (!response.ok) {
+  //       throw new Error(data.error || data.message || `HTTP ${response.status}`);
+  //     }
 
-      return data;
-    } catch (error) {
-      if (error instanceof Error) {
-        throw error;
-      }
-      throw new Error('Network error occurred');
-    }
-  }
+  //     return data;
+  //   } catch (error) {
+  //     if (error instanceof Error) {
+  //       throw error;
+  //     }
+  //     throw new Error('Network error occurred');
+  //   }
+  // }
 
   // Login with email and password
   async login(credentials: LoginRequest): Promise<AuthResponse> {

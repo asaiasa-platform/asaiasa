@@ -11,7 +11,7 @@ import { authService } from '@/services/auth';
 import { useAuth } from '@/contexts/auth-context';
 import Layout from '@/components/layout/layout';
 import { Button } from '@/components/base/buttons/button';
-import { Input } from '@/components/base/input/input';
+import { AdaptedInput as Input } from '@/utils/input-adapter';
 import { Label } from '@/components/base/input/label';
 
 export default function RegisterPage() {
@@ -212,7 +212,7 @@ export default function RegisterPage() {
                   />
                   <Button
                     type="button"
-                    variant="ghost"
+                    color="tertiary"
                     size="sm"
                     className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                     onClick={toggleVisibility}
@@ -264,7 +264,7 @@ export default function RegisterPage() {
                   />
                   <Button
                     type="button"
-                    variant="ghost"
+                    color="tertiary"
                     size="sm"
                     className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                     onClick={toggleVisibility}

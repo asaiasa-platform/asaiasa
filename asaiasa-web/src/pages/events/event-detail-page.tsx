@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router';
-import { useTranslations } from 'next-intl';
+// import { useTranslations } from 'next-intl';
 import { IoCalendarSharp, IoLocationSharp, IoTimeOutline } from 'react-icons/io5';
 import { FaFacebook, FaInstagram, FaTwitter, FaLine } from 'react-icons/fa';
 import parse, { HTMLReactParserOptions, Element, DOMNode, domToReact } from 'html-react-parser';
 import Layout from '@/components/layout/layout';
 import { Button } from '@/components/base/buttons/button';
-import { api, Event, ContactChannel } from '@/services/api';
+import { api, Event } from '@/services/api';
 
 const EventDetailPage: React.FC = () => {
   const { eventId } = useParams<{ eventId: string }>();
@@ -14,8 +14,8 @@ const EventDetailPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const t = useTranslations('Events.detail');
-  const commonT = useTranslations('Common');
+  // const t = useTranslations('Events.detail');
+  // const commonT = useTranslations('Common');
 
   // HTML parsing options for content
   const htmlParseOptions: HTMLReactParserOptions = {
@@ -349,7 +349,7 @@ const EventDetailPage: React.FC = () => {
                       </Button>
                     )}
                     <Link to="/events">
-                      <Button variant="outline" className="w-full border-gray-300 text-gray-700 hover:bg-gray-50 py-3 rounded-lg">
+                      <Button color="secondary" className="w-full border-gray-300 text-gray-700 hover:bg-gray-50 py-3 rounded-lg">
                         Back to Events
                       </Button>
                     </Link>

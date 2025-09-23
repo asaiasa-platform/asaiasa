@@ -37,9 +37,9 @@ export const GoogleLoginButton: React.FC<GoogleLoginButtonProps> = ({
   return (
     <Button
       type="button"
-      variant="outline"
+      color="secondary"
       onClick={handleGoogleLogin}
-      disabled={disabled}
+      isDisabled={disabled}
       className={`inline-flex gap-3 border border-gray-300 hover:border-gray-400 hover:shadow-md rounded-lg h-12 w-full text-sm font-medium justify-center items-center transition-all duration-200 ${className}`}
     >
       <svg 

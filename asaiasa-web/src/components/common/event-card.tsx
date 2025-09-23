@@ -64,7 +64,7 @@ export const EventCard: React.FC<EventCardProps> = ({
 
         {/* Action Button */}
         <Link to={`/events/${event.id}`}>
-          <Button variant="outline" size="sm" className="w-full">
+          <Button color="secondary" size="sm" className="w-full">
             Learn More
           </Button>
         </Link>

@@ -208,7 +208,7 @@ const HomePage: React.FC = () => {
                           )}
                           <p>⏰ {job.job_type}</p>
                         </div>
-                        <Button variant="outline" size="sm">
+                        <Button color="secondary" size="sm">
                           {commonT('apply')}
                         </Button>
                       </div>
@@ -221,7 +221,7 @@ const HomePage: React.FC = () => {
                 )}
                 <div className="flex justify-center mt-10">
                   <Link to="/jobs">
-                    <Button variant="outline" className="border-orange-600 text-orange-600 hover:bg-orange-50">
+                    <Button color="secondary" className="border-orange-600 text-orange-600 hover:bg-orange-50">
                       {t('viewMoreJobs')}
                     </Button>
                   </Link>

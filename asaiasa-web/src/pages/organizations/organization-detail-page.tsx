@@ -22,7 +22,7 @@ const OrganizationDetailPage: React.FC = () => {
   const [loadingJobs, setLoadingJobs] = useState(false);
 
   const t = useTranslations('OrgDetail');
-  const commonT = useTranslations('Common');
+  // const commonT = useTranslations('Common');
 
   useEffect(() => {
     if (orgId) {
@@ -247,7 +247,7 @@ const OrganizationDetailPage: React.FC = () => {
                         {t('businessType')}
                       </h4>
                       <div className="flex flex-wrap gap-2">
-                        {organization.industries.map((industry) => (
+                        {organization.industries.map((industry: any) => (
                           <span
                             key={industry.id}
                             className="inline-flex items-center px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full text-sm font-medium border border-blue-200"
@@ -353,7 +353,7 @@ const OrganizationDetailPage: React.FC = () => {
                           {t('otherChannels')}
                         </h4>
                         <div className="flex flex-col gap-3">
-                          {organization.organizationContacts.map((contact, index) => (
+                          {organization.organizationContacts.map((contact: any, index: number) => (
                             <a
                               key={index}
                               href={contact.mediaLink}
@@ -415,8 +415,8 @@ const OrganizationDetailPage: React.FC = () => {
                       <h3 className="font-medium text-lg mb-2">{job.title}</h3>
                       <p className="text-gray-600 text-sm mb-2 line-clamp-2">{job.description}</p>
                       <div className="flex justify-between items-center text-sm text-gray-500">
-                        <span>{job.employmentType}</span>
-                        {job.salary && <span>{job.salary}</span>}
+                        <span>{(job as any).employmentType}</span>
+                        {(job as any).salary && <span>{(job as any).salary}</span>}
                       </div>
                     </div>
                   ))}

@@ -1,13 +1,12 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
-import { Heart, Users, Target, Lightbulb, Award, Globe, ArrowRight, CheckCircle } from 'lucide-react';
+import { Heart, Users, Target, Lightbulb, Globe, ArrowRight, CheckCircle } from 'lucide-react';
 import Layout from '@/components/layout/layout';
 import { Button } from '@/components/base/buttons/button';
 import { Link } from 'react-router';
 
 const AboutPage: React.FC = () => {
   const t = useTranslations('About');
-  const commonT = useTranslations('Common');
 
   const values = [
     {
@@ -78,7 +77,7 @@ const AboutPage: React.FC = () => {
                 </Button>
               </Link>
               <Link to="/organizations">
-                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-orange-600 px-8 py-3 text-lg font-semibold">
+                <Button color="secondary" className="border-white text-white hover:bg-white hover:text-orange-600 px-8 py-3 text-lg font-semibold">
                   {t('hero.findOrganizations')}
                 </Button>
               </Link>
@@ -341,7 +340,7 @@ const AboutPage: React.FC = () => {
                 </Button>
               </Link>
               <Link to="/organizations">
-                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-orange-600 px-8 py-3 text-lg font-semibold">
+                <Button color="secondary" className="border-white text-white hover:bg-white hover:text-orange-600 px-8 py-3 text-lg font-semibold">
                   {t('cta.joinOrganization')}
                 </Button>
               </Link>
