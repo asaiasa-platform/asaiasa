@@ -171,6 +171,8 @@
     "userMenu": {
       "statistics": "สถิติกิจกรรม",
       "preferences": "ความสนใจ",
+      "profile": "โปรไฟล์",
+      "dashboard": "แดชบอร์ด",
       "logout": "ออกจากระบบ"
     }
   },
@@ -317,5 +319,9 @@
     "eventListings": "รายการอีเวนต์",
     "noJobs": "ไม่มีรายการงาน",
     "noEvents": "ไม่มีอีเวนต์"
+  },
+  "Footer": {
+    "contactChannels": "ช่องทางติดต่อ",
+    "email": "อีเมล"
   }
 }

@@ -12,12 +12,13 @@ const Navbar: React.FC = () => {
   const { isAuth, userProfile, removeAuthState, loading } = useAuth();
   const t = useTranslations('Common.navigation');
   const authT = useTranslations('Common.buttons');
+  const userMenuT = useTranslations('Common.userMenu');
 
   const menuItems = [
     { label: t('events'), href: '/events' },
-    { label: t('jobs'), href: '/jobs' },
+    // { label: t('jobs'), href: '/jobs' },
     { label: t('organizations'), href: '/organizations' },
-    { label: t('map'), href: '/map' },
+    // { label: t('map'), href: '/map' },
     { label: t('about'), href: '/about' },
   ];
 
@@ -103,21 +104,21 @@ const Navbar: React.FC = () => {
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         onClick={() => setIsUserMenuOpen(false)}
                       >
-                        Profile
+                        {userMenuT('profile')}
                       </Link>
                       <Link
                         to="/dashboard"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         onClick={() => setIsUserMenuOpen(false)}
                       >
-                        Dashboard
+                        {userMenuT('dashboard')}
                       </Link>
                       <button
                         onClick={handleLogout}
                         className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
                       >
                         <LogOut className="w-4 h-4" />
-                        Logout
+                        {userMenuT('logout')}
                       </button>
                     </div>
                   )}
@@ -201,12 +202,12 @@ const Navbar: React.FC = () => {
                   </div>
                   <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)}>
                     <Button color="tertiary" size="sm" className="w-full justify-start">
-                      Profile
+                      {userMenuT('profile')}
                     </Button>
                   </Link>
                   <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
                     <Button color="tertiary" size="sm" className="w-full justify-start">
-                      Dashboard
+                      {userMenuT('dashboard')}
                     </Button>
                   </Link>
                   <Button
@@ -219,7 +220,7 @@ const Navbar: React.FC = () => {
                     className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
                   >
                     <LogOut className="w-4 h-4 mr-2" />
-                    Logout
+                    {userMenuT('logout')}
                   </Button>
                 </>
               ) : (

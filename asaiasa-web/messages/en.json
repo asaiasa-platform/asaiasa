@@ -171,6 +171,8 @@
     "userMenu": {
       "statistics": "Activity Statistics",
       "preferences": "Preferences",
+      "profile": "Profile",
+      "dashboard": "Dashboard",
       "logout": "Logout"
     }
   },
@@ -317,5 +319,9 @@
     "eventListings": "Event Listings",
     "noJobs": "No job listings available",
     "noEvents": "No events available"
+  },
+  "Footer": {
+    "contactChannels": "Contact Channels",
+    "email": "Email"
   }
 }

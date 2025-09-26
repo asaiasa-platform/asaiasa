@@ -58,7 +58,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   // Remove authentication state (logout)
   const removeAuthState = useCallback(async () => {
-    try {
+    // try {
       // Immediately clear local state to prevent UI inconsistencies
       setIsAuth(false);
       setUserProfile(null);
@@ -66,6 +66,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       // Call the logout service (which clears all storage)
       const result = await authService.logout();
+      console.log('Logout result', result);
       
       // Always show success message since client-side logout is guaranteed
       toast.success(result.message || 'Logged out successfully');
@@ -76,20 +77,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         window.location.replace('/');
       }, 100);
       
-    } catch (error) {
-      // Even if there's an error, ensure logout is completed
-      console.error('Logout error:', error);
-      setIsAuth(false);
-      setUserProfile(null);
-      setLoading(false);
+    // } catch (error) {
+    //   // Even if there's an error, ensure logout is completed
+    //   console.error('Logout error:', error);
+    //   setIsAuth(false);
+    //   setUserProfile(null);
+    //   setLoading(false);
       
-      toast.success('Logged out successfully');
+    //   toast.success('Logged out successfully');
       
-      // Force reload even on error
-      setTimeout(() => {
-        window.location.replace('/');
-      }, 100);
-    }
+    //   // Force reload even on error
+    //   setTimeout(() => {
+    //     window.location.replace('/');
+    //   }, 100);
+    // }
   }, []);
 
   // Don't render until hydrated (prevents SSR mismatch)
