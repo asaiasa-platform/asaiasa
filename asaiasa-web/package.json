@@ -7,8 +7,8 @@
         "dev": "vite",
         "build": "tsc -b && vite build",
         "preview": "vite preview",
-        "postinstall": "npm ls @rollup/rollup-linux-x64-gnu || npm install @rollup/rollup-linux-x64-gnu --save-optional || true",
-        "vercel-build": "npm ci --include=optional && npm run build"
+        "postinstall": "npm ls @rollup/rollup-linux-x64-gnu || npm install @rollup/rollup-linux-x64-gnu --omit=optional || true",
+        "vercel-build": "npm ci --omit=optional && npm run build"
     },
     "dependencies": {
         "@hookform/resolvers": "^5.2.2",

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router';
-// import { useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { IoCalendarSharp, IoLocationSharp, IoTimeOutline } from 'react-icons/io5';
 import { FaFacebook, FaInstagram, FaTwitter, FaLine } from 'react-icons/fa';
 import parse, { HTMLReactParserOptions, Element, DOMNode, domToReact } from 'html-react-parser';
@@ -15,7 +15,6 @@ const EventDetailPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   const t = useTranslations('EventDetail');
-  const commonT = useTranslations('Common');
 
   // HTML parsing options for content
   const htmlParseOptions: HTMLReactParserOptions = {

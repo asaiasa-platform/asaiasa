@@ -22,7 +22,6 @@ const EventsPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const t = useTranslations('EventsPage');
-  const commonT = useTranslations('Common');
 
   // Get filters from URL params
   const [filters, setFilters] = useState<EventFilters>({
