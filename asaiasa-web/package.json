@@ -7,16 +7,13 @@
         "dev": "vite",
         "build": "tsc -b && vite build",
         "preview": "vite preview",
-        "postinstall": "npm ls @rollup/rollup-linux-x64-gnu || npm install @rollup/rollup-linux-x64-gnu --omit=optional || true",
-        "vercel-build": "npm ci --omit=optional && npm run build"
+        "vercel-build": "npm ci --include=optional && npm run build"
     },
     "dependencies": {
-        "@esbuild/darwin-arm64": "^0.25.10",
         "@hookform/resolvers": "^5.2.2",
         "@internationalized/date": "^3.8.2",
         "@react-oauth/google": "^0.12.2",
         "@react-stately/utils": "^3.10.8",
-        "@rollup/rollup-darwin-arm64": "4.46.2",
         "@tailwindcss/typography": "^0.5.16",
         "@tailwindcss/vite": "^4.1.11",
         "@untitledui/file-icons": "^0.0.8",
@@ -59,8 +56,11 @@
         "vite": "^7.1.1"
     },
     "optionalDependencies": {
+        "@rollup/rollup-darwin-arm64": "^4.46.2",
         "@rollup/rollup-darwin-x64": "^4.0.0",
-        "@rollup/rollup-linux-x64-gnu": "4.50.1",
-        "@rollup/rollup-win32-x64-msvc": "^4.0.0"
+        "@rollup/rollup-linux-x64-gnu": "^4.0.0",
+        "@rollup/rollup-win32-x64-msvc": "^4.0.0",
+        "@esbuild/darwin-arm64": "^0.25.10",
+        "@esbuild/linux-x64": "^0.25.10"
     }
 }
