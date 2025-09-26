@@ -1,0 +1,5 @@
+# Redirect root to home page
+/  /home  302
+
+# SPA fallback - handle all routes through React Router
+/*  /index.html  200

@@ -52,7 +52,7 @@ createRoot(document.getElementById("root")!).render(
                                     <Route path="/register" element={<RegisterPage />} />
                                     <Route path="/auth/google/callback" element={<GoogleCallbackPage />} />
                                     <Route path="/" element={<HomeScreen />} />
-                                    {/* <Route path="*" element={<NotFound />} /> */}
+                                    <Route path="*" element={<NotFound />} />
                                 </Routes>
                             </RouteProvider>
                         </BrowserRouter>
