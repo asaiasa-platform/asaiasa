@@ -323,5 +323,90 @@
   "Footer": {
     "contactChannels": "ช่องทางติดต่อ",
     "email": "อีเมล"
+  },
+  "EventsPage": {
+    "title": "ค้นพบ",
+    "titleHighlight": "อีเว้นท์",
+    "subtitle": "ค้นหาอีเว้นท์และโอกาสที่ยอดเยี่ยมเพื่อสร้างความแตกต่าง",
+    "search": "ค้นหา",
+    "searchPlaceholder": "ค้นหาอีเว้นท์...",
+    "category": "หมวดหมู่",
+    "allCategories": "ทุกหมวดหมู่",
+    "workshop": "เวิร์กช็อป",
+    "networking": "สร้างเครือข่าย",
+    "campaign": "แคมเปญ",
+    "environment": "สิ่งแวดล้อม",
+    "social": "สังคม",
+    "location": "สถานที่",
+    "allLocations": "ทุกสถานที่",
+    "online": "ออนไลน์",
+    "onsite": "ในสถานที่",
+    "price": "ราคา",
+    "allPrices": "ทุกราคา",
+    "free": "ฟรี",
+    "paid": "มีค่าใช้จ่าย",
+    "clearFilters": "ล้างตัวกรอง",
+    "tryAgain": "ลองอีกครั้ง",
+    "noEvents": "ไม่พบอีเว้นท์",
+    "adjustFilters": "ลองปรับตัวกรองหรือคำค้นหาของคุณ",
+    "previous": "ก่อนหน้า",
+    "next": "ถัดไป",
+    "page": "หน้า",
+    "of": "จาก"
+  },
+  "EventDetail": {
+    "eventNotFound": "ไม่พบอีเว้นท์",
+    "eventNotFoundDescription": "อีเว้นท์ที่คุณกำลังค้นหาไม่มีอยู่",
+    "backToEvents": "กลับไปยังอีเว้นท์",
+    "eventDetails": "รายละเอียดอีเว้นท์",
+    "description": "คำอธิบาย",
+    "register": "ลงทะเบียน",
+    "registerForEvent": "ลงทะเบียนสำหรับอีเว้นท์",
+    "registrationNotAvailable": "ไม่สามารถลงทะเบียนได้",
+    "categories": "หมวดหมู่",
+    "information": "ข้อมูล",
+    "audience": "กลุ่มเป้าหมาย",
+    "priceType": "ราคา",
+    "locationType": "ประเภทสถานที่",
+    "province": "จังหวัด",
+    "notSpecified": "ไม่ระบุ",
+    "status": "สถานะ",
+    "contactChannels": "ช่องทางติดต่อ",
+    "location": "สถานที่",
+    "mapComingSoon": "แผนที่จะมาเร็วๆ นี้",
+    "onlineEvent": "อีเว้นท์ออนไลน์"
+  },
+  "GoogleCallback": {
+    "processing": "กำลังดำเนินการเข้าสู่ระบบด้วย Google...",
+    "pleaseWait": "กรุณารอสักครู่ขณะที่เรายืนยันตัวตนของคุณ",
+    "authFailed": "การยืนยันตัวตนล้มเหลว",
+    "redirectingToLogin": "กำลังเปลี่ยนเส้นทางไปยังหน้าเข้าสู่ระบบ...",
+    "loginSuccessful": "เข้าสู่ระบบสำเร็จ!",
+    "redirectingToHome": "กำลังเปลี่ยนเส้นทางไปยังหน้าหลัก..."
+  },
+  "OrganizationDetail": {
+    "organizationNotFound": "ไม่พบองค์กร",
+    "organizationNotFoundDescription": "องค์กรที่คุณกำลังค้นหาไม่มีอยู่",
+    "backToOrganizations": "กลับไปยังองค์กร",
+    "description": "คำอธิบาย",
+    "emailAddress": "ที่อยู่อีเมล",
+    "phoneNumber": "หมายเลขโทรศัพท์",
+    "locationLabel": "สถานที่",
+    "mapIntegrationComingSoon": "การรวมแผนที่จะมาเร็วๆ นี้",
+    "interactiveLocationMap": "แผนที่สถานที่แบบโต้ตอบ",
+    "locationNotAvailable": "ไม่มีข้อมูลสถานที่"
+  },
+  "RegisterPage": {
+    "termsError": "คุณต้องยอมรับข้อกำหนดและเงื่อนไข"
+  },
+  "HomeScreen": {
+    "loading": "กำลังโหลด..."
+  },
+  "NotFound": {
+    "error": "ข้อผิดพลาด 404",
+    "title": "เราไม่พบหน้าที่คุณต้องการ",
+    "description": "ขออภัย หน้าที่คุณกำลังค้นหาไม่มีอยู่หรือถูกย้ายแล้ว",
+    "goBack": "ย้อนกลับ",
+    "takeHome": "พาฉันกลับหน้าหลัก"
   }
 }

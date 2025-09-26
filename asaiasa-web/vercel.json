@@ -9,5 +9,11 @@
       "NODE_OPTIONS": "--max-old-space-size=4096",
       "NPM_CONFIG_INCLUDE": "optional"
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }

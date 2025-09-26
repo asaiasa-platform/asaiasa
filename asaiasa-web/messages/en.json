@@ -323,5 +323,90 @@
   "Footer": {
     "contactChannels": "Contact Channels",
     "email": "Email"
+  },
+  "EventsPage": {
+    "title": "Discover Events",
+    "titleHighlight": "Events",
+    "subtitle": "Find amazing events and opportunities to make a difference",
+    "search": "Search",
+    "searchPlaceholder": "Search events...",
+    "category": "Category",
+    "allCategories": "All Categories",
+    "workshop": "Workshop",
+    "networking": "Networking",
+    "campaign": "Campaign",
+    "environment": "Environment",
+    "social": "Social",
+    "location": "Location",
+    "allLocations": "All Locations",
+    "online": "Online",
+    "onsite": "On-site",
+    "price": "Price",
+    "allPrices": "All Prices",
+    "free": "Free",
+    "paid": "Paid",
+    "clearFilters": "Clear Filters",
+    "tryAgain": "Try Again",
+    "noEvents": "No events found",
+    "adjustFilters": "Try adjusting your filters or search terms",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page",
+    "of": "of"
+  },
+  "EventDetail": {
+    "eventNotFound": "Event Not Found",
+    "eventNotFoundDescription": "The event you are looking for does not exist.",
+    "backToEvents": "Back to Events",
+    "eventDetails": "Event Details",
+    "description": "Description",
+    "register": "Register",
+    "registerForEvent": "Register for Event",
+    "registrationNotAvailable": "Registration Not Available",
+    "categories": "Categories",
+    "information": "Information",
+    "audience": "Audience",
+    "priceType": "Price",
+    "locationType": "Location Type",
+    "province": "Province",
+    "notSpecified": "Not specified",
+    "status": "Status",
+    "contactChannels": "Contact Channels",
+    "location": "Location",
+    "mapComingSoon": "Map integration coming soon",
+    "onlineEvent": "Online Event"
+  },
+  "GoogleCallback": {
+    "processing": "Processing Google Login...",
+    "pleaseWait": "Please wait while we authenticate you",
+    "authFailed": "Authentication Failed",
+    "redirectingToLogin": "Redirecting to login page...",
+    "loginSuccessful": "Login Successful!",
+    "redirectingToHome": "Redirecting to home page..."
+  },
+  "OrganizationDetail": {
+    "organizationNotFound": "Organization Not Found",
+    "organizationNotFoundDescription": "The organization you are looking for does not exist.",
+    "backToOrganizations": "Back to Organizations",
+    "description": "Description",
+    "emailAddress": "Email Address",
+    "phoneNumber": "Phone Number",
+    "locationLabel": "Location",
+    "mapIntegrationComingSoon": "Map integration coming soon",
+    "interactiveLocationMap": "Interactive location map",
+    "locationNotAvailable": "Location not available"
+  },
+  "RegisterPage": {
+    "termsError": "You must accept the terms and conditions"
+  },
+  "HomeScreen": {
+    "loading": "Loading..."
+  },
+  "NotFound": {
+    "error": "404 error",
+    "title": "We can't find that page",
+    "description": "Sorry, the page you are looking for doesn't exist or has been moved.",
+    "goBack": "Go back",
+    "takeHome": "Take me home"
   }
 }

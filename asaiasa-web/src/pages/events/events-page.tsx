@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import { useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'react-router-dom';
 import Layout from '@/components/layout/layout';
 import EventCard from '@/components/common/event-card';
@@ -21,8 +21,8 @@ const EventsPage: React.FC = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // const t = useTranslations('Events');
-  // const commonT = useTranslations('Common');
+  const t = useTranslations('EventsPage');
+  const commonT = useTranslations('Common');
 
   // Get filters from URL params
   const [filters, setFilters] = useState<EventFilters>({
@@ -96,12 +96,12 @@ const EventsPage: React.FC = () => {
   };
 
   const categories = [
-    { value: '', label: 'All Categories' },
-    { value: 'workshop', label: 'Workshop' },
-    { value: 'networking', label: 'Networking' },
-    { value: 'campaign', label: 'Campaign' },
-    { value: 'environment', label: 'Environment' },
-    { value: 'social', label: 'Social' },
+    { value: '', label: t('allCategories') },
+    { value: 'workshop', label: t('workshop') },
+    { value: 'networking', label: t('networking') },
+    { value: 'campaign', label: t('campaign') },
+    { value: 'environment', label: t('environment') },
+    { value: 'social', label: t('social') },
   ];
 
   if (loading) {
@@ -122,10 +122,10 @@ const EventsPage: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
-            Discover <span className="text-orange-600">Events</span>
+            {t('title')} <span className="text-orange-600">{t('titleHighlight')}</span>
           </h1>
           <p className="text-lg text-gray-600">
-            Find amazing events and opportunities to make a difference
+            {t('subtitle')}
           </p>
         </div>
 
@@ -135,13 +135,13 @@ const EventsPage: React.FC = () => {
             {/* Search */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Search
+                {t('search')}
               </label>
               <input
                 type="text"
                 value={filters.search}
                 onChange={(e) => updateFilters({ search: e.target.value })}
-                placeholder="Search events..."
+                placeholder={t('searchPlaceholder')}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
             </div>
@@ -149,7 +149,7 @@ const EventsPage: React.FC = () => {
             {/* Category */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Category
+                {t('category')}
               </label>
               <select
                 value={filters.category}
@@ -167,32 +167,32 @@ const EventsPage: React.FC = () => {
             {/* Location Type */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Location
+                {t('location')}
               </label>
               <select
                 value={filters.locationType}
                 onChange={(e) => updateFilters({ locationType: e.target.value })}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
               >
-                <option value="">All Locations</option>
-                <option value="online">Online</option>
-                <option value="onsite">On-site</option>
+                <option value="">{t('allLocations')}</option>
+                <option value="online">{t('online')}</option>
+                <option value="onsite">{t('onsite')}</option>
               </select>
             </div>
 
             {/* Price */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Price
+                {t('price')}
               </label>
               <select
                 value={filters.price}
                 onChange={(e) => updateFilters({ price: e.target.value })}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
               >
-                <option value="">All Prices</option>
-                <option value="free">Free</option>
-                <option value="paid">Paid</option>
+                <option value="">{t('allPrices')}</option>
+                <option value="free">{t('free')}</option>
+                <option value="paid">{t('paid')}</option>
               </select>
             </div>
           </div>
@@ -204,7 +204,7 @@ const EventsPage: React.FC = () => {
               onClick={clearFilters}
               className="text-orange-600 border-orange-600 hover:bg-orange-50"
             >
-              Clear Filters
+              {t('clearFilters')}
             </Button>
           </div>
         </div>
@@ -217,7 +217,7 @@ const EventsPage: React.FC = () => {
               onClick={() => window.location.reload()}
               className="bg-orange-600 hover:bg-orange-700"
             >
-              Try Again
+              {t('tryAgain')}
             </Button>
           </div>
         ) : events.length > 0 ? (
@@ -241,11 +241,11 @@ const EventsPage: React.FC = () => {
                   onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
                 >
-                  Previous
+                  {t('previous')}
                 </Button>
                 
                 <span className="px-4 py-2 text-sm text-gray-600">
-                  Page {currentPage} of {totalPages}
+                  {t('page')} {currentPage} {t('of')} {totalPages}
                 </span>
                 
                 <Button
@@ -253,16 +253,16 @@ const EventsPage: React.FC = () => {
                   onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                   disabled={currentPage === totalPages}
                 >
-                  Next
+                  {t('next')}
                 </Button>
               </div>
             )}
           </>
         ) : (
           <div className="text-center py-12">
-            <div className="text-gray-500 mb-4">No events found</div>
+            <div className="text-gray-500 mb-4">{t('noEvents')}</div>
             <p className="text-sm text-gray-400">
-              Try adjusting your filters or search terms
+              {t('adjustFilters')}
             </p>
           </div>
         )}

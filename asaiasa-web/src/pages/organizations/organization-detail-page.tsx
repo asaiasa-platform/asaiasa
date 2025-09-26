@@ -117,11 +117,11 @@ const OrganizationDetailPage: React.FC = () => {
       <Layout>
         <div className="max-w-[1170px] mx-auto px-6 mt-[90px] min-h-[80vh]">
           <div className="text-center py-20">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Organization Not Found</h1>
-            <p className="text-gray-600 mb-8">{error || 'The organization you are looking for does not exist.'}</p>
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">{t('organizationNotFound')}</h1>
+            <p className="text-gray-600 mb-8">{error || t('organizationNotFoundDescription')}</p>
             <Link to="/organizations">
               <Button className="bg-orange-600 hover:bg-orange-700">
-                Back to Organizations
+                {t('backToOrganizations')}
               </Button>
             </Link>
           </div>
@@ -275,7 +275,7 @@ const OrganizationDetailPage: React.FC = () => {
                   {organization.description && (
                     <div className="flex flex-col gap-3">
                       <h4 className="text-sm font-medium text-gray-700 uppercase tracking-wide">
-                        Description
+                        {t('description')}
                       </h4>
                       <div className="prose prose-sm max-w-none">
                         <pre className="font-prompt text-base font-normal whitespace-pre-wrap break-words text-gray-700 leading-relaxed">
@@ -302,7 +302,7 @@ const OrganizationDetailPage: React.FC = () => {
                           <Mail className="h-5 w-5 text-orange-600" />
                         </div>
                         <div className="flex-1">
-                          <p className="text-sm font-medium text-gray-700 mb-1">Email Address</p>
+                          <p className="text-sm font-medium text-gray-700 mb-1">{t('emailAddress')}</p>
                           <a 
                             href={`mailto:${organization.email}`}
                             className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
@@ -319,7 +319,7 @@ const OrganizationDetailPage: React.FC = () => {
                           <Phone className="h-5 w-5 text-orange-600" />
                         </div>
                         <div className="flex-1">
-                          <p className="text-sm font-medium text-gray-700 mb-1">Phone Number</p>
+                          <p className="text-sm font-medium text-gray-700 mb-1">{t('phoneNumber')}</p>
                           <a 
                             href={`tel:${organization.phone}`}
                             className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
@@ -336,7 +336,7 @@ const OrganizationDetailPage: React.FC = () => {
                           <MapPin className="h-5 w-5 text-orange-600" />
                         </div>
                         <div className="flex-1">
-                          <p className="text-sm font-medium text-gray-700 mb-1">Location</p>
+                          <p className="text-sm font-medium text-gray-700 mb-1">{t('locationLabel')}</p>
                           <p className="text-gray-900">
                             {organization.province && organization.country 
                               ? `${organization.province}, ${organization.country}`
@@ -383,15 +383,15 @@ const OrganizationDetailPage: React.FC = () => {
                       <div className="rounded-lg bg-gray-100 h-[300px] flex items-center justify-center border border-gray-200">
                         <div className="text-center">
                           <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-                          <p className="text-gray-500 font-medium">Map integration coming soon</p>
-                          <p className="text-sm text-gray-400 mt-1">Interactive location map</p>
+                          <p className="text-gray-500 font-medium">{t('mapIntegrationComingSoon')}</p>
+                          <p className="text-sm text-gray-400 mt-1">{t('interactiveLocationMap')}</p>
                         </div>
                       </div>
                     ) : (
                       <div className="rounded-lg bg-gray-50 h-[300px] flex items-center justify-center border border-gray-200">
                         <div className="text-center">
                           <MapPin className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                          <p className="text-gray-400 font-medium">Location not available</p>
+                          <p className="text-gray-400 font-medium">{t('locationNotAvailable')}</p>
                         </div>
                       </div>
                     )}

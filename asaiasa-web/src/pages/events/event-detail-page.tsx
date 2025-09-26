@@ -14,8 +14,8 @@ const EventDetailPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // const t = useTranslations('Events.detail');
-  // const commonT = useTranslations('Common');
+  const t = useTranslations('EventDetail');
+  const commonT = useTranslations('Common');
 
   // HTML parsing options for content
   const htmlParseOptions: HTMLReactParserOptions = {
@@ -134,11 +134,11 @@ const EventDetailPage: React.FC = () => {
       <Layout>
         <div className="max-w-[1170px] mx-auto px-6 mt-[90px] min-h-[80vh]">
           <div className="text-center py-20">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Event Not Found</h1>
-            <p className="text-gray-600 mb-8">{error || 'The event you are looking for does not exist.'}</p>
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">{t('eventNotFound')}</h1>
+            <p className="text-gray-600 mb-8">{error || t('eventNotFoundDescription')}</p>
             <Link to="/events">
               <Button className="bg-orange-600 hover:bg-orange-700">
-                Back to Events
+                {t('backToEvents')}
               </Button>
             </Link>
           </div>
@@ -217,7 +217,7 @@ const EventDetailPage: React.FC = () => {
                 <div className="inline-flex justify-start items-center flex-row gap-3">
                   <IoLocationSharp className="shrink-0 text-orange-600 text-lg" />
                   <p className="line-clamp-2 font-normal sm:text-base md:text-lg">
-                    {event.locationType === 'online' ? 'Online Event' : event.locationName}
+                    {event.locationType === 'online' ? t('onlineEvent') : event.locationName}
                   </p>
                 </div>
               </div>
@@ -291,7 +291,7 @@ const EventDetailPage: React.FC = () => {
               <div className="inline-flex justify-start items-center flex-row gap-3">
                 <IoLocationSharp className="shrink-0 text-orange-600 text-lg" />
                 <p className="line-clamp-2 font-normal text-sm">
-                  {event.locationType === 'online' ? 'Online Event' : event.locationName}
+                  {event.locationType === 'online' ? t('onlineEvent') : event.locationName}
                 </p>
               </div>
             </div>
@@ -301,7 +301,7 @@ const EventDetailPage: React.FC = () => {
         {/* Event Details Section */}
         <div className="lg:w-[90%] xl:w-[80%] mx-auto px-3 md:px-10 lg:px-14">
           <h2 className="font-semibold text-xl md:text-2xl mt-[32px]">
-            Event Details
+            {t('eventDetails')}
           </h2>
           
           <div className="w-full mt-[8px] mb-[16px]" />
@@ -311,7 +311,7 @@ const EventDetailPage: React.FC = () => {
               {/* Event Description */}
               {event.content && (
                 <div className="flex flex-col gap-[10px]">
-                  <h3 className="font-semibold text-xl md:text-2xl">Description</h3>
+                  <h3 className="font-semibold text-xl md:text-2xl">{t('description')}</h3>
                   <div className="font-prompt text-base font-normal whitespace-pre-wrap break-words prose max-w-none">
                     {parse(event.content, htmlParseOptions)}
                   </div>
@@ -326,7 +326,7 @@ const EventDetailPage: React.FC = () => {
                 {/* Registration Section */}
                 <div className="flex flex-col gap-4">
                   <h3 className="text-xl font-semibold text-gray-900 border-b border-gray-100 pb-2">
-                    Register
+                    {t('register')}
                   </h3>
                   <div className="flex flex-col gap-3">
                     {event.registerLink ? (
@@ -337,7 +337,7 @@ const EventDetailPage: React.FC = () => {
                         className="w-full"
                       >
                         <Button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-medium py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
-                          Register for Event
+                          {t('registerForEvent')}
                         </Button>
                       </a>
                     ) : (
@@ -345,12 +345,12 @@ const EventDetailPage: React.FC = () => {
                         className="w-full bg-gray-400 text-white py-3 rounded-lg cursor-not-allowed"
                         disabled
                       >
-                        Registration Not Available
+                        {t('registrationNotAvailable')}
                       </Button>
                     )}
                     <Link to="/events">
                       <Button color="secondary" className="w-full border-gray-300 text-gray-700 hover:bg-gray-50 py-3 rounded-lg">
-                        Back to Events
+                        {t('backToEvents')}
                       </Button>
                     </Link>
                   </div>
@@ -360,7 +360,7 @@ const EventDetailPage: React.FC = () => {
                 {event.categories && event.categories.length > 0 && (
                   <div className="flex flex-col gap-3">
                     <h4 className="text-lg font-semibold text-gray-900 border-b border-gray-100 pb-2">
-                      Categories
+                      {t('categories')}
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {event.categories.map((category, index) => (
@@ -378,34 +378,34 @@ const EventDetailPage: React.FC = () => {
                 {/* Event Information */}
                 <div className="flex flex-col gap-3">
                   <h4 className="text-lg font-semibold text-gray-900 border-b border-gray-100 pb-2">
-                    Information
+                    {t('information')}
                   </h4>
                   <div className="space-y-3">
                     <div className="flex justify-between items-center py-2">
-                      <span className="text-sm font-medium text-gray-600">Audience</span>
+                      <span className="text-sm font-medium text-gray-600">{t('audience')}</span>
                       <span className="text-sm text-gray-900 capitalize font-medium">{event.audience}</span>
                     </div>
                     <div className="flex justify-between items-center py-2 border-t border-gray-50">
-                      <span className="text-sm font-medium text-gray-600">Price</span>
+                      <span className="text-sm font-medium text-gray-600">{t('priceType')}</span>
                       <span className="text-sm text-gray-900 capitalize font-medium">
                         {(event.price === 'free' || event.priceType === 'free') ? (
-                          <span className="text-green-600 font-semibold">Free</span>
+                          <span className="text-green-600 font-semibold">{t('free')}</span>
                         ) : (
-                          <span className="text-blue-600 font-semibold">Paid</span>
+                          <span className="text-blue-600 font-semibold">{t('paid')}</span>
                         )}
                       </span>
                     </div>
                     <div className="flex justify-between items-center py-2 border-t border-gray-50">
-                      <span className="text-sm font-medium text-gray-600">Location Type</span>
+                      <span className="text-sm font-medium text-gray-600">{t('locationType')}</span>
                       <span className="text-sm text-gray-900 capitalize font-medium">{event.locationType}</span>
                     </div>
                     <div className="flex justify-between items-center py-2 border-t border-gray-50">
-                      <span className="text-sm font-medium text-gray-600">Province</span>
-                      <span className="text-sm text-gray-900 font-medium">{event.province || 'Not specified'}</span>
+                      <span className="text-sm font-medium text-gray-600">{t('province')}</span>
+                      <span className="text-sm text-gray-900 font-medium">{event.province || t('notSpecified')}</span>
                     </div>
                     {event.status && (
                       <div className="flex justify-between items-center py-2 border-t border-gray-50">
-                        <span className="text-sm font-medium text-gray-600">Status</span>
+                        <span className="text-sm font-medium text-gray-600">{t('status')}</span>
                         <span className="text-sm text-gray-900 capitalize font-medium">
                           <span className={`px-2 py-1 rounded-full text-xs ${
                             event.status === 'published' ? 'bg-green-100 text-green-700' :
@@ -424,7 +424,7 @@ const EventDetailPage: React.FC = () => {
                 {event.contactChannels && event.contactChannels.length > 0 && (
                   <div className="flex flex-col gap-3">
                     <h4 className="text-lg font-semibold text-gray-900 border-b border-gray-100 pb-2">
-                      Contact Channels
+                      {t('contactChannels')}
                     </h4>
                     <div className="flex flex-col gap-2">
                       {event.contactChannels.map((contact, index) => (
@@ -450,7 +450,7 @@ const EventDetailPage: React.FC = () => {
                 {event.locationName && event.locationType === 'onsite' && (
                   <div className="flex flex-col gap-3">
                     <h4 className="text-lg font-semibold text-gray-900 border-b border-gray-100 pb-2">
-                      Location
+                      {t('location')}
                     </h4>
                     <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
                       <IoLocationSharp className="text-orange-500 text-lg mt-0.5 flex-shrink-0" />
@@ -458,7 +458,7 @@ const EventDetailPage: React.FC = () => {
                     </div>
                     {event.latitude !== 0 && event.longitude !== 0 && (
                       <div className="w-full rounded-lg bg-gray-100 overflow-hidden h-32 flex items-center justify-center border border-gray-200">
-                        <p className="text-sm text-gray-500">Map integration coming soon</p>
+                        <p className="text-sm text-gray-500">{t('mapComingSoon')}</p>
                       </div>
                     )}
                   </div>

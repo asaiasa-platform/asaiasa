@@ -10,6 +10,7 @@ export default function GoogleCallbackPage() {
   const navigate = useNavigate();
   const { setAuthState } = useAuth();
   const t = useTranslations('Auth');
+  const callbackT = useTranslations('GoogleCallback');
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -113,9 +114,9 @@ export default function GoogleCallbackPage() {
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-orange-500 mx-auto mb-4"></div>
           <h2 className="text-xl font-semibold text-gray-700 mb-2">
-            Processing Google Login...
+            {callbackT('processing')}
           </h2>
-          <p className="text-gray-500">Please wait while we authenticate you</p>
+          <p className="text-gray-500">{callbackT('pleaseWait')}</p>
         </div>
       </div>
     );
@@ -127,11 +128,11 @@ export default function GoogleCallbackPage() {
         <div className="text-center max-w-md mx-auto p-6">
           <div className="text-red-500 text-6xl mb-4">⚠️</div>
           <h2 className="text-xl font-semibold text-gray-700 mb-2">
-            Authentication Failed
+            {callbackT('authFailed')}
           </h2>
           <p className="text-gray-500 mb-4">{error}</p>
           <p className="text-sm text-gray-400">
-            Redirecting to login page...
+            {callbackT('redirectingToLogin')}
           </p>
         </div>
       </div>
@@ -144,9 +145,9 @@ export default function GoogleCallbackPage() {
         <div className="text-center">
           <div className="text-green-500 text-6xl mb-4">✅</div>
           <h2 className="text-xl font-semibold text-gray-700 mb-2">
-            Login Successful!
+            {callbackT('loginSuccessful')}
           </h2>
-          <p className="text-gray-500">Redirecting to home page...</p>
+          <p className="text-gray-500">{callbackT('redirectingToHome')}</p>
         </div>
       </div>
     );

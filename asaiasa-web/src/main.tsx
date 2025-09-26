@@ -24,39 +24,39 @@ import "@/styles/globals.css";
 import "@/utils/auth-debug";
 
 createRoot(document.getElementById("root")!).render(
-      <StrictMode>
-          <IntlProviderWrapper>
-             <GoogleAuthProvider>
-                 <AuthProvider>
-                     <ThemeProvider>
-                         <BrowserRouter>
+    <StrictMode>
+        <IntlProviderWrapper>
+            <GoogleAuthProvider>
+                <AuthProvider>
+                    <ThemeProvider>
+                        <BrowserRouter>
                              <RouteProvider>
-                        <Toaster 
-                            position="top-right"
-                            toastOptions={{
-                                duration: 4000,
-                                style: {
-                                    background: '#363636',
-                                    color: '#fff',
-                                },
-                            }}
-                        />
-                        <Routes>
-                            <Route path="/" element={<HomeScreen />} />
-                            <Route path="/home" element={<HomePage />} />
-                            <Route path="/login" element={<LoginPage />} />
-            <Route path="/events" element={<EventsPage />} />
-            <Route path="/events/:eventId" element={<EventDetailPage />} />
-            <Route path="/organizations" element={<OrganizationsPage />} />
-             <Route path="/organizations/:orgId" element={<OrganizationDetailPage />} />
-             <Route path="/about" element={<AboutPage />} />
-             <Route path="/register" element={<RegisterPage />} />
-             <Route path="/auth/google/callback" element={<GoogleCallbackPage />} />
-                            <Route path="*" element={<NotFound />} />
-                        </Routes>
-                    </RouteProvider>
-                </BrowserRouter>
-            </ThemeProvider>
+                                <Toaster 
+                                    position="top-right"
+                                    toastOptions={{
+                                        duration: 4000,
+                                        style: {
+                                            background: '#363636',
+                                            color: '#fff',
+                                        },
+                                    }}
+                                />
+                                <Routes>
+                                    <Route path="/home" element={<HomePage />} />
+                                    <Route path="/login" element={<LoginPage />} />
+                                    <Route path="/events" element={<EventsPage />} />
+                                    <Route path="/events/:eventId" element={<EventDetailPage />} />
+                                    <Route path="/organizations" element={<OrganizationsPage />} />
+                                    <Route path="/organizations/:orgId" element={<OrganizationDetailPage />} />
+                                    <Route path="/about" element={<AboutPage />} />
+                                    <Route path="/register" element={<RegisterPage />} />
+                                    <Route path="/auth/google/callback" element={<GoogleCallbackPage />} />
+                                    <Route path="/" element={<HomeScreen />} />
+                                    {/* <Route path="*" element={<NotFound />} /> */}
+                                </Routes>
+                            </RouteProvider>
+                        </BrowserRouter>
+                    </ThemeProvider>
                  </AuthProvider>
              </GoogleAuthProvider>
           </IntlProviderWrapper>
