@@ -83,6 +83,7 @@ export interface AuthResponse {
   message?: string;
   error?: string;
   data?: UserProfile;
+  token?: string;
 }
 
 export interface LoginRequest {

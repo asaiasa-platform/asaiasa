@@ -1,5 +1,6 @@
 import { env } from '@/config/env';
 import { LoginRequest, SignupRequest, AuthResponse } from '@/lib/validation';
+import { TokenUtils } from '@/utils/token-utils';
 
 class AuthService {
   private baseURL = env.API_BASE_URL;
@@ -44,7 +45,7 @@ class AuthService {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', // Important: This allows cookies to be set and sent
+        credentials: 'include', // Keep for backward compatibility
         body: JSON.stringify(credentials),
       });
 
@@ -54,10 +55,16 @@ class AuthService {
         throw new Error(data.error || data.message || `HTTP ${response.status}`);
       }
 
+      // Store the Bearer token
+      if (data.token) {
+        TokenUtils.setToken(data.token);
+      }
+
       return {
         success: true,
         message: data.message || 'Login successful',
         data: data.user || data.data,
+        token: data.token,
       };
     } catch (error) {
       return {
@@ -77,7 +84,7 @@ class AuthService {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', // Important: This allows cookies to be set and sent
+        credentials: 'include', // Keep for backward compatibility
         body: JSON.stringify(userData),
       });
 
@@ -87,10 +94,16 @@ class AuthService {
         throw new Error(data.error || data.message || `HTTP ${response.status}`);
       }
 
+      // Store the Bearer token
+      if (data.token) {
+        TokenUtils.setToken(data.token);
+      }
+
       return {
         success: true,
         message: data.message || 'Account created successfully',
         data: data.user || data.data,
+        token: data.token,
       };
     } catch (error) {
       return {
@@ -105,15 +118,27 @@ class AuthService {
     try {
       const url = `${this.baseURL}/current-user-profile`;
       
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+      };
+
+      // Add Bearer token if available
+      const authHeader = TokenUtils.getAuthorizationHeader();
+      if (authHeader) {
+        headers['Authorization'] = authHeader;
+      }
+
       const response = await fetch(url, {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include', // Important: This sends cookies with the request
+        headers,
+        credentials: 'include', // Keep for backward compatibility
       });
 
       if (!response.ok) {
+        // If unauthorized, clear the stored token
+        if (response.status === 401) {
+          TokenUtils.removeToken();
+        }
         throw new Error(`HTTP ${response.status}`);
       }
 
@@ -134,17 +159,25 @@ class AuthService {
   // Logout user
   async logout(): Promise<AuthResponse> {
     try {
-      // First, clear all client-side storage
-      this.clearClientStorage();
-
       const url = `${this.baseURL}/logout`;
+      
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+      };
+
+      // Add Bearer token if available
+      const authHeader = TokenUtils.getAuthorizationHeader();
+      if (authHeader) {
+        headers['Authorization'] = authHeader;
+      }
+
+      // Clear client-side storage first
+      this.clearClientStorage();
       
       const response = await fetch(url, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include', // Important: This sends cookies with the request
+        headers,
+        credentials: 'include', // Keep for backward compatibility
       });
 
       // Even if the server request fails, we still clear client-side data
@@ -175,7 +208,10 @@ class AuthService {
   // Clear all client-side authentication storage
   private clearClientStorage(): void {
     try {
-      // Clear localStorage
+      // Clear the main auth token using TokenUtils
+      TokenUtils.removeToken();
+      
+      // Clear other potential localStorage items
       localStorage.removeItem('authToken');
       localStorage.removeItem('userProfile');
       localStorage.removeItem('user');
@@ -227,13 +263,14 @@ class AuthService {
   async googleCallback(code: string): Promise<AuthResponse> {
     try {
       const url = `${this.baseURL}/auth/google/callback?code=${code}`;
+      console.log('googleCallback - calling URL:', url);
       
       const response = await fetch(url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', // Important: This allows cookies to be set and sent
+        credentials: 'include', // Keep for backward compatibility
       });
 
       const data = await response.json();
@@ -242,10 +279,16 @@ class AuthService {
         throw new Error(data.error || data.message || `HTTP ${response.status}`);
       }
 
+      // Store the Bearer token
+      if (data.token) {
+        TokenUtils.setToken(data.token);
+      }
+
       return {
         success: true,
         message: data.message || 'Google authentication successful',
         data: data.user || data.data,
+        token: data.token,
       };
     } catch (error) {
       return {

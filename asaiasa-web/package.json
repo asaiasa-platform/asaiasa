@@ -11,13 +11,15 @@
         "vercel-build": "npm ci --omit=optional && npm run build"
     },
     "dependencies": {
+        "@esbuild/darwin-arm64": "^0.25.10",
         "@hookform/resolvers": "^5.2.2",
         "@internationalized/date": "^3.8.2",
         "@react-oauth/google": "^0.12.2",
         "@react-stately/utils": "^3.10.8",
+        "@rollup/rollup-darwin-arm64": "4.46.2",
         "@tailwindcss/typography": "^0.5.16",
         "@tailwindcss/vite": "^4.1.11",
-        "@untitledui/file-icons": "^0.0.9",
+        "@untitledui/file-icons": "^0.0.8",
         "@untitledui/icons": "^0.0.19",
         "embla-carousel-autoplay": "^8.6.0",
         "embla-carousel-react": "^8.6.0",
@@ -40,7 +42,7 @@
         "tailwindcss": "^4.1.11",
         "tailwindcss-animate": "^1.0.7",
         "tailwindcss-react-aria-components": "^2.0.0",
-        "zod": "^4.1.11"
+        "zod": "^3.23.8"
     },
     "devDependencies": {
         "@tailwindcss/postcss": "^4.1.11",
@@ -48,16 +50,15 @@
         "@types/node": "^24.2.1",
         "@types/react": "^19.1.9",
         "@types/react-dom": "^19.1.7",
-        "@vitejs/plugin-react-swc": "^4.0.0",
+        "@vitejs/plugin-react-swc": "^3.10.2",
         "globals": "^16.3.0",
         "prettier": "^3.6.2",
         "prettier-plugin-tailwindcss": "^0.6.14",
         "typescript": "^5.9.2",
-        "typescript-eslint": "^8.39.0",
+        "typescript-eslint": "^8.32.1",
         "vite": "^7.1.1"
     },
     "optionalDependencies": {
-        "@rollup/rollup-darwin-arm64": "^4.0.0",
         "@rollup/rollup-darwin-x64": "^4.0.0",
         "@rollup/rollup-linux-x64-gnu": "4.50.1",
         "@rollup/rollup-win32-x64-msvc": "^4.0.0"

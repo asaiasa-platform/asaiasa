@@ -38,6 +38,7 @@ func (a *AuthHandler) SignUp(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
 	}
 
+	// Set cookie for backward compatibility (optional)
 	c.Cookie(&fiber.Cookie{
 		Name:     "authToken",
 		Value:    token,                              // Token from the auth service
@@ -49,7 +50,11 @@ func (a *AuthHandler) SignUp(c *fiber.Ctx) error {
 		Domain:   os.Getenv("COOKIE_DOMAIN"),         // Domain for which the cookie is valid
 	})
 
-	return c.Status(fiber.StatusCreated).JSON(fiber.Map{"message": "Sign up successful"})
+	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
+		"message":    "Sign up successful",
+		"token":      token,
+		"token_type": "Bearer",
+	})
 }
 
 func (a *AuthHandler) LogIn(c *fiber.Ctx) error {
@@ -69,7 +74,7 @@ func (a *AuthHandler) LogIn(c *fiber.Ctx) error {
 		return errs.SendFiberError(c, err)
 	}
 
-	// Set the JWT token in a cookie after redirect
+	// Set cookie for backward compatibility (optional)
 	c.Cookie(&fiber.Cookie{
 		Name:     "authToken",
 		Value:    token,                              // Token from the auth service
@@ -81,8 +86,12 @@ func (a *AuthHandler) LogIn(c *fiber.Ctx) error {
 		Domain:   os.Getenv("COOKIE_DOMAIN"),         // Domain for which the cookie is valid
 	})
 
-	// Send response and return nil to ensure proper handling
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{"message": "Login successful"})
+	// Send response with token for Bearer authentication
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"message":    "Login successful",
+		"token":      token,
+		"token_type": "Bearer",
+	})
 }
 
 func (a *AuthHandler) LogOut(c *fiber.Ctx) error {

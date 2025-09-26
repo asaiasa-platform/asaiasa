@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState, useCallback, ReactNode } from 'react';
 import { AuthContextType, UserProfile } from '@/lib/validation';
 import { authService } from '@/services/auth';
+import { TokenUtils } from '@/utils/token-utils';
 import toast from 'react-hot-toast';
 
 const AuthContext = createContext<AuthContextType>({
@@ -21,21 +22,38 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isHydrated, setIsHydrated] = useState(false);
 
+  // Helper function to check if we have a valid token
+
   const fetchUserProfile = useCallback(async () => {
     setLoading(true);
     try {
+      // Always try to fetch user profile if we have a token, regardless of validation
+      const token = TokenUtils.getToken();
+      if (!token) {
+        setUserProfile(null);
+        setIsAuth(false);
+        setLoading(false);
+        return;
+      }
+
+
       const result = await authService.getCurrentUser();
+      
       if (result.success && result.data) {
         setUserProfile(result.data);
         setIsAuth(true);
       } else {
         setUserProfile(null);
         setIsAuth(false);
+        // Clear token if request failed
+        TokenUtils.removeToken();
       }
     } catch (error) {
       console.error('Failed to fetch user profile:', error);
       setUserProfile(null);
       setIsAuth(false);
+      // Clear token on error
+      TokenUtils.removeToken();
     } finally {
       setLoading(false);
     }
@@ -66,7 +84,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       // Call the logout service (which clears all storage)
       const result = await authService.logout();
-      console.log('Logout result', result);
       
       // Always show success message since client-side logout is guaranteed
       toast.success(result.message || 'Logged out successfully');

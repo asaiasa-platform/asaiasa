@@ -5,6 +5,11 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
     plugins: [react(), tailwindcss()],
+    define: {
+        // Disable Workbox/PWA features
+        __WORKBOX_ENABLED__: false,
+        'process.env.WORKBOX_DEBUG': false,
+    },
     resolve: {
         alias: {
             "@": path.resolve(__dirname, "./src"),

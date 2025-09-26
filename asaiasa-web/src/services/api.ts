@@ -1,4 +1,5 @@
 import { env } from '@/config/env';
+import { TokenUtils } from '@/utils/token-utils';
 
 // API Response types following the user rules
 export interface ApiListResponse<T> {
@@ -37,19 +38,23 @@ class ApiClient {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), this.timeout);
 
-    // Get auth token from localStorage
-    const token = localStorage.getItem('auth_token');
-    
     try {
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+        ...(options.headers as Record<string, string>),
+      };
+
+      // Add Bearer token if available
+      const authHeader = TokenUtils.getAuthorizationHeader();
+      if (authHeader) {
+        headers['Authorization'] = authHeader;
+      }
+
       const response = await fetch(url, {
         ...options,
         signal: controller.signal,
         credentials: 'include', // Include cookies for session management
-        headers: {
-          'Content-Type': 'application/json',
-          ...(token && { 'Authorization': `Bearer ${token}` }),
-          ...options.headers,
-        },
+        headers,
       });
 
       clearTimeout(timeoutId);

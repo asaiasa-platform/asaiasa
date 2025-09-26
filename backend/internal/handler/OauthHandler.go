@@ -53,13 +53,10 @@ func NewOauthHandler(oauthService *service.OauthService) *OauthHandler {
 func (h *OauthHandler) GoogleCallback(c *fiber.Ctx) error {
 	// Get and validate required parameters
 	code := c.Query("code")
-	state := c.Query("state")
+	// state := c.Query("state")
 	errorParam := c.Query("error")
 
-	// Debug logging
-	logs.Info(fmt.Sprintf("OAuth Callback received - Code: %s, State: %s, Error: %s", code, state, errorParam))
-	logs.Info(fmt.Sprintf("OAuth Config RedirectURL: %s", initializers.OauthConfig.RedirectURL))
-	logs.Info(fmt.Sprintf("OAuth Config ClientID: %s", initializers.OauthConfig.ClientID))
+	// Debug logging removed
 
 	// Check for OAuth errors from Google
 	if errorParam != "" {
@@ -88,7 +85,6 @@ func (h *OauthHandler) GoogleCallback(c *fiber.Ctx) error {
 			"message": fmt.Sprintf("Failed to exchange token: %v", err),
 		})
 	}
-
 	// Use the token to fetch user info
 	client := initializers.OauthConfig.Client(c.Context(), token)
 	resp, err := client.Get("https://www.googleapis.com/oauth2/v2/userinfo")
@@ -116,7 +112,6 @@ func (h *OauthHandler) GoogleCallback(c *fiber.Ctx) error {
 			"message": "Failed to parse user info: " + err.Error(),
 		})
 	}
-
 	// create or update a user record in your DB and Generate token
 	tokenString, err := h.oauthService.AuthenticateUser(
 		userInfo.Name,
@@ -140,8 +135,12 @@ func (h *OauthHandler) GoogleCallback(c *fiber.Ctx) error {
 		Path:     "/", // Path for which the cookie is valid
 	})
 
-	// return token as response
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{"message": "OAuth login successful"})
+	// Return token for Bearer authentication
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"message":    "OAuth login successful",
+		"token":      tokenString,
+		"token_type": "Bearer",
+	})
 }
 
 func (h *OauthHandler) AdminGoogleCallback(c *fiber.Ctx) error {
@@ -209,8 +208,12 @@ func (h *OauthHandler) AdminGoogleCallback(c *fiber.Ctx) error {
 		Path:     "/", // Path for which the cookie is valid
 	})
 
-	// return token as response
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{"message": "OAuth login successful"})
+	// Return token for Bearer authentication
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"message":    "OAuth login successful",
+		"token":      tokenString,
+		"token_type": "Bearer",
+	})
 }
 
 //  old version

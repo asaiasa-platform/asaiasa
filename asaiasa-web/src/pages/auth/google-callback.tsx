@@ -17,11 +17,24 @@ export default function GoogleCallbackPage() {
 
   useEffect(() => {
     let isMounted = true; // Prevent state updates if component unmounts
-    let hasProcessed = false; // Prevent multiple processing
+    
+    // Check if we've already processed this code to prevent double execution
+    const currentCode = searchParams.get('code');
+    const processedCode = sessionStorage.getItem('processed_oauth_code');
+    const processingCode = sessionStorage.getItem('processing_oauth_code');
+    
+    if (currentCode && (processedCode === currentCode || processingCode === currentCode)) {
+      navigate('/home');
+      return;
+    }
+    
+    // Mark code as being processed immediately to prevent race conditions
+    if (currentCode) {
+      sessionStorage.setItem('processing_oauth_code', currentCode);
+    }
 
     const handleCallback = async () => {
-      if (hasProcessed || !isMounted) return;
-      hasProcessed = true;
+      if (!isMounted) return;
 
       try {
         const code = searchParams.get('code');
@@ -29,7 +42,6 @@ export default function GoogleCallbackPage() {
 
         // Handle OAuth errors from Google
         if (error) {
-          console.error('OAuth error from Google:', error);
           if (isMounted) {
             setError('Google authentication was cancelled or failed');
             toast.error('Authentication cancelled');
@@ -41,7 +53,6 @@ export default function GoogleCallbackPage() {
 
         // Handle missing authorization code
         if (!code) {
-          console.error('No authorization code received from Google');
           if (isMounted) {
             setError('No authorization code received from Google');
             toast.error('Authentication failed');
@@ -51,32 +62,38 @@ export default function GoogleCallbackPage() {
           return;
         }
 
+        // Mark this code as processed (already marked as processing above)
+        sessionStorage.setItem('processed_oauth_code', code);
+        sessionStorage.removeItem('processing_oauth_code');
+        
         // Call the backend with the authorization code
-        console.log('Processing Google OAuth code...');
         const result = await authService.googleCallback(code);
         
         if (!isMounted) return; // Component unmounted during async call
 
         if (result.success) {
-          console.log('Google OAuth success - updating auth state...');
           setSuccess(true);
+          
+          // Small delay to ensure token is stored properly
+          await new Promise(resolve => setTimeout(resolve, 100));
           
           // Update auth state
           try {
             await setAuthState();
             toast.success(t('login.success') || 'Login successful!');
             
+            // Clear the processed code on successful completion
+            sessionStorage.removeItem('processed_oauth_code');
+            sessionStorage.removeItem('processing_oauth_code');
+            
             // Immediate redirect to home on success
-            console.log('Redirecting to home page...');
             navigate('/home');
           } catch (authError) {
-            console.error('Auth state update failed:', authError);
             // Even if auth state update fails, still redirect to home
             // as the backend authentication was successful
             navigate('/home');
           }
         } else {
-          console.error('Backend authentication failed:', result.error);
           // Only show error and redirect to login if it's a real failure
           // Ignore if it's just a secondary failed attempt
           if (isMounted && !success) {
@@ -86,7 +103,8 @@ export default function GoogleCallbackPage() {
           }
         }
       } catch (err) {
-        console.error('Callback processing error:', err);
+        // Clean up processing flags on error
+        sessionStorage.removeItem('processing_oauth_code');
         if (isMounted && !success) {
           setError('An unexpected error occurred');
           toast.error('An unexpected error occurred');

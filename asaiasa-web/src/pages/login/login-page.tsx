@@ -51,6 +51,10 @@ const LoginPage: React.FC = () => {
       toast.dismiss(loadingToastId);
 
       if (result.success) {
+        
+        // Small delay to ensure token is stored properly
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
         // Update auth state
         await setAuthState();
         const successToastId = toast.success(t('success'));
