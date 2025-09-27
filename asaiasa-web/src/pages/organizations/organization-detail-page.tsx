@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router';
 import { useTranslations } from 'next-intl';
-import { MapPin, Mail, Phone, Globe } from 'lucide-react';
+import { MapPin, Mail, Phone, Globe, Plus, Edit } from 'lucide-react';
 import { FaFacebook, FaInstagram, FaTwitter, FaLine } from 'react-icons/fa';
 import Layout from '@/components/layout/layout';
 import { Button } from '@/components/base/buttons/button';
 import { EventCard } from '@/components/common/event-card';
 import { api, Organization, Event, Job } from '@/services/api';
+import { useAuth } from '@/contexts/auth-context';
 
 type TabType = 'about' | 'jobs' | 'events';
 
@@ -22,7 +23,11 @@ const OrganizationDetailPage: React.FC = () => {
   const [loadingJobs, setLoadingJobs] = useState(false);
 
   const t = useTranslations('OrgDetail');
-  // const commonT = useTranslations('Common');
+  const eventT = useTranslations('EventManagement');
+  const { isAuth, userProfile } = useAuth();
+  
+  // Check if user has permission to manage this organization
+  const canManageOrganization = isAuth && userProfile && organization;
 
   useEffect(() => {
     if (orgId) {
@@ -36,7 +41,7 @@ const OrganizationDetailPage: React.FC = () => {
     } else if (organization && activeTab === 'jobs' && jobs.length === 0) {
       fetchJobs();
     }
-  }, [activeTab, organization]);
+  }, [activeTab, organization, canManageOrganization]);
 
   const fetchOrganization = async () => {
     try {
@@ -61,7 +66,10 @@ const OrganizationDetailPage: React.FC = () => {
   const fetchEvents = async () => {
     try {
       setLoadingEvents(true);
-      const response = await api.events.getByOrgId(orgId!, { _page: 1, _pageSize: 10 });
+      // Use the organization events endpoint if user has management permissions
+      const response = canManageOrganization 
+        ? await api.organizations.events.getByOrgId(orgId!, { _page: 1, _pageSize: 10 })
+        : await api.events.getByOrgId(orgId!, { _page: 1, _pageSize: 10 });
       
       if (response && response.data) {
         setEvents(response.data);
@@ -431,7 +439,17 @@ const OrganizationDetailPage: React.FC = () => {
 
           {activeTab === 'events' && (
             <div className="flex flex-col gap-4">
-              <h2 className="text-lg sm:text-xl font-semibold">{t('eventListings')}</h2>
+              <div className="flex justify-between items-center">
+                <h2 className="text-lg sm:text-xl font-semibold">{t('eventListings')}</h2>
+                {canManageOrganization && (
+                  <Link to={`/organizations/${orgId}/events/create`}>
+                    <Button className="flex items-center gap-2 bg-orange-600 hover:bg-orange-700">
+                      <Plus className="w-4 h-4" />
+                      {eventT('createEvent')}
+                    </Button>
+                  </Link>
+                )}
+              </div>
               {loadingEvents ? (
                 <div className="flex justify-center py-8">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
@@ -439,16 +457,37 @@ const OrganizationDetailPage: React.FC = () => {
               ) : events.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {events.map((event) => (
-                    <EventCard
-                      key={event.id}
-                      event={event}
-                      showOrganization={false}
-                    />
+                    <div key={event.id} className="relative">
+                      <EventCard
+                        event={event}
+                        showOrganization={false}
+                      />
+                      {canManageOrganization && (
+                        <div className="absolute top-2 right-2 flex gap-1">
+                          <Link to={`/organizations/${orgId}/events/${event.id}/edit`}>
+                            <Button
+                              size="sm"
+                              className="bg-white/90 hover:bg-white shadow-sm"
+                            >
+                              <Edit className="w-4 h-4" />
+                            </Button>
+                          </Link>
+                        </div>
+                      )}
+                    </div>
                   ))}
                 </div>
               ) : (
                 <div className="text-center py-12">
-                  <p className="text-gray-500">{t('noEvents')}</p>
+                  <p className="text-gray-500 mb-4">{t('noEvents')}</p>
+                  {canManageOrganization && (
+                    <Link to={`/organizations/${orgId}/events/create`}>
+                      <Button className="flex items-center gap-2 bg-orange-600 hover:bg-orange-700">
+                        <Plus className="w-4 h-4" />
+                        {eventT('createEvent')}
+                      </Button>
+                    </Link>
+                  )}
                 </div>
               )}
             </div>

@@ -54,6 +54,9 @@ import RegisterPage from "@/pages/register/register-page";
 import GoogleCallbackPage from "@/pages/auth/google-callback";
 import ProfilePage from "@/pages/profile/profile-page";
 import DashboardPage from "@/pages/dashboard/dashboard-page";
+import MyOrganizationsPage from "@/pages/organizations/my-organizations-page";
+import OrganizationFormPage from "@/pages/organizations/organization-form-page";
+import EventFormPage from "@/pages/organizations/event-form-page";
 import ProtectedRoute from "@/components/auth/protected-route";
 import { AuthProvider } from "@/contexts/auth-context";
 import { GoogleAuthProvider } from "@/providers/google-oauth-provider";
@@ -89,6 +92,11 @@ createRoot(document.getElementById("root")!).render(
                                     <Route path="/events/:eventId" element={<EventDetailPage />} />
                                     <Route path="/organizations" element={<OrganizationsPage />} />
                                     <Route path="/organizations/:orgId" element={<OrganizationDetailPage />} />
+                                    <Route path="/my-organizations" element={<ProtectedRoute><MyOrganizationsPage /></ProtectedRoute>} />
+                                    <Route path="/organizations/create" element={<ProtectedRoute><OrganizationFormPage /></ProtectedRoute>} />
+                                    <Route path="/organizations/:id/edit" element={<ProtectedRoute><OrganizationFormPage /></ProtectedRoute>} />
+                                    <Route path="/organizations/:orgId/events/create" element={<ProtectedRoute><EventFormPage /></ProtectedRoute>} />
+                                    <Route path="/organizations/:orgId/events/:eventId/edit" element={<ProtectedRoute><EventFormPage /></ProtectedRoute>} />
                                     <Route path="/about" element={<AboutPage />} />
                                     <Route path="/register" element={<RegisterPage />} />
                                     <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />

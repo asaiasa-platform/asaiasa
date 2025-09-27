@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router';
 import { useTranslations } from 'next-intl';
-import { Menu, X, User, LogOut } from 'lucide-react';
+import { Menu, X, User, LogOut, Building2, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/base/buttons/button';
 import LangSwitcher from '@/components/common/lang-switcher';
 import { useAuth } from '@/contexts/auth-context';
@@ -9,10 +9,12 @@ import { useAuth } from '@/contexts/auth-context';
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isOrgMenuOpen, setIsOrgMenuOpen] = useState(false);
   const { isAuth, userProfile, removeAuthState, loading } = useAuth();
   const t = useTranslations('Common.navigation');
   const authT = useTranslations('Common.buttons');
   const userMenuT = useTranslations('Common.userMenu');
+  const orgMenuT = useTranslations('Organizations');
 
   const menuItems = [
     { label: t('events'), href: '/events' },
@@ -71,58 +73,71 @@ const Navbar: React.FC = () => {
               {loading ? (
                 <div className="w-8 h-8 animate-spin rounded-full border-2 border-orange-600 border-t-transparent"></div>
               ) : isAuth && userProfile ? (
-                <div className="relative">
-                  <Button
-                    color="tertiary"
-                    size="sm"
-                    onClick={toggleUserMenu}
-                    className="flex items-center gap-2 hover:bg-gray-100"
-                  >
-                    {userProfile.picUrl ? (
-                      <img 
-                        src={userProfile.picUrl} 
-                        alt="Profile" 
-                        className="w-6 h-6 rounded-full object-cover"
-                      />
-                    ) : (
-                      <User className="w-5 h-5" />
-                    )}
-                    <span className="font-medium">{userProfile.firstName}</span>
-                  </Button>
-                  
-                  {/* User Dropdown Menu */}
-                  {isUserMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 py-1 z-50">
-                      <div className="px-4 py-2 border-b border-gray-100">
-                        <p className="text-sm font-medium text-gray-900">
-                          {userProfile.firstName} {userProfile.lastName}
-                        </p>
-                        <p className="text-xs text-gray-500">{userProfile.email}</p>
+                <>
+                  {/* User Profile Dropdown */}
+                  <div className="relative">
+                    <Button
+                      color="tertiary"
+                      size="sm"
+                      onClick={toggleUserMenu}
+                      className="flex items-center gap-2 hover:bg-gray-100 "
+                    >
+                      {userProfile.picUrl ? (
+                        <img 
+                          src={userProfile.picUrl} 
+                          alt="Profile" 
+                          className="w-6 h-6 rounded-full object-cover"
+                        />
+                      ) : (
+                        <User className="w-5 h-5" />
+                      )}
+                      <span className="font-medium">{userProfile.firstName}</span>
+                    </Button>
+                    
+                    {/* User Dropdown Menu */}
+                    {isUserMenuOpen && (
+                      <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 py-1 z-50">
+                        <div className="px-4 py-2 border-b border-gray-100">
+                          <p className="text-sm font-medium text-gray-900">
+                            {userProfile.firstName} {userProfile.lastName}
+                          </p>
+                          <p className="text-xs text-gray-500">{userProfile.email}</p>
+                        </div>
+                        <Link
+                          to="/profile"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          onClick={() => setIsUserMenuOpen(false)}
+                        >
+                          {userMenuT('profile')}
+                        </Link>
+                        <Link
+                          to="/dashboard"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          onClick={() => setIsUserMenuOpen(false)}
+                        >
+                          {userMenuT('dashboard')}
+                        </Link>
+                        <Link
+                          to="/my-organizations"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-t border-b border-gray-100"
+                          onClick={() => setIsOrgMenuOpen(false)}
+                        >
+                          <div className="flex items-center gap-2">
+                            <Building2 className="w-4 h-4" />
+                            {orgMenuT('myOrganizations')}
+                          </div>
+                        </Link>
+                        <button
+                          onClick={handleLogout}
+                          className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+                        >
+                          <LogOut className="w-4 h-4" />
+                          {userMenuT('logout')}
+                        </button>
                       </div>
-                      <Link
-                        to="/profile"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        onClick={() => setIsUserMenuOpen(false)}
-                      >
-                        {userMenuT('profile')}
-                      </Link>
-                      <Link
-                        to="/dashboard"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        onClick={() => setIsUserMenuOpen(false)}
-                      >
-                        {userMenuT('dashboard')}
-                      </Link>
-                      <button
-                        onClick={handleLogout}
-                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
-                      >
-                        <LogOut className="w-4 h-4" />
-                        {userMenuT('logout')}
-                      </button>
-                    </div>
-                  )}
-                </div>
+                    )}
+                  </div>
+                </>
               ) : (
                 <>
                   <Link to="/login">
@@ -200,28 +215,39 @@ const Navbar: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button color="tertiary" size="sm" className="w-full justify-start">
-                      {userMenuT('profile')}
+                  
+                  
+                  {/* Mobile User Menu */}
+                  <div className="border-t pt-2 mt-2">
+                    <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)}>
+                      <Button color="tertiary" size="sm" className="w-full justify-start">
+                        {userMenuT('profile')}
+                      </Button>
+                    </Link>
+                    <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
+                      <Button color="tertiary" size="sm" className="w-full justify-start">
+                        {userMenuT('dashboard')}
+                      </Button>
+                    </Link>
+                    <Link to="/my-organizations" onClick={() => setIsMobileMenuOpen(false)}>
+                      <Button color="tertiary" size="sm" className="w-full justify-start">
+                        <Building2 className="w-4 h-4 mr-2" />
+                        {orgMenuT('myOrganizations')}
+                      </Button>
+                    </Link>
+                    <Button
+                      color="tertiary"
+                      size="sm"
+                      onClick={() => {
+                        handleLogout();
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
+                    >
+                      <LogOut className="w-4 h-4 mr-2" />
+                      {userMenuT('logout')}
                     </Button>
-                  </Link>
-                  <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button color="tertiary" size="sm" className="w-full justify-start">
-                      {userMenuT('dashboard')}
-                    </Button>
-                  </Link>
-                  <Button
-                    color="tertiary"
-                    size="sm"
-                    onClick={() => {
-                      handleLogout();
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
-                  >
-                    <LogOut className="w-4 h-4 mr-2" />
-                    {userMenuT('logout')}
-                  </Button>
+                  </div>
                 </>
               ) : (
                 <>

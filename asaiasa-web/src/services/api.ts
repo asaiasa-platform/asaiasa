@@ -117,6 +117,18 @@ class ApiClient {
       // Check if it's already in the expected format
       if ('data' in response) {
         return response;
+      } else if ('organizations' in response) {
+        // Handle the specific organizations response format
+        return {
+          code: 0,
+          data: response.organizations || [],
+          page: params._page || 1,
+          page_size: response.organizations?.length || 0,
+          total_page: 1,
+          total_data: response.organizations?.length || 0,
+          message: '',
+          data_schema: null as any
+        };
       } else {
         // Wrap single object in array
         return {
@@ -292,6 +304,28 @@ export interface Event {
   updatedAt: string;
 }
 
+export type EventFormValues = {
+  picUrl: string;
+  name: string;
+  content: string;
+  locationName: string;
+  locationType: string;
+  audience: string;
+  province: string;
+  country: string;
+  startDate: string;
+  endDate: string;
+  startTime: string;
+  endTime: string;
+  latitude: string;
+  longitude: string;
+  priceType: string;
+  registerLink: string;
+  status: string;
+  categories: { label: string; value: string }[];
+  contactChannels: { media: string; mediaLink: string }[];
+};
+
 export interface Job {
   id: string;
   title: string;
@@ -315,18 +349,22 @@ export interface Organization {
   email: string;
   phone: string;
   picUrl: string;
-  bgUrl: string;
-  headline: string;
-  specialty: string;
-  description: string;
-  address: string;
-  province: string;
-  country: string;
-  latitude: number;
-  longitude: number;
-  organizationContacts: any;
-  industries: any;
-  updatedAt: string;
+  bgUrl?: string;
+  headline?: string;
+  specialty?: string;
+  description?: string;
+  address?: string;
+  province?: string;
+  country?: string;
+  latitude?: number;
+  longitude?: number;
+  organizationContacts?: any;
+  industries?: any;
+  updatedAt?: string;
+  // Additional fields from the API response
+  numberOfOpenJobs?: number;
+  numberOfMembers?: number;
+  numberOfEvents?: number;
 }
 
 export interface User {
@@ -405,6 +443,30 @@ export const api = {
       apiClient.get<{ label: string; value: string }>('/orgs/industries/list'),
     getContacts: (orgId: string) =>
       apiClient.get<any>(`/orgs/${orgId}/contacts/list`),
+    
+    // Organization management (user's organizations)
+    getMyOrganizations: () =>
+      apiClient.get<Organization>('/admin/my-orgs'),
+    create: (formData: FormData) =>
+      apiClient.upload<ApiSingleResponse<Organization>>('/admin/orgs/create', formData),
+    update: (id: string, formData: FormData) =>
+      apiClient.upload<ApiSingleResponse<Organization>>(`/admin/orgs/${id}/update`, formData),
+    delete: (id: string) =>
+      apiClient.delete<ApiSingleResponse<any>>(`/admin/orgs/${id}/delete`),
+    
+    // Event management for organizations
+    events: {
+      getByOrgId: (orgId: string, params: { _page?: number; _pageSize?: number } = {}) =>
+        apiClient.get<Event>(`/admin/orgs/${orgId}/events`, params),
+      getById: (orgId: string, eventId: string) =>
+        apiClient.getOne<Event>(`/admin/orgs/${orgId}/events/${eventId}`),
+      create: (orgId: string, formData: FormData) =>
+        apiClient.upload<ApiSingleResponse<Event>>(`/admin/orgs/${orgId}/events/create`, formData),
+      update: (orgId: string, eventId: string, formData: FormData) =>
+        apiClient.upload<ApiSingleResponse<Event>>(`/admin/orgs/${orgId}/events/${eventId}`, formData),
+      delete: (orgId: string, eventId: string) =>
+        apiClient.delete<ApiSingleResponse<any>>(`/admin/orgs/${orgId}/events/${eventId}`),
+    },
   },
 
   // Authentication - matching backend routes
