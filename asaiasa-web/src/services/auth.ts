@@ -298,6 +298,46 @@ class AuthService {
     }
   }
 
+  // Update user profile
+  async updateProfile(profileData: { firstName: string; lastName: string; email: string; phone: string; language: string }): Promise<AuthResponse> {
+    try {
+      const url = `${this.baseURL}/update-profile`;
+      
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+      };
+
+      // Add Bearer token if available
+      const authHeader = TokenUtils.getAuthorizationHeader();
+      if (authHeader) {
+        headers['Authorization'] = authHeader;
+      }
+
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers,
+        credentials: 'include', // Keep for backward compatibility
+        body: JSON.stringify(profileData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || data.message || `HTTP ${response.status}`);
+      }
+
+      return {
+        success: true,
+        message: data.message || 'Profile updated successfully',
+        data: data.user || data.data,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to update profile',
+      };
+    }
+  }
 }
 
 export const authService = new AuthService();

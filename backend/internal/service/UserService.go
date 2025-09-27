@@ -101,6 +101,36 @@ func (s userService) GetCurrentUserProfile(userId uuid.UUID) (*dto.ProfileRespon
 	return profileRes, nil
 }
 
+func (s userService) UpdateUserProfile(userId uuid.UUID, req dto.UpdateProfileRequest) (*dto.ProfileResponses, error) {
+	// First, get the current profile
+	profile, err := s.userRepo.GetProfileByUserID(userId)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			logs.Error("Profile not found")
+			return nil, errs.NewNotFoundError("Profile not found")
+		}
+		logs.Error(fmt.Sprintf("Failed to get profile: %v", err))
+		return nil, errs.NewUnexpectedError()
+	}
+
+	// Update profile fields
+	profile.FirstName = req.FirstName
+	profile.LastName = req.LastName
+	profile.Email = req.Email
+	profile.Phone = req.Phone
+	profile.Language = req.Language
+
+	// Save the updated profile
+	if err := s.userRepo.UpdateProfile(profile); err != nil {
+		logs.Error(fmt.Sprintf("Failed to update profile: %v", err))
+		return nil, errs.NewUnexpectedError()
+	}
+
+	// Return the updated profile
+	profileRes := convertToProfileResponse(profile)
+	return profileRes, nil
+}
+
 func (s userService) FindByUserID(userId uuid.UUID) (*models.User, error) {
 	return s.userRepo.FindByID(userId)
 }

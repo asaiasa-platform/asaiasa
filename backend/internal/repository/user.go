@@ -11,6 +11,7 @@ type UserRepository interface {
 	GetAll() ([]models.User, error)
 	FindByEmail(email string) (*models.User, error)
 	GetProfileByUserID(userId uuid.UUID) (*models.Profile, error)
+	UpdateProfile(profile *models.Profile) error
 	UpdateUserPic(userID uuid.UUID, picURL string) error
 	BeginTransaction() *gorm.DB
 	FindByID(userID uuid.UUID) (*models.User, error)

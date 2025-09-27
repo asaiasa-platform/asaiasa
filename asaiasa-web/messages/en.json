@@ -25,7 +25,10 @@
       "description": "Discover youth organizations, driven by youth, for society",
       "noData": "No organizations available at the moment"
     },
-    "viewMoreJobs": "View More Jobs"
+    "viewMoreJobs": "View More Jobs",
+    "errorTitle": "Unable to Load Content",
+    "tryAgain": "Try Again",
+    "organization": "Organization"
   },
   "About": {
     "title": "About Us",
@@ -185,7 +188,8 @@
       "noAccount": "Don't have an account?",
       "signupHere": "Sign up here",
       "googleButton": "Login with Google",
-      "success": "Login successful"
+      "success": "Login successful",
+      "tagline": "Connect. Volunteer. Impact."
     },
     "signup": {
       "title": "Create Your Account",
@@ -408,5 +412,57 @@
     "description": "Sorry, the page you are looking for doesn't exist or has been moved.",
     "goBack": "Go back",
     "takeHome": "Take me home"
+  },
+  "Profile": {
+    "title": "Profile",
+    "personalInfo": "Personal Information",
+    "accountSettings": "Account Settings",
+    "editProfile": "Edit Profile",
+    "saveChanges": "Save Changes",
+    "cancel": "Cancel",
+    "saving": "Saving...",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "language": "Language",
+    "role": "Role",
+    "joinedDate": "Member Since",
+    "lastUpdated": "Last Updated",
+    "statistics": "Activity Statistics",
+    "eventsAttended": "Events Attended",
+    "organizationsFollowed": "Organizations Followed",
+    "totalContributions": "Total Contributions",
+    "loading": "Loading profile...",
+    "updateSuccess": "Profile updated successfully",
+    "updateError": "Failed to update profile",
+    "requiredField": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
+    "invalidPhone": "Please enter a valid phone number",
+    "profileNotFound": "Profile not found",
+    "pleaseLogin": "Please log in to view your profile.",
+    "notProvided": "Not provided",
+    "languageThai": "ไทย",
+    "languageEnglish": "English"
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Overview of your volunteer activities and statistics",
+    "loading": "Loading dashboard...",
+    "loadingStats": "Loading statistics...",
+    "accessDenied": "Access Denied",
+    "pleaseLogin": "Please log in to view your dashboard.",
+    "eventsAttended": "Events Attended",
+    "totalEvents": "Total Events",
+    "organizations": "Organizations",
+    "contributions": "Contributions",
+    "achievements": "Achievements",
+    "times": "times",
+    "noData": "No data available",
+    "errorLoadingStats": "Failed to load statistics",
+    "eventTypes": {
+      "title": "Event Categories",
+      "description": "Distribution of events you've participated in by category"
+    }
   }
 }

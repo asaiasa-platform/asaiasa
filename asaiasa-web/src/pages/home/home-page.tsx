@@ -88,10 +88,10 @@ const HomePage: React.FC = () => {
       <Layout>
         <div className="flex flex-col items-center justify-center min-h-screen">
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Unable to Load Content</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('errorTitle')}</h2>
             <p className="text-red-500 mb-6">{error}</p>
             <Button onClick={() => window.location.reload()} className="bg-orange-600 hover:bg-orange-700">
-              Try Again
+              {t('tryAgain')}
             </Button>
           </div>
         </div>
@@ -200,7 +200,7 @@ const HomePage: React.FC = () => {
                     {recentJobs.map((job) => (
                       <div key={job.id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
                         <h3 className="font-semibold text-lg mb-2">{job.title}</h3>
-                        <p className="text-gray-700 mb-2">{job.organization?.name || 'Organization'}</p>
+                        <p className="text-gray-700 mb-2">{job.organization?.name || t('organization')}</p>
                         <div className="text-sm text-gray-500 mb-4">
                           <p>📍 {job.location}</p>
                           {(job.salary_min || job.salary_max) && (

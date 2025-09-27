@@ -93,7 +93,7 @@ const LoginPage: React.FC = () => {
               <div className="flex justify-center mb-8">
                 <img src="/logo-2.png" alt="ASAiASA Logo" className="h-32 w-auto" />
               </div>
-              <p className="text-xl text-gray-700">Connect. Volunteer. Impact.</p>
+              <p className="text-xl text-gray-700">{t('tagline')}</p>
             </div>
           </div>
         </div>

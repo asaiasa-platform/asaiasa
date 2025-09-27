@@ -176,6 +176,45 @@ class ApiClient {
       method: 'DELETE',
     });
   }
+
+  // Upload file method (for multipart/form-data)
+  async upload<T>(endpoint: string, formData: FormData): Promise<T> {
+    const url = `${this.baseURL}${endpoint}`;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), this.timeout);
+
+    try {
+      const headers: Record<string, string> = {};
+      
+      // Add Bearer token if available
+      const authHeader = TokenUtils.getAuthorizationHeader();
+      if (authHeader) {
+        headers['Authorization'] = authHeader;
+      }
+
+      const response = await fetch(url, {
+        method: 'POST',
+        body: formData,
+        headers,
+        credentials: 'include',
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      clearTimeout(timeoutId);
+      if (error instanceof Error && error.name === 'AbortError') {
+        throw new Error('Request timeout');
+      }
+      throw error;
+    }
+  }
 }
 
 // Create and export API client instance
@@ -286,6 +325,30 @@ export interface User {
   updated_at: string;
 }
 
+// User Statistics interfaces
+export interface CategoryStat {
+  amount: number;
+  category: { value: number; label: string };
+}
+
+export interface UserStats {
+  CategoryData: CategoryStat[];
+  totalEvents: number;
+}
+
+export interface UserInteractCategoriesResponse {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+    picUrl: string;
+    updatedAt: string;
+  };
+  CategoryData: CategoryStat[];
+  totalEvents: number;
+}
+
 // Specific API endpoints matching backend routes
 export const api = {
   // Events - matching backend routes
@@ -358,5 +421,45 @@ export const api = {
   location: {
     getProvinces: () =>
       apiClient.get<any>('/provinces'),
+  },
+
+  // User Statistics - matching backend routes
+  userStats: {
+    // Get user's category statistics (for dashboard)
+    getCategoryStats: () =>
+      apiClient.getOne<UserInteractCategoriesResponse>('/interact/categories/'),
+    
+    // Get user's interacted events
+    getInteractedEvents: () =>
+      apiClient.get<any>('/users/interact/events'),
+    
+    // Get all user interaction categories (public stats)
+    getAllCategoryStats: () =>
+      apiClient.get<UserInteractCategoriesResponse>('/users/interact/categories/list'),
+    
+    // Interact with an event (increment counter)
+    interactWithEvent: (eventId: string) =>
+      apiClient.post<{ message: string }>(`/users/interact/events/${eventId}`),
+  },
+
+  // User Profile - matching backend routes  
+  user: {
+    // Get current user profile
+    getCurrentProfile: () =>
+      apiClient.getOne<any>('/current-user-profile'),
+    
+    // Update user profile
+    updateProfile: (profileData: {
+      firstName: string;
+      lastName: string;
+      email: string;
+      phone: string;
+      language: string;
+    }) =>
+      apiClient.put<any>('/update-profile', profileData),
+    
+    // Upload profile picture
+    uploadProfilePicture: (formData: FormData) =>
+      apiClient.upload<any>('/users/upload-profile', formData),
   },
 };

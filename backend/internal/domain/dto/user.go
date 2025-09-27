@@ -50,6 +50,14 @@ type LoginRequest struct {
 	Password string `json:"password" example:"$2a$10$GEMNCwJCpl2yRm.UirLrUuIG55oc8oLCcP4HRe0uPlTizoIVRAS6K" validate:"required"`
 }
 
+type UpdateProfileRequest struct {
+	FirstName string `json:"firstName" example:"Anda" validate:"required"`
+	LastName  string `json:"lastName" example:"Raiwin" validate:"required"`
+	Email     string `json:"email" example:"andaraiwin@gmail.com" validate:"required,email"`
+	Phone     string `json:"phone" example:"08123456789"`
+	Language  string `json:"language" example:"en"`
+}
+
 type UserPreferenceRequest struct {
 	Categories []CategoryRequest `json:"categories" validate:"required"`
 }

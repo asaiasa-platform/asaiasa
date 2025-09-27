@@ -108,6 +108,52 @@ func (h *UserHandler) GetCurrentUser(c *fiber.Ctx) error {
 	return c.JSON(currentUserProfile)
 }
 
+// @Summary Update user profile
+// @Description Update user profile information
+// @Tags Users
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param profile body dto.UpdateProfileRequest true "Profile update data"
+// @Success 200 {object} dto.ProfileResponses
+// @Failure 400 {object} fiber.Map "Bad request - Invalid profile data"
+// @Failure 401 {object} fiber.Map "Unauthorized"
+// @Failure 500 {object} fiber.Map "Internal server error"
+// @Router /update-profile [put]
+func (h *UserHandler) UpdateProfile(c *fiber.Ctx) error {
+	userData, ok := c.Locals("user").(jwt.MapClaims)
+	if !ok {
+		logs.Error("Failed to get user data")
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "unauthorized"})
+	}
+
+	userID, ok := userData["user_id"].(string)
+	if !ok {
+		logs.Error("Failed to get user_id")
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "invalid user_id"})
+	}
+
+	currentUserID, err := uuid.Parse(userID)
+	if err != nil {
+		logs.Error("Failed to parse user_id")
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "invalid user_id"})
+	}
+
+	var req dto.UpdateProfileRequest
+	if err := c.BodyParser(&req); err != nil {
+		logs.Error(fmt.Sprintf("Failed to parse request body: %v", err))
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "invalid request body"})
+	}
+
+	updatedProfile, err := h.service.UpdateUserProfile(currentUserID, req)
+	if err != nil {
+		logs.Error(fmt.Sprintf("Failed to update profile: %v", err))
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	return c.JSON(updatedProfile)
+}
+
 // @Summary Upload profile picture
 // @Description Upload profile picture for a user
 // @Tags Users

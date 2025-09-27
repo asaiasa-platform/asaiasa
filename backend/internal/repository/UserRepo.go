@@ -72,6 +72,13 @@ func (r userRepository) GetProfileByUserID(userId uuid.UUID) (*models.Profile, e
 	return &userProfile, nil
 }
 
+func (r userRepository) UpdateProfile(profile *models.Profile) error {
+	if err := r.db.Save(profile).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
 func (r userRepository) UpdateUserPic(userID uuid.UUID, picURL string) error {
 	tx := r.db.Begin()
 

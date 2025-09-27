@@ -18,6 +18,7 @@ type UserService interface {
 	CreateUser(user *models.User) error
 	ListUsers() ([]dto.UserResponses, error)
 	GetCurrentUserProfile(userId uuid.UUID) (*dto.ProfileResponses, error)
+	UpdateUserProfile(userId uuid.UUID, req dto.UpdateProfileRequest) (*dto.ProfileResponses, error)
 	UpdateUserPicture(ctx context.Context, userID uuid.UUID, file multipart.File, fileHeader *multipart.FileHeader) (string, error)
 }
 

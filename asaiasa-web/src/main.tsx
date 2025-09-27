@@ -52,6 +52,9 @@ import OrganizationDetailPage from "@/pages/organizations/organization-detail-pa
 import AboutPage from "@/pages/about/about-page";
 import RegisterPage from "@/pages/register/register-page";
 import GoogleCallbackPage from "@/pages/auth/google-callback";
+import ProfilePage from "@/pages/profile/profile-page";
+import DashboardPage from "@/pages/dashboard/dashboard-page";
+import ProtectedRoute from "@/components/auth/protected-route";
 import { AuthProvider } from "@/contexts/auth-context";
 import { GoogleAuthProvider } from "@/providers/google-oauth-provider";
 import { RouteProvider } from "@/providers/router-provider";
@@ -88,6 +91,8 @@ createRoot(document.getElementById("root")!).render(
                                     <Route path="/organizations/:orgId" element={<OrganizationDetailPage />} />
                                     <Route path="/about" element={<AboutPage />} />
                                     <Route path="/register" element={<RegisterPage />} />
+                                    <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+                                    <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
                                     <Route path="/auth/google/callback" element={<GoogleCallbackPage />} />
                                     <Route path="/" element={<HomeScreen />} />
                                     <Route path="*" element={<NotFound />} />
