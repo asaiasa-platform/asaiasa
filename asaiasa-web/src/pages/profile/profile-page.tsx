@@ -96,7 +96,8 @@ export default function ProfilePage() {
       // Call the API to update the profile
       const result = await api.user.updateProfile(editForm);
       
-      if (!result.data) {
+      // Check if the update was successful
+      if (!result || !result.data) {
         throw new Error('Failed to update profile');
       }
       
@@ -107,7 +108,22 @@ export default function ProfilePage() {
       setIsEditing(false);
     } catch (error) {
       console.error('Failed to update profile:', error);
-      toast.error(t('updateError'));
+      
+      // Provide more specific error messages
+      let errorMessage = t('updateError');
+      if (error instanceof Error) {
+        if (error.message.includes('401') || error.message.includes('unauthorized')) {
+          errorMessage = 'Please log in again to update your profile';
+        } else if (error.message.includes('400') || error.message.includes('Bad Request')) {
+          errorMessage = 'Invalid profile data. Please check your inputs.';
+        } else if (error.message.includes('500') || error.message.includes('Internal Server Error')) {
+          errorMessage = 'Server error. Please try again later.';
+        } else if (error.message.includes('timeout')) {
+          errorMessage = 'Request timeout. Please check your connection.';
+        }
+      }
+      
+      toast.error(errorMessage);
     } finally {
       setIsSaving(false);
     }

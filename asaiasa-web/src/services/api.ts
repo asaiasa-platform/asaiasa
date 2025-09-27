@@ -164,10 +164,24 @@ class ApiClient {
 
   // PUT request
   async put<T>(endpoint: string, data?: any): Promise<ApiSingleResponse<T>> {
-    return this.request<ApiSingleResponse<T>>(endpoint, {
+    const response = await this.request<any>(endpoint, {
       method: 'PUT',
       body: data ? JSON.stringify(data) : undefined,
     });
+    
+    // Handle direct response (not wrapped in ApiSingleResponse format)
+    if (response && typeof response === 'object' && !('data' in response)) {
+      // Direct object response, wrap it in the expected format
+      return {
+        code: 0,
+        data: response,
+        message: '',
+        data_schema: null as any
+      };
+    }
+    
+    // Already in the expected format or handle other cases
+    return response;
   }
 
   // DELETE request
