@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router';
 import { useTranslations } from 'next-intl';
-import { Menu, X, User, LogOut, Building2, ChevronDown } from 'lucide-react';
+import { Menu, X, User, LogOut, Building2 } from 'lucide-react';
 import { Button } from '@/components/base/buttons/button';
 import LangSwitcher from '@/components/common/lang-switcher';
 import { useAuth } from '@/contexts/auth-context';
@@ -9,7 +9,6 @@ import { useAuth } from '@/contexts/auth-context';
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [isOrgMenuOpen, setIsOrgMenuOpen] = useState(false);
   const { isAuth, userProfile, removeAuthState, loading } = useAuth();
   const t = useTranslations('Common.navigation');
   const authT = useTranslations('Common.buttons');
@@ -120,7 +119,7 @@ const Navbar: React.FC = () => {
                         <Link
                           to="/my-organizations"
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-t border-b border-gray-100"
-                          onClick={() => setIsOrgMenuOpen(false)}
+                          onClick={() => setIsUserMenuOpen(false)}
                         >
                           <div className="flex items-center gap-2">
                             <Building2 className="w-4 h-4" />

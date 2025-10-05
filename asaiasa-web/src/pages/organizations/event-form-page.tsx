@@ -27,7 +27,6 @@ const EventFormPage: React.FC = () => {
   const [posterPreview, setPosterPreview] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [categories, setCategories] = useState<{ label: string; value: string }[]>([]);
 
   const form = useForm<EventFormValues>({
     defaultValues: {
@@ -66,25 +65,12 @@ const EventFormPage: React.FC = () => {
       return;
     }
 
-    fetchCategories();
-    
     if (isEditing && eventId) {
       fetchEvent();
     } else {
       setInitialLoading(false);
     }
   }, [isAuth, userProfile, isEditing, eventId]);
-
-  const fetchCategories = async () => {
-    try {
-      const response = await api.events.getCategories();
-      if (response && response.data) {
-        setCategories(response.data);
-      }
-    } catch (err) {
-      console.error('Error fetching categories:', err);
-    }
-  };
 
   const fetchEvent = async () => {
     try {
@@ -113,7 +99,7 @@ const EventFormPage: React.FC = () => {
           priceType: event.priceType || '',
           registerLink: event.registerLink || '',
           status: event.status || 'draft',
-          categories: event.categories || [],
+          categories: event.categories?.map(cat => ({ label: cat.label, value: cat.value.toString() })) || [],
           contactChannels: event.contactChannels?.length ? event.contactChannels : [{ media: '', mediaLink: '' }],
         });
         
@@ -602,7 +588,7 @@ const EventFormPage: React.FC = () => {
                   </h3>
                   <Button
                     type="button"
-                    variant="outline"
+                    color="secondary"
                     size="sm"
                     disabled={fields.length >= 4}
                     onClick={() => append({ media: '', mediaLink: '' })}
@@ -665,7 +651,7 @@ const EventFormPage: React.FC = () => {
                       </div>
                       <Button
                         type="button"
-                        variant="ghost"
+                        color="secondary"
                         size="sm"
                         className="mt-6"
                         disabled={fields.length === 1}
@@ -684,7 +670,7 @@ const EventFormPage: React.FC = () => {
                   {isEditing && (
                     <Button
                       type="button"
-                      variant="outline"
+                      color="secondary"
                       onClick={() => setIsDeleteDialogOpen(true)}
                       className="text-red-600 border-red-300 hover:bg-red-50"
                     >
@@ -696,7 +682,7 @@ const EventFormPage: React.FC = () => {
                 <div className="flex gap-3">
                   <Button
                     type="button"
-                    variant="outline"
+                    color="secondary"
                     onClick={() => navigate(`/organizations/${orgId}`)}
                   >
                     {t('cancelButton')}
@@ -731,7 +717,7 @@ const EventFormPage: React.FC = () => {
                 </DialogHeader>
                 <DialogFooter>
                   <Button
-                    variant="outline"
+                    color="secondary"
                     onClick={() => setIsDialogOpen(false)}
                     disabled={loading}
                   >

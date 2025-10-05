@@ -145,7 +145,7 @@ const MyOrganizationsPage: React.FC = () => {
           <Card>
             <CardContent className="text-center py-8">
               <div className="text-red-600 mb-4">{error}</div>
-              <Button onClick={fetchMyOrganizations} variant="outline">
+              <Button onClick={fetchMyOrganizations} color="secondary">
                 {t('tryAgain')}
               </Button>
             </CardContent>
@@ -198,12 +198,12 @@ const MyOrganizationsPage: React.FC = () => {
                     </div>
                     <div className="flex space-x-1">
                       <Link to={`/organizations/${org.id}/edit`}>
-                        <Button variant="ghost" size="sm">
+                        <Button color="secondary" size="sm">
                           <Edit className="w-4 h-4" />
                         </Button>
                       </Link>
                       <Button
-                        variant="ghost"
+                        color="secondary"
                         size="sm"
                         onClick={() => handleDeleteOrganization(org.id)}
                         className="text-red-600 hover:text-red-700 hover:bg-red-50"
@@ -241,7 +241,7 @@ const MyOrganizationsPage: React.FC = () => {
                       </div>
                     )}
                     <Link to={`/organizations/${org.id}`}>
-                      <Button variant="outline" size="sm">
+                      <Button color="secondary" size="sm">
                         View Details
                       </Button>
                     </Link>
