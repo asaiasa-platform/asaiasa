@@ -5,7 +5,6 @@ import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import { 
   Building2, 
   Save, 
-  X, 
   Plus, 
   Trash2, 
   Upload, 
@@ -17,10 +16,9 @@ import { Input } from '@/components/base/inputs/input';
 import { Textarea } from '@/components/base/inputs/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/base/cards/card';
 import { Label } from '@/components/base/labels/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/base/selects/select';
 import { Checkbox } from '@/components/base/checkboxes/checkbox';
 import Layout from '@/components/layout/layout';
-import { api, Organization } from '@/services/api';
+import { api } from '@/services/api';
 import { useAuth } from '@/contexts/auth-context';
 
 interface OrganizationFormData {
@@ -69,7 +67,6 @@ const OrganizationFormPage: React.FC = () => {
     control,
     formState: { errors, isSubmitting },
     setValue,
-    watch,
     reset
   } = useForm<OrganizationFormData>({
     defaultValues: {
@@ -266,7 +263,7 @@ const OrganizationFormPage: React.FC = () => {
         <div className="mb-8">
           <div className="flex items-center space-x-4 mb-4">
             <Button
-              variant="ghost"
+              color="tertiary"
               onClick={() => navigate('/my-organizations')}
               className="flex items-center space-x-2"
             >
@@ -312,7 +309,7 @@ const OrganizationFormPage: React.FC = () => {
                     />
                     <Button
                       type="button"
-                      variant="secondary"
+                      color="secondary"
                       size="sm"
                       className="absolute top-2 right-2"
                       onClick={() => handleImageUpload('background')}
@@ -345,7 +342,7 @@ const OrganizationFormPage: React.FC = () => {
                     />
                     <Button
                       type="button"
-                      variant="secondary"
+                      color="secondary"
                       size="sm"
                       className="absolute top-2 right-2"
                       onClick={() => handleImageUpload('logo')}
@@ -493,17 +490,17 @@ const OrganizationFormPage: React.FC = () => {
                         control={control}
                         rules={{ required: !isRemote ? t('required') : false }}
                         render={({ field }) => (
-                          <Select onValueChange={field.onChange} value={field.value}>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select province" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="bangkok">Bangkok</SelectItem>
-                              <SelectItem value="chiangmai">Chiang Mai</SelectItem>
-                              <SelectItem value="phuket">Phuket</SelectItem>
-                              {/* Add more provinces as needed */}
-                            </SelectContent>
-                          </Select>
+                          <select 
+                            onChange={field.onChange} 
+                            value={field.value}
+                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                          >
+                            <option value="">Select province</option>
+                            <option value="bangkok">Bangkok</option>
+                            <option value="chiangmai">Chiang Mai</option>
+                            <option value="phuket">Phuket</option>
+                            {/* Add more provinces as needed */}
+                          </select>
                         )}
                       />
                       {errors.province && (
@@ -518,14 +515,14 @@ const OrganizationFormPage: React.FC = () => {
                         control={control}
                         rules={{ required: !isRemote ? t('required') : false }}
                         render={({ field }) => (
-                          <Select onValueChange={field.onChange} value={field.value}>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select country" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="TH">Thailand</SelectItem>
-                            </SelectContent>
-                          </Select>
+                          <select 
+                            onChange={field.onChange} 
+                            value={field.value}
+                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                          >
+                            <option value="">Select country</option>
+                            <option value="TH">Thailand</option>
+                          </select>
                         )}
                       />
                       {errors.country && (
@@ -565,7 +562,7 @@ const OrganizationFormPage: React.FC = () => {
                 <CardTitle>{t('contactChannels')}</CardTitle>
                 <Button
                   type="button"
-                  variant="outline"
+                  color="secondary"
                   size="sm"
                   onClick={() => append({ media: '', mediaLink: '' })}
                   disabled={fields.length >= 5}
@@ -584,22 +581,19 @@ const OrganizationFormPage: React.FC = () => {
                       name={`organizationContacts.${index}.media`}
                       control={control}
                       render={({ field: controllerField }) => (
-                        <Select 
-                          onValueChange={controllerField.onChange} 
+                        <select 
+                          onChange={controllerField.onChange} 
                           value={controllerField.value}
+                          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select platform" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="website">Website</SelectItem>
-                            <SelectItem value="facebook">Facebook</SelectItem>
-                            <SelectItem value="instagram">Instagram</SelectItem>
-                            <SelectItem value="twitter">Twitter</SelectItem>
-                            <SelectItem value="linkedin">LinkedIn</SelectItem>
-                            <SelectItem value="line">Line</SelectItem>
-                          </SelectContent>
-                        </Select>
+                          <option value="">Select platform</option>
+                          <option value="website">Website</option>
+                          <option value="facebook">Facebook</option>
+                          <option value="instagram">Instagram</option>
+                          <option value="twitter">Twitter</option>
+                          <option value="linkedin">LinkedIn</option>
+                          <option value="line">Line</option>
+                        </select>
                       )}
                     />
                   </div>
@@ -612,7 +606,7 @@ const OrganizationFormPage: React.FC = () => {
                   </div>
                   <Button
                     type="button"
-                    variant="ghost"
+                    color="tertiary"
                     size="sm"
                     onClick={() => remove(index)}
                     disabled={fields.length === 1}
@@ -629,7 +623,7 @@ const OrganizationFormPage: React.FC = () => {
           <div className="flex items-center justify-end space-x-4">
             <Button
               type="button"
-              variant="outline"
+              color="secondary"
               onClick={() => navigate('/my-organizations')}
             >
               {commonT('cancel')}
