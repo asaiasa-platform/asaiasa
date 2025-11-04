@@ -2,8 +2,9 @@ package repository
 
 import (
 	"errors"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/models"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/utils"
+
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/domain/models"
+	"github.com/DAF-Bridge/asaiasa-Backend/utils"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"

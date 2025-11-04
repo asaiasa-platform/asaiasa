@@ -3,11 +3,11 @@ package service
 import (
 	"time"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/errs"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/models"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/repository"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/logs"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/utils"
+	"github.com/DAF-Bridge/asaiasa-Backend/errs"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/domain/models"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/repository"
+	"github.com/DAF-Bridge/asaiasa-Backend/logs"
+	"github.com/DAF-Bridge/asaiasa-Backend/utils"
 	"github.com/golang-jwt/jwt/v5"
 )
 

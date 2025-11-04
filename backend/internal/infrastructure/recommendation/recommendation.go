@@ -8,10 +8,10 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/errs"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/dto"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/models"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/logs"
+	"github.com/DAF-Bridge/asaiasa-Backend/errs"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/domain/dto"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/domain/models"
+	"github.com/DAF-Bridge/asaiasa-Backend/logs"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 )

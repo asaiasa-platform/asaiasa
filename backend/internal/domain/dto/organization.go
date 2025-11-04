@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/models"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/domain/models"
 )
 
 func BuildListDTO[T, F interface{}](t []T, fn func(T) F) []F {

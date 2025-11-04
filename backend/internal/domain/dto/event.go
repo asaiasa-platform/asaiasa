@@ -1,6 +1,6 @@
 package dto
 
-import "github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/models"
+import "github.com/DAF-Bridge/asaiasa-Backend/internal/domain/models"
 
 type EventShortResponseDTO struct {
 	ID        int    `json:"id" example:"1"`

@@ -1,11 +1,11 @@
 package api
 
 import (
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/handler"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/infrastructure"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/repository"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/service"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/middleware"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/handler"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/infrastructure"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/repository"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/service"
+	"github.com/DAF-Bridge/asaiasa-Backend/middleware"
 	"github.com/casbin/casbin/v2"
 	"github.com/gofiber/fiber/v2"
 	"github.com/opensearch-project/opensearch-go"

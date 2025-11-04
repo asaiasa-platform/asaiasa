@@ -1,10 +1,10 @@
 package handler
 
 import (
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/errs"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/dto"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/service"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/utils"
+	"github.com/DAF-Bridge/asaiasa-Backend/errs"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/domain/dto"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/service"
+	"github.com/DAF-Bridge/asaiasa-Backend/utils"
 	"github.com/gofiber/fiber/v2"
 )
 

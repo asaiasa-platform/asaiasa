@@ -8,8 +8,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/models"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/logs"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/domain/models"
+	"github.com/DAF-Bridge/asaiasa-Backend/logs"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )

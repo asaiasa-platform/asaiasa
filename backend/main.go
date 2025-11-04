@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/app"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/app"
 )
 
-// import "github.com/DAF-Bridge/Talent-Atmos-Backend/internal/app"
+// import "github.com/DAF-Bridge/asaiasa-Backend/internal/app"
 //
 // // @title Fiber Example API MAIN
 // // @version 1.0

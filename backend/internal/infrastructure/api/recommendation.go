@@ -1,9 +1,9 @@
 package api
 
 import (
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/infrastructure/recommendation"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/middleware"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/utils"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/infrastructure/recommendation"
+	"github.com/DAF-Bridge/asaiasa-Backend/middleware"
+	"github.com/DAF-Bridge/asaiasa-Backend/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 	"gorm.io/gorm"

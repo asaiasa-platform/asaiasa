@@ -2,7 +2,8 @@ package authorization
 
 import (
 	"fmt"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/repository"
+
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/repository"
 	"github.com/casbin/casbin/v2"
 	gormadapter "github.com/casbin/gorm-adapter/v3"
 	"gorm.io/gorm"

@@ -1,6 +1,6 @@
 package service
 
-import "github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/models"
+import "github.com/DAF-Bridge/asaiasa-Backend/internal/domain/models"
 
 type LocationService interface {
 	GetAllOrganizationLocation() ([]models.Organization, error)

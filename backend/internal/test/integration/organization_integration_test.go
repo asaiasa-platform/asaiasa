@@ -11,14 +11,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/initializers"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/dto"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/models"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/handler"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/repository"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/service"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/test"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/middleware"
+	"github.com/DAF-Bridge/asaiasa-Backend/initializers"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/domain/dto"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/domain/models"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/handler"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/repository"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/service"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/test"
+	"github.com/DAF-Bridge/asaiasa-Backend/middleware"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
@@ -28,7 +28,7 @@ import (
 
 func generateMockJWT(userID uuid.UUID, secret string) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"email":   "talentsatmos@gmail.com",
+		"email":   "asaiasa@gmail.com",
 		"user_id": userID,
 		"exp":     time.Now().Add(time.Hour).Unix(),
 	})
@@ -49,9 +49,9 @@ func TestOrganizationHandlerIntegrationService(t *testing.T) {
 		expected := models.Organization{
 			Model:     gorm.Model{ID: 1, UpdatedAt: time.Now()},
 			Name:      "ASAiASA",
-			Email:     "talentsatmos@gmail.com",
+			Email:     "asaiasa@gmail.com",
 			Phone:     "+66876428591",
-			PicUrl:    "https://talentsatmos.com",
+			PicUrl:    "https://asaiasa.com",
 			HeadLine:  "We are the best",
 			Specialty: "We are the best",
 			Address:   "Chiang Mai University",
@@ -125,7 +125,7 @@ func TestOrganizationHandlerIntegrationService(t *testing.T) {
 		expected := models.OrgOpenJob{
 			Model:  gorm.Model{ID: 1, UpdatedAt: time.Now()},
 			Title:  "Software Engineer",
-			PicUrl: "https://talentsatmos.com",
+			PicUrl: "https://asaiasa.com",
 			Scope:  "Software Development",
 			Prerequisites: []models.Prerequisite{
 				{

@@ -10,16 +10,16 @@ import (
 	"strings"
 	"time"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/errs"
+	"github.com/DAF-Bridge/asaiasa-Backend/errs"
 
-	_ "github.com/DAF-Bridge/Talent-Atmos-Backend/docs"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/types"
+	_ "github.com/DAF-Bridge/asaiasa-Backend/docs"
+	"github.com/DAF-Bridge/asaiasa-Backend/types"
 	_ "github.com/spf13/viper"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/initializers"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/infrastructure/api"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/logs"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/utils"
+	"github.com/DAF-Bridge/asaiasa-Backend/initializers"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/infrastructure/api"
+	"github.com/DAF-Bridge/asaiasa-Backend/logs"
+	"github.com/DAF-Bridge/asaiasa-Backend/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"

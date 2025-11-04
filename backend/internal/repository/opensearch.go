@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/dto"
+import "github.com/DAF-Bridge/asaiasa-Backend/internal/domain/dto"
 
 type OpenSearchRepository interface {
 	CreateOrUpdateEvent(event *dto.EventDocument) error

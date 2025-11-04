@@ -3,15 +3,16 @@ package service
 import (
 	"errors"
 	"fmt"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/errs"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/models"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/repository"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/logs"
+	"log"
+	"strconv"
+
+	"github.com/DAF-Bridge/asaiasa-Backend/errs"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/domain/models"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/repository"
+	"github.com/DAF-Bridge/asaiasa-Backend/logs"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgconn"
 	"gorm.io/gorm"
-	"log"
-	"strconv"
 )
 
 const defaultRole = "moderator"

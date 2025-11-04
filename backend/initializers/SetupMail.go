@@ -6,7 +6,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/logs"
+	"github.com/DAF-Bridge/asaiasa-Backend/logs"
 	"gopkg.in/gomail.v2"
 )
 

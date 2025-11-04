@@ -1,4 +1,4 @@
-module github.com/DAF-Bridge/Talent-Atmos-Backend
+module github.com/DAF-Bridge/asaiasa-Backend
 
 go 1.22.0
 

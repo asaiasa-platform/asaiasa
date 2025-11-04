@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/utils"
+	"github.com/DAF-Bridge/asaiasa-Backend/utils"
 	"gorm.io/gorm"
 )
 

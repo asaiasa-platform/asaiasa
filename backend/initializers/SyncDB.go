@@ -1,8 +1,9 @@
 package initializers
 
 import (
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/models"
 	"log"
+
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/domain/models"
 )
 
 func SyncDB() {

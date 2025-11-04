@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/dto"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/logs"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/domain/dto"
+	"github.com/DAF-Bridge/asaiasa-Backend/logs"
 	"github.com/opensearch-project/opensearch-go"
 )
 

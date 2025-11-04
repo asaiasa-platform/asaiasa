@@ -7,16 +7,16 @@ import (
 	"log"
 	"os"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/pkg/authorization"
+	"github.com/DAF-Bridge/asaiasa-Backend/pkg/authorization"
 	"github.com/casbin/casbin/v2"
 	gormadapter "github.com/casbin/gorm-adapter/v3"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/infrastructure"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/infrastructure"
 	"github.com/go-redis/redis/v8"
 	"github.com/opensearch-project/opensearch-go"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/logs"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/utils"
+	"github.com/DAF-Bridge/asaiasa-Backend/logs"
+	"github.com/DAF-Bridge/asaiasa-Backend/utils"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )

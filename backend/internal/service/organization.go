@@ -5,8 +5,8 @@ import (
 	"mime/multipart"
 	"time"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/dto"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/models"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/domain/dto"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/domain/models"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 )

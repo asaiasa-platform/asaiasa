@@ -4,7 +4,7 @@ import (
 	"context"
 	"mime/multipart"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/dto"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/domain/dto"
 	"github.com/stretchr/testify/mock"
 )
 

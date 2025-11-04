@@ -1,6 +1,6 @@
 services:
   backend:
-    image: ghcr.io/daf-bridge/talent-atmos-backend:latest
+    image: ghcr.io/daf-bridge/asaiasa-backend:latest
     container_name: Go-Backend
     ports:
       - "8080:8080"

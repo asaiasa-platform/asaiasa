@@ -2,7 +2,7 @@
 Deployment Status: 
 - [![Netlify Status](https://api.netlify.com/api/v1/badges/eacd2a73-89db-4d50-a1d8-ecf054f2f00f/deploy-status)](https://app.netlify.com/sites/ta-mgmt-cons/deploys)
 
-- You can visit our site via this link: [Talent-Atmos-Admin](https://ta-mgmt-cons.netlify.app)
+- You can visit our site via this link: [asaiasa-Admin](https://ta-mgmt-cons.netlify.app)
 
 ---
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).

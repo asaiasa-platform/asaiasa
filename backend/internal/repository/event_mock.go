@@ -3,11 +3,11 @@ package repository
 import (
 	"strings"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/models"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/domain/models"
 	"gorm.io/gorm"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/errs"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/utils"
+	"github.com/DAF-Bridge/asaiasa-Backend/errs"
+	"github.com/DAF-Bridge/asaiasa-Backend/utils"
 )
 
 type eventRepositoryMock struct {

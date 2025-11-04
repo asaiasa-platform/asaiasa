@@ -5,16 +5,16 @@ import (
 	"errors"
 	"mime/multipart"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/dto"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/models"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/infrastructure"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/infrastructure/search"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/infrastructure/sync"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/domain/dto"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/domain/models"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/infrastructure"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/infrastructure/search"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/infrastructure/sync"
 	"github.com/opensearch-project/opensearch-go"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/errs"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/repository"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/logs"
+	"github.com/DAF-Bridge/asaiasa-Backend/errs"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/repository"
+	"github.com/DAF-Bridge/asaiasa-Backend/logs"
 	"gorm.io/gorm"
 )
 

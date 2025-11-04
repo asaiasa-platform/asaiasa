@@ -3,8 +3,8 @@ package repository
 import (
 	"time"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/errs"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/domain/models"
+	"github.com/DAF-Bridge/asaiasa-Backend/errs"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/domain/models"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
@@ -32,10 +32,10 @@ func (r orgOpenJobRepositoryMock) CountsByOrgID(orgID uint) (int64, error) {
 func NewOrganizationRepositoryMock() OrganizationRepository {
 	org := &models.Organization{
 		Model:     gorm.Model{ID: 1, UpdatedAt: time.Now()},
-		Email:     "talentsatmos@gmail.com",
+		Email:     "asaiasa@gmail.com",
 		Phone:     "+66876428591",
 		Name:      "ASAiASA",
-		PicUrl:    "https://talentsatmos.com",
+		PicUrl:    "https://asaiasa.com",
 		HeadLine:  "We are the best",
 		Specialty: "We are the best",
 		Address:   "Chiang Mai University",
@@ -61,7 +61,7 @@ func NewOrganizationRepositoryMock() OrganizationRepository {
 			{
 				Model:  gorm.Model{ID: 1},
 				Title:  "Software Engineer",
-				PicUrl: "https://talentsatmos.com",
+				PicUrl: "https://asaiasa.com",
 				Categories: []models.Category{
 					{
 						Model: gorm.Model{ID: 12},
@@ -85,7 +85,7 @@ func NewOrgOpenJobRepositoryMock() OrgOpenJobRepository {
 		OrganizationID: 1,
 		Organization:   models.Organization{Name: "ASAiASA"},
 		Title:          "Software Engineer",
-		PicUrl:         "https://talentsatmos.com",
+		PicUrl:         "https://asaiasa.com",
 		Scope:          "Software Development",
 		Prerequisites: []models.Prerequisite{
 			{

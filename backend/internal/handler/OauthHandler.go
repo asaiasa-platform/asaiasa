@@ -7,15 +7,15 @@ import (
 	"os"
 	"time"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/errs"
+	"github.com/DAF-Bridge/asaiasa-Backend/errs"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/initializers"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/service"
+	"github.com/DAF-Bridge/asaiasa-Backend/initializers"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/service"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/logs"
+	"github.com/DAF-Bridge/asaiasa-Backend/logs"
 	"github.com/golang-jwt/jwt/v5"
 
-	// "github.com/DAF-Bridge/Talent-Atmos-Backend/utils"
+	// "github.com/DAF-Bridge/asaiasa-Backend/utils"
 	"github.com/gofiber/fiber/v2"
 	// "golang.org/x/oauth2"
 	// "github.com/shareed2k/goth_fiber"

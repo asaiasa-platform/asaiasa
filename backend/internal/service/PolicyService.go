@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/internal/repository"
+	"github.com/DAF-Bridge/asaiasa-Backend/internal/repository"
 	"github.com/casbin/casbin/v2"
 )
 

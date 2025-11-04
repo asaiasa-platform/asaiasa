@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/errs"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/logs"
-	"github.com/DAF-Bridge/Talent-Atmos-Backend/types"
+	"github.com/DAF-Bridge/asaiasa-Backend/errs"
+	"github.com/DAF-Bridge/asaiasa-Backend/logs"
+	"github.com/DAF-Bridge/asaiasa-Backend/types"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 )
